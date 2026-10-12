@@ -140,7 +140,7 @@ const CFG=[
 ['Reduktan (coal)',[['red','Persen reduktan (coal)','% calcine',4.5,0,10,.05],['fcC','Fixed carbon coal (sub-bituminous)','%',39.78,20,90,.01],['etaC','Efisiensi reduksi karbon (kiln + furnace)','%',80,30,100,.5],['dTm','Selisih suhu slag − FeNi','°C',80,20,150,1]]],
 ['Area & Level',[['L','Panjang zona FeNi','m',31.43,20,40,.01],['W','Lebar zona FeNi','m',9.93,6,14,.01],['slope','Side wall slope','°',9.46,0,25,.01],['hTap','Tinggi tap hole (dari dasar cairan FeNi)','cm',60,10,150,1],['hSkim','Tinggi skimming hole (dari dasar cairan FeNi)','cm',140,70,260,1],['feNorm','Level FeNi normal dijaga (di atas tap hole)','cm',25,-30,60,1],['feLim','Batas atas level FeNi (di atas tap hole)','cm',40,10,80,1],['yS0','Level awal slag/permukaan (dari dasar cairan FeNi)','cm',140,70,260,1],['sMax','Batas level slag maks (dari dasar cairan FeNi)','cm',180,100,240,1],['calcLim','Batas calcine di furnace (dari dasar cairan FeNi)','cm',240,100,330,1]]],
 ['Densitas & Kolam slag granul',[['feD','Densitas FeNi (molten)','t/m³',8,6,9,.01],['sD','Densitas slag (molten)','t/m³',2.87,2,4,.01],['sGr','Densitas slag granul (padat, curah)','t/m³',1.6,1,3,.01],['cDn','Densitas calcine (padat, curah)','t/m³',1.1,.6,2,.01],['angG','Sudut tumpukan slag granul (23,2° = sesuai gambar)','°',23.2,10,45,.1],['pL','Panjang kolam','m',21,8,40,.5],['pW','Lebar kolam','m',7.5,3,14,.5],['pD','Kedalaman kolam','m',4.5,2,10,.1]]],
-['Alat bantu (grab, crane, ladle furnace)',[['gbV','Volume bucket grab clamshell','m³',4.5,1,10,.1],['gbT','Waktu satu siklus grab','menit',3,1,10,.1],['gbHi','Grab mulai bekerja saat kolam ≥','% kapasitas',25,0,100,1],['gbLo','Grab berhenti saat kolam ≤','% kapasitas',5,0,100,1],['crCap','Kapasitas hot metal crane','ton',125,50,250,5],['ladCap','Kapasitas ladle (FeNi)','ton',100,30,200,5],['tTr','Waktu crane pindahkan ladle (satu arah)','menit',10,2,30,.5],['tLf','Waktu pemanasan di ladle furnace','menit',30,5,90,1],['lfP','Daya ladle furnace (3 elektroda)','MW',3,.5,20,.5]]],
+['Alat bantu (grab, crane, ladle furnace)',[['gbV','Volume bucket grab clamshell','m³',4.5,1,10,.1],['gbT','Waktu satu siklus grab','menit',3,1,10,.1],['gbHi','Grab mulai bekerja saat kolam ≥','% kapasitas',25,0,100,1],['gbLo','Grab berhenti saat kolam ≤','% kapasitas',5,0,100,1],['crCap','Kapasitas hot metal crane','ton',125,50,250,5],['ladCap','Kapasitas ladle (FeNi)','ton',100,30,200,5],['tTr','Waktu crane pindahkan ladle (satu arah)','menit',10,2,30,.5],['tLf','Waktu pemanasan di ladle furnace','menit',30,5,90,1],['lfP','Daya ladle furnace (3 elektroda)','MW',3,.5,20,.5],['tPour','Waktu penuangan tilting & granulasi','menit',20,5,60,1],['tDry','Waktu tinggal di dryer','menit',40,5,120,1],['bagT','Berat tiap jumbo bag','ton',1,.1,2,.1]]],
 ['Skimming Slag',[['nS','Jumlah skimming dalam periode','kali',2,0,12,1],['qS','[M1] Slag keluar per skimming','t/skimming',370,0,800,1,1],['dS','[M2] Lama skimming (total)','jam',2,0,12,.05,1],['fS','[M2] Slag flow saat keluar','t/jam',170,0,300,.1,1],['mS','Metode dipakai (1 atau 2)','',1,1,2,1,1],['tS1','[M1] Lama tiap skimming','jam',2.47,.1,12,.01]]],
 ['Tapping FeNi',[['nF','Jumlah tapping dalam periode','kali',1,0,12,1],['qF','[M1] FeNi keluar per tapping','t/tapping',58,0,200,.5,1],['dF','[M2] Lama tapping (total)','menit',40,0,300,1,1],['fF','[M2] Tapping flow saat keluar','t/menit',1.45,0,3,.01,1],['mF','Metode dipakai (1 atau 2)','',1,1,2,1,1],['tF1','[M1] Lama tiap tapping','menit',40,1,300,1]]],
 ['Calcine masuk',[['Tcal','Suhu calcine masuk (dari kiln)','°C',700,300,1000,10]]],
@@ -156,7 +156,7 @@ const f=e=>{const v=parseFloat(e.target.value);if(!isFinite(v))return;S[k]=v;n.v
 n.oninput=f;s.oninput=f;d.appendChild(r)});$('ctl').appendChild(d)});
 {const g0=$('ctl').firstChild;if(g0&&g0.insertBefore&&g0.children){const pw=document.createElement('div');pw.id='pwr';pw.className='t';g0.insertBefore(pw,g0.children[1])}}
 // ---------- three
-const cv=$('v'),R=new THREE.WebGLRenderer({antialias:true});R.domElement.id='c3';R.setPixelRatio(Math.min(devicePixelRatio,1.5));cv.insertBefore(R.domElement,cv.firstChild);
+const cv=$('v'),R=new THREE.WebGLRenderer({antialias:true});R.domElement.id='c3';R.setPixelRatio(Math.min(devicePixelRatio,1.25));cv.insertBefore(R.domElement,cv.firstChild);
 const sc=new THREE.Scene();const PM=new THREE.Mesh(new THREE.SphereGeometry(.28,12,8),new THREE.MeshBasicMaterial({color:0xffffff,depthTest:false}));PM.visible=false;PM.renderOrder=20;sc.add(PM);sc.background=new THREE.Color(0x0f2036);sc.fog=new THREE.Fog(0x0f2036,130,340);
 const cam=new THREE.PerspectiveCamera(45,1,.1,420);
 sc.add(new THREE.AmbientLight(0xffffff,.5));sc.add(new THREE.HemisphereLight(0xcfe3ff,0x2a2018,.55));const dl=new THREE.DirectionalLight(0xffffff,.8);dl.position.set(15,30,20);sc.add(dl);
@@ -182,7 +182,7 @@ new ResizeObserver(()=>{const w=cv.clientWidth,h=cv.clientHeight;if(w<2||h<2)ret
 // ---------- model
 const PAL={fe:0xff7a1a,slag:0xf2c40f,dead:0x4a2c1a,calc:0x9c6b3c,shell:0x7aa2d4,steel:0xb4bfcc,bin:0x2f6fb5,elec:0x24272c,plate:0x5b6573,pil:0xa3acb6},LIM={tap:0x00e5ff,skim:0xff4dd2,norm:0xffffff,fel:0xff3b3b,slag:0x4d8dff,calc:0xb66bff},hx=c=>'#'+c.toString(16).padStart(6,'0'),MODE=()=>$('rS').checked?'stir':$('rT').checked?'temp':'norm';
 const D={st:{yM:.8,yS:1.4,m:0,fo:0,so:0},hf:()=>0},DIP={f:0,s:0},XS=[-10.4,-6.4,-2,2,6.4,10.4],B=.6,ROOF=4.8,HZ=[-2.4,2.4];
-const MMc={},M=(c,o={})=>{const k=c+'|'+JSON.stringify(o);return MMc[k]||(MMc[k]=new THREE.MeshStandardMaterial(Object.assign({color:c,roughness:.7},o)))};
+const MMc={},M=(c,o={})=>{const k=c+'|'+JSON.stringify(o);if(MMc[k])return MMc[k];const q=Object.assign({},o);delete q.roughness;delete q.metalness;return MMc[k]=new THREE.MeshLambertMaterial(Object.assign({color:c},q))};
 let ANM=[],AT=0,EQ=null;
 const rg=(v,a,b)=>v>=a&&v<=b;
 function dims(y){const h=Math.max(0,y-B)*2*D.t;return[S.L+h,S.W+h]}
@@ -287,6 +287,84 @@ const dd=Math.hypot(Math.max(Math.abs(x)-l2/2-WT,0),Math.max(Math.abs(z)-w2/2-WT
 return[Ta+(Trout-Ta)*Math.exp(-(Math.max(0,y-ROOF-.8)+dd)/1.5),'udara sekitar']}
 const tfield=(x,z,y,yM,yS)=>tz(x,z,y,yM,yS)[0];
 function mkTex(W,H,fn){const c=document.createElement('canvas');c.width=W;c.height=H;const g=c.getContext('2d'),im=g.createImageData(W,H);for(let j=0;j<H;j++)for(let i=0;i<W;i++){const r=fn(i,j),k=(j*W+i)*4;im.data[k]=r[0];im.data[k+1]=r[1];im.data[k+2]=r[2];im.data[k+3]=r[3]}g.putImageData(im,0,0);const t=new THREE.CanvasTexture(c);t.minFilter=THREE.LinearFilter;return t}
+// ===== grup statis: dibangun ulang hanya saat geometri berubah =====
+const SG=new THREE.Group();sc.add(SG);let SKEY='',CF={pts:null,items:[]},STMP=null;
+function skey(){return [($('kLbl').checked&&!$('kLite').checked)?1:0,S.L,S.W,S.slope,S.hTap,S.hSkim,S.pL,S.pW,S.pD,S.crCap].join('|')}
+function buildCF(yS){CF.items=[];const V3=THREE.Vector3,oy=8.4,RF=ROOF+.9,sr=srcs(),paths=[];let nb=0;
+[1,-1].forEach(sz=>{XS.slice().reverse().forEach(xe=>{nb++;const mine=sr.filter(q=>q.b===nb),land=q=>new V3(q.x,yS+D.hf(q.x,q.z)+.03,q.z);
+[['A',xe+.35],['C',xe-.35]].forEach(([k,ox])=>{const q=mine.find(u=>u.k===k);paths.push({P:[new V3(ox,oy,sz*5.6),new V3(ox,oy-.7,sz*5.6),new V3(q.x,RF,q.z),new V3(q.x,ROOF-.15,q.z),land(q)],n:3})});
+mine.filter(q=>q.k==='B').forEach(q=>paths.push({P:[new V3(xe,oy,sz*6.4),new V3(xe,oy-.7,sz*6.4),new V3(xe,ROOF+1.7,sz*4),new V3(q.x,RF,q.z),new V3(q.x,ROOF-.15,q.z),land(q)],n:2}))})});
+paths.forEach(p=>{p.L=[];p.T=0;for(let i=0;i<p.P.length-1;i++){const l=p.P[i].distanceTo(p.P[i+1]);p.L.push(l);p.T+=l}for(let q=0;q<p.n;q++)CF.items.push({p,o:q/p.n+Math.random()*.1})});
+if($('kLite').checked)CF.items=CF.items.filter((_,i)=>i%2===0);CF.pos=new Float32Array(CF.items.length*3);const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(CF.pos,3));
+CF.pts=new THREE.Points(g,new THREE.PointsMaterial({color:0xffd36b,size:.34,transparent:true,opacity:.95,depthWrite:false}));CF.pts.frustumCulled=false;dyn.add(CF.pts)}
+function buildStatic(){while(SG.children.length){const o=SG.children.pop();o.traverse(c=>{if(c.geometry&&!c.isSprite)c.geometry.dispose()})}
+const dyn=SG,showL=$('kLbl').checked&&!$('kLite').checked,V3=THREE.Vector3,UP=new V3(0,1,0),gy=-1.3,yT=B+S.hTap/100,yK=B+S.hSkim/100,dep=S.pD,pf=gy-dep,PL=S.pL,PW=S.pW,xEnd=-(dims(yK)[0]/2+.1+16),px1=xEnd+.5,px0=px1-PL,PZ=Math.max(5.5,1.5+PW/2);
+const bxm=(w,h,d,col,x,y,z,part,par)=>{const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),M(col,{roughness:.6,metalness:.3}));m.position.set(x,y,z);if(part)m.userData.part=part;(par||dyn).add(m);return m};
+const cym=(r1,r2,h,col,x,y,z,part,par,sg)=>{const m=new THREE.Mesh(new THREE.CylinderGeometry(r1,r2,h,sg||14),M(col,{roughness:.6,metalness:.3}));m.position.set(x,y,z);if(part)m.userData.part=part;(par||dyn).add(m);return m};
+const cyl=(a,b,r,m,sg)=>{const d=new V3().subVectors(b,a),q=new THREE.Mesh(new THREE.CylinderGeometry(r,r,d.length(),sg||10),m);q.position.copy(a).addScaledVector(d,.5);q.quaternion.setFromUnitVectors(UP,d.clone().normalize());dyn.add(q);return q};
+// offgas
+const dm=M(0xc3ccd6,{transparent:true,opacity:.42,depthWrite:false,side:THREE.DoubleSide});
+[1,-1].forEach(sx=>{const xd=sx*GX;cyl(new V3(xd,ROOF,0),new V3(xd,12.8,0),.6,dm,12);const hd=new THREE.Mesh(new THREE.CylinderGeometry(1.3,.6,.9,16),dm);hd.position.set(xd,ROOF+.45,0);dyn.add(hd);
+const el=new THREE.Mesh(new THREE.SphereGeometry(.6,12,10),dm);el.position.set(xd,12.8,0);dyn.add(el);cyl(new V3(xd,12.8,0),new V3(sx*(GX+5.5),17.6,0),.6,dm,12);
+if(showL){const q=lbl(sx>0?'Offgas Timur':'Offgas Barat',.8,'#ffd9a0');q.position.set(xd,14.3,0);dyn.add(q)}});
+// feedbin 12 x (A,B,C)
+{const bm=M(PAL.bin,{roughness:.5}),vm=M(0x1e2a3a),sr=srcs(),oy=8.4,cm=M(0xaeb9c6,{transparent:true,opacity:.42,depthWrite:false}),RF=ROOF+.9;let nb=0;
+[1,-1].forEach(sz=>{XS.slice().reverse().forEach(xe=>{nb++;const zc=sz*6,body=new THREE.Mesh(new THREE.CylinderGeometry(1.5,1.5,2.4,28),bm);body.position.set(xe,10.8,zc);dyn.add(body);
+const hop=new THREE.Mesh(new THREE.CylinderGeometry(1.5,.5,1.2,28),bm);hop.position.set(xe,9,zc);dyn.add(hop);
+if(showL){const t=lbl('Bin '+nb,.9,'#ffffff');t.position.set(xe,12.6,zc);dyn.add(t)}
+const mine=sr.filter(q=>q.b===nb);
+[['A',xe+.35],['C',xe-.35]].forEach(([k,ox])=>{const q=mine.find(u=>u.k===k),p0=new V3(ox,oy,sz*5.6),p1=new V3(ox,oy-.7,sz*5.6),p2=new V3(q.x,RF,q.z),eR=new V3(q.x,ROOF-.15,q.z);
+const vb=new THREE.Mesh(new THREE.BoxGeometry(.7,.3,.7),vm);vb.position.set(ox,oy+.05,sz*5.6);dyn.add(vb);cyl(p0,p1,.22,cm);cyl(p1,p2,.22,cm);cyl(p2,eR,.22,cm);
+if(showL){const t=lbl(k,.45,'#ffe9a8');t.position.set(ox,oy-.5,sz*5.1);dyn.add(t)}});
+const p0=new V3(xe,oy,sz*6.4),p1=new V3(xe,oy-.7,sz*6.4),F=new V3(xe,ROOF+1.7,sz*4);cyl(p0,p1,.17,cm);cyl(p1,F,.17,cm);
+const vb=new THREE.Mesh(new THREE.BoxGeometry(.6,.3,.6),vm);vb.position.set(xe,oy+.05,sz*6.4);dyn.add(vb);
+mine.filter(q=>q.k==='B').forEach(q=>{const p2=new V3(q.x,RF,q.z),eR=new V3(q.x,ROOF-.15,q.z);cyl(F,p2,.12,cm);cyl(p2,eR,.12,cm)});
+if(showL){const t=lbl('B',.45,'#ffe9a8');t.position.set(xe,oy-.5,sz*6.9);dyn.add(t)}})})}
+// ===== peralatan =====
+const O={x:dims(yT)[0]/2+.1+8,z:0},LF={x:O.x+2,z:-16.5},TL={x:O.x+10,z:-23},TK={x:TL.x+3.7,z:TL.z},DR={x:O.x+22,z:-6};
+const eq={grab:[],O,LF,TL,TK,DR,pf,home:{x:O.x+4,z:-3},bags:[]};
+[0,1].forEach(ix=>{const zc=(ix?1:-1)*PZ,zr=PW/2+.9,xa=px0-6,xb=px1+2,yR=4.2,dumpX=px0-3,digX=(px0+px1)/2;
+[-1,1].forEach(r=>{bxm(xb-xa,.3,.3,0xe0a020,(xa+xb)/2,yR,zc+r*zr,'grab');[xa,xb].forEach(x=>bxm(.4,yR-gy,.4,0xb8861b,x,(yR+gy)/2,zc+r*zr,'grab'))});
+const br=new THREE.Group();br.position.set(dumpX,0,zc);dyn.add(br);bxm(.6,.6,2*zr,0xe0a020,0,yR+.4,0,'grab',br);
+const tr=new THREE.Group();tr.position.set(0,yR+.9,0);br.add(tr);bxm(1.4,.5,1.0,0xb8861b,0,0,0,'grab',tr);
+const rope=cym(.04,.04,1,0x222222,0,-1,0,'grab',tr,6),hook=new THREE.Group();tr.add(hook);bxm(.5,.3,.5,0x3b434e,0,0,0,'grab',hook);
+const jL=new THREE.Group(),jR=new THREE.Group();hook.add(jL);hook.add(jR);bxm(.5,.9,.9,0x3b434e,-.25,-.45,0,'grab',jL);bxm(.5,.9,.9,0x3b434e,.25,-.45,0,'grab',jR);
+const load=bxm(.8,.5,.8,0x2fbf5a,0,-.5,0,'grab',hook);
+bxm(4,1.6,3.2,0x9aa3ad,dumpX,gy+.8,zc,'bunker');const stock=new THREE.Mesh(new THREE.ConeGeometry(1.5,1,16),M(0x2fbf5a,{roughness:1}));stock.userData.part='bunker';stock.position.set(dumpX,gy+1.6,zc);dyn.add(stock);
+if(showL){const t=lbl('Grab clamshell '+(ix?'Selatan':'Utara'),.7,'#ffe9a8');t.position.set(dumpX,7,zc);dyn.add(t)}
+eq.grab.push({ix,br,tr,rope,hook,jL,jR,load,stock,dumpX,digX,yT:yR+.9})});
+// hot metal crane: rel sepanjang z, girder sepanjang x
+const xa2=O.x-5,xb2=O.x+17,zc0=-29,zc1=4,yR2=9.6;
+[xa2,xb2].forEach(x=>{bxm(.4,.4,zc1-zc0,0xc0392b,x,yR2,(zc0+zc1)/2,'hmc');[zc0,(zc0+zc1)/2,zc1].forEach(z=>bxm(.5,yR2-gy,.5,0x7a2a20,x,(yR2+gy)/2,z,'hmc'))});
+const hb=new THREE.Group();hb.position.set(0,0,eq.home.z);dyn.add(hb);bxm(xb2-xa2,1,1,0xc0392b,(xa2+xb2)/2,yR2+.7,0,'hmc',hb);[xa2,xb2].forEach(x=>bxm(.6,.6,1.4,0x7a2a20,x,yR2+.3,0,'hmc',hb));
+const ht=new THREE.Group();ht.position.set(eq.home.x,0,0);hb.add(ht);bxm(1.8,.8,2.4,0xe0a020,0,yR2+1.5,0,'hmc',ht);const hrope=cym(.06,.06,1,0x222222,0,6,0,'hmc',ht,6),hhook=new THREE.Group();ht.add(hhook);bxm(.6,.5,.6,0x222222,0,0,0,'hmc',hhook);bxm(.3,.25,3.2,0x222222,0,-.5,0,'hmc',hhook);
+// ladle (bisa miring) 
+const tilt=new THREE.Group();dyn.add(tilt);const lad=new THREE.Group();lad.position.set(-1.15,-1.65,0);tilt.add(lad);
+cym(1.15,.9,1.7,0x3f4650,0,.85,0,'ladle',lad,24);cym(1.22,1.22,.12,0x2a2f36,0,1.72,0,'ladle',lad,24);[-1,1].forEach(z=>bxm(.4,.3,.5,0x2a2f36,0,1.5,z*1.35,'ladle',lad));
+const melt=new THREE.Mesh(new THREE.CircleGeometry(1.0,24),new THREE.MeshBasicMaterial({color:PAL.fe}));melt.rotation.x=-Math.PI/2;melt.userData.part='ladle';lad.add(melt);
+bxm(2.8,.2,2.8,0x555e6b,O.x,gy+.1,O.z,'ladle');
+// ladle furnace
+bxm(3.2,.3,3.2,0x555e6b,LF.x,gy+.15,LF.z,'lf');[-2.4,2.4].forEach(x=>bxm(.5,6.6,.5,0x5b6b82,LF.x+x,gy+3.3,LF.z,'lf'));bxm(5.4,.6,.6,0x5b6b82,LF.x,5.4,LF.z,'lf');
+const lfe=new THREE.Group();lfe.position.set(LF.x,5,LF.z);dyn.add(lfe);bxm(1.8,.3,1.8,0x8a96a8,0,0,0,'lf',lfe);
+const els=[90,210,330].map(a=>{const x=Math.cos(a*Math.PI/180)*.6,z=Math.sin(a*Math.PI/180)*.6;cym(.22,.22,3.6,0x24272c,x,-1.9,z,'lf',lfe,12);const g=new THREE.Mesh(new THREE.SphereGeometry(.28,10,8),new THREE.MeshBasicMaterial({color:0xffa030,transparent:true,opacity:.9}));g.position.set(x,-3.7,z);g.scale.y=.4;g.userData.part='lf';lfe.add(g);return g});
+cym(1.45,1.45,.15,0x8a96a8,0,-2.5,0,'lf',lfe,24);bxm(2.4,2.2,1.8,0x6f7f95,LF.x-4,gy+1.1,LF.z-3.4,'lf');
+// tilting device + tangki granulasi
+bxm(3.2,2.5,3.2,0x555e6b,TL.x,gy+1.25,TL.z,'tilt');[-1.9,1.9].forEach(z=>bxm(.4,4.2,.4,0x5b6b82,TL.x+1.15,gy+2.1,TL.z+z,'tilt'));cym(.18,.18,4.2,0x3b434e,TL.x+1.15,2.85,TL.z,'tilt',null,10).rotation.x=Math.PI/2;
+bxm(4,.2,4,0x6a7482,TK.x,gy+.1,TK.z,'tank');[[-2,0,.2,4],[2,0,.2,4],[0,-2,4,.2],[0,2,4,.2]].forEach(([x,z,w,d])=>bxm(w,1.6,d,0x6a7482,TK.x+x,gy+.9,TK.z+z,'tank'));
+const wt=new THREE.Mesh(new THREE.PlaneGeometry(3.8,3.8),new THREE.MeshBasicMaterial({color:0x2a8fd6,transparent:true,opacity:.55,side:THREE.DoubleSide,depthWrite:false}));wt.rotation.x=-Math.PI/2;wt.position.set(TK.x,-.3,TK.z);wt.userData.part='tank';dyn.add(wt);
+const jets=[-1.4,1.4].map(z=>{bxm(.3,.3,.3,0x3b434e,TK.x-1.6,1.3,TK.z+z,'tank');const m=new THREE.Mesh(new THREE.CylinderGeometry(.06,.06,1,6),new THREE.MeshBasicMaterial({color:0x8fd3ff,transparent:true,opacity:.8}));m.userData.part='tank';m.visible=false;dyn.add(m);return m});
+const stream=new THREE.Mesh(new THREE.CylinderGeometry(.16,.16,1,8),new THREE.MeshBasicMaterial({color:0xffa030}));stream.userData.part='tilt';stream.visible=false;dyn.add(stream);
+const NS=48,stp=new Float32Array(NS*3).fill(-999),stg=new THREE.BufferGeometry();stg.setAttribute('position',new THREE.BufferAttribute(stp,3));const stpts=new THREE.Points(stg,new THREE.PointsMaterial({color:0xeaf3fa,size:.7,transparent:true,opacity:.45,depthWrite:false}));stpts.frustumCulled=false;stpts.visible=false;dyn.add(stpts);STMP={pts:stpts,pos:stp,l:new Float32Array(NS),n:NS};
+// dryer + konveyor + packaging
+bxm(DR.x-(TK.x+2.1),.4,.9,0x2a2f36,(TK.x+2.1+DR.x)/2,gy+.6,TK.z,'dryer');bxm(.9,.4,TK.z*-1+DR.z-9,0x2a2f36,DR.x,gy+.6,(TK.z+DR.z-9)/2,'dryer');
+const drum=new THREE.Group();drum.position.set(DR.x,2.4,DR.z);dyn.add(drum);const cyd=new THREE.Mesh(new THREE.CylinderGeometry(1.5,1.5,18,24,1,true),M(0x8a96a8,{side:THREE.DoubleSide}));cyd.rotation.x=Math.PI/2;cyd.userData.part='dryer';drum.add(cyd);
+for(let k=0;k<8;k++){const a=k*Math.PI/4;bxm(.18,.18,18,0x5b6b82,Math.cos(a)*1.5,Math.sin(a)*1.5,0,'dryer',drum)}
+[-6,0,6].forEach(z=>bxm(3.4,3.6,.4,0x3b434e,DR.x,gy+1.8,DR.z+z,'dryer'));bxm(3.4,3.4,2.4,0xb55a2a,DR.x,2.4,DR.z-10.2,'dryer');cym(.9,.5,3,0x8a96a8,DR.x+3,3,DR.z-12,'dryer');
+bxm(.9,.4,6,0x2a2f36,DR.x,gy+.6,DR.z+12,'dryer');
+[11.8,17.3].forEach(z=>{bxm(4.6,.3,4.6,0x555e6b,DR.x,gy+.15,z,'pack');[[-2,-2],[2,-2],[-2,2],[2,2]].forEach(([a,b])=>bxm(.3,4.6,.3,0xd4a017,DR.x+a,gy+2.3,z+b,'pack'));const h=new THREE.Mesh(new THREE.CylinderGeometry(2.2,.4,2,4),M(0xd4a017,{roughness:.6}));h.rotation.y=Math.PI/4;h.position.set(DR.x,3.4,z);h.userData.part='pack';dyn.add(h);cym(.3,.3,.8,0x3b434e,DR.x,2.1,z,'pack')});
+for(let k=0;k<72;k++){const lay=k>=36?1:0,kk=k%36,m=bxm(1,.9,1,0xeeeeee,DR.x+3.6+(kk%4)*1.15,gy+.45+lay*.95,9.8+Math.floor(kk/4)*1.15,'pack');m.visible=false;eq.bags.push(m)}
+if(showL){[['Ladle furnace · 3 elektroda',LF.x,8,LF.z],['Hot metal crane '+S.crCap+' t',eq.home.x,12.6,-3],['Tilting device + granulasi FeNi',TL.x+1.5,7,TL.z],['Dryer FeNi granul',DR.x,6.2,DR.z],['Packaging (jumbo bag)',DR.x,7,14.5],['Launder tapping + ladle',O.x,3.2,O.z]].forEach(([t,x,y,z])=>{const q=lbl(t,.7,'#ffd9a0');q.position.set(x,y,z);dyn.add(q)})}
+eq.hm={hb,ht,rope:hrope,hook:hhook};eq.lad={tilt,melt};eq.lf={arm:lfe,els,light:{intensity:0}};eq.tl={stream,jets};eq.dr={drum};EQ=eq}
 function build(){while(dyn.children.length){const o=dyn.children.pop();o.traverse(c=>{if(c.geometry&&!c.isSprite)c.geometry.dispose();if(c.userData&&c.userData.tx&&c.material.map)c.material.map.dispose()})}
 const st=D.st,yM=st.yM,yS=st.yS,[l0,w0]=dims(B),yT=B+S.hTap/100,yK=B+S.hSkim/100,showL=$('kLbl').checked&&!$('kLite').checked,lite=$('kLite').checked,V3=THREE.Vector3,UP=new V3(0,1,0),mode=MODE(),ctemp=mode==='temp',cstir=mode==='stir';
 $('tb').style.display=ctemp?'block':'none';document.body.classList.toggle('tempmode',ctemp);document.body.classList.toggle('stirmode',cstir);
@@ -314,7 +392,7 @@ const prof=[[.01,0],[.1,.08],[.35,.35],[.65,.65],[.9,.88],[1,1]].map(([r,f])=>ne
 XS.forEach(x=>{const h=7.2-y1,e=new THREE.Mesh(new THREE.CylinderGeometry(rad,rad,h,28),em);e.position.set(x,y1+h/2,0);dyn.add(e);
 const tp=new THREE.Mesh(new THREE.LatheGeometry(prof,28),M(0x2b2420,{roughness:.5,metalness:.3,emissive:0x5a1a00,emissiveIntensity:.5,transparent:ctemp,opacity:ctemp?.3:1}));tp.position.x=x;dyn.add(tp);
 const g=new THREE.Mesh(new THREE.SphereGeometry(rad*.8,16,8),new THREE.MeshBasicMaterial({color:0xffa030,transparent:true,opacity:Math.min(.9,.25+.4*inten)}));g.scale.y=.35;g.position.set(x,tip,0);g.userData.g=1;dyn.add(g);
-const L=new THREE.PointLight(0xff8a2a,Math.min(3,1.2*inten),9);L.position.set(x,tip+.3,0);dyn.add(L);
+if(x===XS[1]||x===XS[4]){const L=new THREE.PointLight(0xff8a2a,Math.min(3,2.2*inten),12);L.position.set(x,tip+.3,0);dyn.add(L)}
 const c=new THREE.Mesh(new THREE.BoxGeometry(rad*2.6,.5,rad*2.6),M(0x6c7480));c.position.set(x,7.2,0);dyn.add(c)});
 if($('kRoof').checked){const[lr,wr]=dims(ROOF);const rf=new THREE.Mesh(new THREE.BoxGeometry(lr,.25,wr),M(0x9aa3ad,{transparent:true,opacity:.4}));rf.position.y=ROOF+.12;dyn.add(rf)}
 // 2 kolam slag granul TERPISAH (utara & selatan) + pemisah beton + grid tanah (tidak menembus kolam)
@@ -339,63 +417,15 @@ if(showL){const t=lbl('Kolam '+(q<0?'Utara':'Selatan')+' '+PL+'×'+PW+' m · '+c
 const hole=(sx,y,z,c,sel)=>{const hl=new THREE.Mesh(new THREE.CylinderGeometry(.24,.24,.5,16),M(sel?c:0x30343b,{emissive:sel?c:0,emissiveIntensity:.6}));hl.rotation.z=Math.PI/2;hl.position.set(sx*(dims(y)[0]/2+.1),y,z);dyn.add(hl)};
 const lm=M(0x6b7482,{roughness:.6,metalness:.3}),trough=(a,b,w)=>{const d=new V3().subVectors(b,a),L=d.length(),g=new THREE.Group();g.position.copy(a).addScaledVector(d,.5);g.rotation.set(0,Math.atan2(-d.z,d.x),Math.atan2(d.y,Math.hypot(d.x,d.z)),'YZX');
 const bt=new THREE.Mesh(new THREE.BoxGeometry(L,.06,w),lm);g.add(bt);[-1,1].forEach(q=>{const sd=new THREE.Mesh(new THREE.BoxGeometry(L,.3,.06),lm);sd.position.set(0,.15,q*w/2);g.add(sd)});dyn.add(g)};
-const lpath=(sx,y,z0,ix)=>{const xs=sx*(dims(y)[0]/2+.1),ys=y-.15,xe=xs+sx*(sx>0?8:16),ze=sx>0?z0*.2:Math.sign(z0)*PZ,ye=sx>0?Math.max(.6,ys-.5):ys-.85;return[new V3(xs,ys,z0),new V3(xe,ye,ze)]};
+const lpath=(sx,y,z0,ix)=>{const xs=sx*(dims(y)[0]/2+.1),ys=y-.15,xe=xs+sx*(sx>0?8:16),ze=sx>0?0:Math.sign(z0)*PZ,ye=sx>0?Math.max(.6,ys-.5):ys-.85;return[new V3(xs,ys,z0),new V3(xe,ye,ze)]};
 const flow=(sx,y,z0,ix,col)=>{const[a,b]=lpath(sx,y,z0,ix),mt=new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.85}),a2=a.clone().add(new V3(0,.12,0)),b2=b.clone().add(new V3(0,.12,0)),b3=new V3(b.x,sx>0?.25:PY,b.z);
 const rr=sx<0?.22:.12;cyl(new V3(sx*(dims(y)[0]/2+.1),y,z0),a2,rr,mt,8);cyl(a2,b2,rr*1.15,mt,8);cyl(b2,b3,rr,mt,8);
 const P=[a2,b2,b3];for(let i=0;i<6;i++){const c=new THREE.Mesh(new THREE.ConeGeometry(.22,.55,10),new THREE.MeshBasicMaterial({color:0xffffff}));c.userData.ar={P,o:i/6};dyn.add(c)}};
 HZ.forEach((z,ix)=>{hole(1,yT,z,LIM.tap,ix===iF);hole(-1,yK,z,LIM.skim,ix===iS);
 [[1,yT],[-1,yK]].forEach(([sx,y])=>{const[a,b]=lpath(sx,y,z,ix);trough(a,b,.75);const lad=new THREE.Mesh(new THREE.CylinderGeometry(.85,.6,.9,16,1,true),M(0x444b55,{side:THREE.DoubleSide}));lad.position.set(b.x,-.75,b.z);void 0})});
 if(st.fo>1e-4)flow(1,yT,HZ[iF],iF,ctemp?tcH(st.mo.Tm-30):PAL.fe);if(st.so>1e-4)flow(-1,yK,HZ[iS],iS,ctemp?tcH(st.mo.Tsk):PAL.slag);
-// offgas
-if(!ctemp)PM.visible=false;$('sk').style.display=cstir?'block':'none';
-const dm=M(0xc3ccd6,{transparent:true,opacity:.42,depthWrite:false,side:THREE.DoubleSide,metalness:.3});
-[1,-1].forEach(sx=>{const xd=sx*GX;cyl(new V3(xd,ROOF,0),new V3(xd,12.8,0),.6,dm,12);const hd=new THREE.Mesh(new THREE.CylinderGeometry(1.3,.6,.9,16),dm);hd.position.set(xd,ROOF+.45,0);dyn.add(hd);
-const el=new THREE.Mesh(new THREE.SphereGeometry(.6,12,10),dm);el.position.set(xd,12.8,0);dyn.add(el);cyl(new V3(xd,12.8,0),new V3(sx*(GX+5.5),17.6,0),.6,dm,12);
-if(showL){const q=lbl(sx>0?'Offgas Timur':'Offgas Barat',.8,'#ffd9a0');q.position.set(xd,14.3,0);dyn.add(q)}});
-// feedbin 12 x (A,B,C): bin persegi, pipa semi-transparan agar aliran calcine terlihat
-const pgm=new THREE.BoxGeometry(.24,.24,.24),pmt=new THREE.MeshBasicMaterial({color:0xffd36b}),bm=M(PAL.bin,{roughness:.5,metalness:.2}),vm=M(0x1e2a3a),sr=srcs(),oy=8.4,cm=M(0xaeb9c6,{metalness:.3,roughness:.4,transparent:true,opacity:.42,depthWrite:false});
-const part=(P,n)=>{const L=[];let T=0;for(let i=0;i<P.length-1;i++){const l=P[i].distanceTo(P[i+1]);L.push(l);T+=l}for(let q=0;q<(lite?Math.max(1,n>>1):n);q++){const p=new THREE.Mesh(pgm,pmt);p.userData.cf={P,L,T,o:q/n+Math.random()*.1};p.renderOrder=5;dyn.add(p)}};
-const land=q=>new V3(q.x,yS+D.hf(q.x,q.z)+.03,q.z),RF=ROOF+.9;
-let nb=0;[1,-1].forEach(sz=>{XS.slice().reverse().forEach(xe=>{nb++;const zc=sz*6;
-const body=new THREE.Mesh(new THREE.CylinderGeometry(1.5,1.5,2.4,28),bm);body.position.set(xe,10.8,zc);dyn.add(body);
-const hop=new THREE.Mesh(new THREE.CylinderGeometry(1.5,.5,1.2,28),bm);hop.position.set(xe,9,zc);dyn.add(hop);
-if(showL){const t=lbl('Bin '+nb,.9,'#ffffff');t.position.set(xe,12.6,zc);dyn.add(t)}
-const mine=sr.filter(q=>q.b===nb);
-[['A',xe+.35],['C',xe-.35]].forEach(([k,ox])=>{const q=mine.find(u=>u.k===k),e=land(q),p0=new V3(ox,oy,sz*5.6),p1=new V3(ox,oy-.7,sz*5.6),p2=new V3(q.x,RF,q.z);
-const vb=new THREE.Mesh(new THREE.BoxGeometry(.7,.3,.7),vm);vb.position.set(ox,oy+.05,sz*5.6);dyn.add(vb);
-cyl(p0,p1,.22,cm);cyl(p1,p2,.22,cm);const eR=new V3(q.x,ROOF-.15,q.z);cyl(p2,eR,.22,cm);part([p0,p1,p2,eR,e],3);
-if(showL){const t=lbl(k,.45,'#ffe9a8');t.position.set(ox,oy-.5,sz*5.1);dyn.add(t)}});
-const p0=new V3(xe,oy,sz*6.4),p1=new V3(xe,oy-.7,sz*6.4),F=new V3(xe,ROOF+1.7,sz*4);cyl(p0,p1,.17,cm);cyl(p1,F,.17,cm);
-const vb=new THREE.Mesh(new THREE.BoxGeometry(.6,.3,.6),vm);vb.position.set(xe,oy+.05,sz*6.4);dyn.add(vb);
-mine.filter(q=>q.k==='B').forEach(q=>{const e=land(q),p2=new V3(q.x,RF,q.z);cyl(F,p2,.12,cm);const eR=new V3(q.x,ROOF-.15,q.z);cyl(p2,eR,.12,cm);part([p0,p1,F,p2,eR,e],2)});
-if(showL){const t=lbl('B',.45,'#ffe9a8');t.position.set(xe,oy-.5,sz*6.9);dyn.add(t)}})});
-// ===== peralatan: grab clamshell x2, hot metal crane, ladle, ladle furnace =====
-const bxm=(w,h,d,col,x,y,z,part,par)=>{const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),M(col,{roughness:.6,metalness:.3}));m.position.set(x,y,z);if(part)m.userData.part=part;(par||dyn).add(m);return m};
-const cym=(r1,r2,h,col,x,y,z,part,par,sg)=>{const m=new THREE.Mesh(new THREE.CylinderGeometry(r1,r2,h,sg||14),M(col,{roughness:.6,metalness:.3}));m.position.set(x,y,z);if(part)m.userData.part=part;(par||dyn).add(m);return m};
-const eq={grab:[],stand:[0,1].map(ix=>{const b=lpath(1,yT,HZ[ix],ix)[1];return{x:b.x,z:b.z}})};eq.LF={x:eq.stand[0].x+14,z:0};eq.home={x:eq.stand[0].x+4,z:0};
-[0,1].forEach(ix=>{const zc=(ix?1:-1)*PZ,zr=PW/2+.9,xa=px0-6,xb=px1+2,yR=4.2,dumpX=px0-3,digX=(px0+px1)/2;
-[-1,1].forEach(r=>{bxm(xb-xa,.3,.3,0xe0a020,(xa+xb)/2,yR,zc+r*zr,'grab');[xa,xb].forEach(x=>bxm(.4,yR-gy,.4,0xb8861b,x,(yR+gy)/2,zc+r*zr,'grab'))});
-const br=new THREE.Group();br.position.set(dumpX,0,zc);dyn.add(br);bxm(.6,.6,2*zr,0xe0a020,0,yR+.4,0,'grab',br);
-const tr=new THREE.Group();tr.position.set(0,yR+.9,0);br.add(tr);bxm(1.4,.5,1.0,0xb8861b,0,0,0,'grab',tr);
-const rope=cym(.04,.04,1,0x222222,0,-1,0,'grab',tr,6),hook=new THREE.Group();tr.add(hook);bxm(.5,.3,.5,0x3b434e,0,0,0,'grab',hook);
-const jL=new THREE.Group(),jR=new THREE.Group();hook.add(jL);hook.add(jR);bxm(.5,.9,.9,0x3b434e,-.25,-.45,0,'grab',jL);bxm(.5,.9,.9,0x3b434e,.25,-.45,0,'grab',jR);
-const load=bxm(.8,.5,.8,0x2fbf5a,0,-.5,0,'grab',hook);
-bxm(4,1.6,3.2,0x9aa3ad,dumpX,gy+.8,zc,'bunker');const stock=new THREE.Mesh(new THREE.ConeGeometry(1.5,1,16),M(0x2fbf5a,{roughness:1}));stock.userData.part='bunker';stock.position.set(dumpX,gy+1.6,zc);dyn.add(stock);
-if(showL){const t=lbl('Grab clamshell '+(ix?'Selatan':'Utara'),.7,'#ffe9a8');t.position.set(dumpX,7,zc);dyn.add(t)}
-eq.grab.push({ix,br,tr,rope,hook,jL,jR,load,stock,dumpX,digX,yT:yR+.9,pileTop:pf+.15+PHs[ix]})});
-const xr0=eq.stand[0].x-5,xr1=eq.LF.x+8,yR2=8.6;
-[-9,9].forEach(z=>{bxm(xr1-xr0,.4,.4,0xc0392b,(xr0+xr1)/2,yR2,z,'hmc');[xr0,(xr0+xr1)/2,xr1].forEach(x=>bxm(.5,yR2-gy,.5,0x7a2a20,x,(yR2+gy)/2,z,'hmc'))});
-const hb=new THREE.Group();hb.position.set(eq.home.x,0,0);dyn.add(hb);bxm(1,1,18.8,0xc0392b,0,yR2+.7,0,'hmc',hb);[-9,9].forEach(z=>bxm(1.4,.6,1.2,0x7a2a20,0,yR2+.3,z,'hmc',hb));
-const ht=new THREE.Group();hb.add(ht);bxm(2.4,.8,1.8,0xe0a020,0,yR2+1.5,0,'hmc',ht);const hrope=cym(.06,.06,1,0x222222,0,5,0,'hmc',ht,6),hhook=new THREE.Group();ht.add(hhook);bxm(.6,.5,.6,0x222222,0,0,0,'hmc',hhook);bxm(.3,.25,3.2,0x222222,0,-.5,0,'hmc',hhook);
-const lad=new THREE.Group();dyn.add(lad);cym(1.15,.9,1.7,0x3f4650,0,.85,0,'ladle',lad,24);cym(1.22,1.22,.12,0x2a2f36,0,1.72,0,'ladle',lad,24);[-1,1].forEach(z=>bxm(.4,.3,.5,0x2a2f36,0,1.5,z*1.35,'ladle',lad));
-const melt=new THREE.Mesh(new THREE.CircleGeometry(1.0,24),new THREE.MeshBasicMaterial({color:PAL.fe}));melt.rotation.x=-Math.PI/2;melt.userData.part='ladle';lad.add(melt);
-eq.stand.forEach(p=>bxm(2.8,.2,2.8,0x555e6b,p.x,gy+.1,p.z,'ladle'));
-const LFx=eq.LF.x,LFz=eq.LF.z;bxm(3.2,.3,3.2,0x555e6b,LFx,gy+.15,LFz,'lf');[-2.4,2.4].forEach(z=>bxm(.5,6.6,.5,0x5b6b82,LFx,gy+3.3,LFz+z,'lf'));bxm(.6,.6,5.4,0x5b6b82,LFx,5.4,LFz,'lf');
-const lfe=new THREE.Group();lfe.position.set(LFx,5,LFz);dyn.add(lfe);bxm(1.8,.3,1.8,0x8a96a8,0,0,0,'lf',lfe);
-const els=[90,210,330].map(a=>{const x=Math.cos(a*Math.PI/180)*.6,z=Math.sin(a*Math.PI/180)*.6;cym(.22,.22,3.6,0x24272c,x,-1.9,z,'lf',lfe,12);const g=new THREE.Mesh(new THREE.SphereGeometry(.28,10,8),new THREE.MeshBasicMaterial({color:0xffa030,transparent:true,opacity:.9}));g.position.set(x,-3.7,z);g.scale.y=.4;g.userData.part='lf';lfe.add(g);return g});
-cym(1.45,1.45,.15,0x8a96a8,0,-2.5,0,'lf',lfe,24);const lfl=new THREE.PointLight(0xff8a2a,0,8);lfl.position.set(0,-3.2,0);lfe.add(lfl);bxm(2.4,2.2,1.8,0x6f7f95,LFx+4,gy+1.1,LFz+3.4,'lf');
-if(showL){const t=lbl('Ladle furnace · 3 elektroda',.7,'#ffd9a0');t.position.set(LFx,8,LFz);dyn.add(t);const t2=lbl('Hot metal crane '+S.crCap+' t',.7,'#ffd9a0');t2.position.set(eq.home.x,11,0);dyn.add(t2)}
-eq.hm={hb,ht,rope:hrope,hook:hhook};eq.lad={g:lad,melt};eq.lf={arm:lfe,els,light:lfl};EQ=eq;updEQ();
+if(skey()!==SKEY){SKEY=skey();buildStatic()}
+buildCF(yS);updEQ();
 // bath stirring: sel sirkulasi toroidal per elektroda (permukaan keluar, dasar kembali); titik temu antar elektroda = downwelling
 if(cstir){const[l,w]=dims(yS),ytop=yS-.07,ybot=yM+.07,mk=(c,o)=>new THREE.MeshBasicMaterial({color:c,depthTest:false,transparent:true,opacity:o||1}),wm=mk(0xffffff),SM=[wm,mk(0xff3b3b),wm,mk(0x2a7bff),wm],tm=mk(0x7fe6ff,.5);
 XS.forEach((xe,ei)=>{const dxl=ei>0?(xe-XS[ei-1])/2:xe+l/2,dxr=ei<5?(XS[ei+1]-xe)/2:l/2-xe,r0=rad+.25;
@@ -577,6 +607,8 @@ if(d<a){dir=tv.subVectors(P[1],P[0]).normalize();p=P[0].clone().addScaledVector(
 o.position.copy(p);o.quaternion.setFromUnitVectors(Y,dir)}
 if(u.st){const c=u.st;let d=((STp+c.o)%1)*c.T,i=0;while(i<c.L.length-1&&d>c.L[i]){d-=c.L[i];i++}const a=c.P[i],b=c.P[i+1];o.material=c.SM[i];o.position.lerpVectors(a,b,Math.min(1,d/c.L[i]));tv.subVectors(b,a).normalize();o.quaternion.setFromUnitVectors(Y,tv)}
 if(u.cf){o.visible=fd&&S.cf>0;const c=u.cf;let d=((FP+c.o)%1)*c.T,i=0;while(i<c.L.length-1&&d>c.L[i]){d-=c.L[i];i++}o.position.lerpVectors(c.P[i],c.P[i+1],Math.min(1,d/c.L[i]))}});
+if(CF.pts){CF.pts.visible=fd&&S.cf>0;if(CF.pts.visible){CF.items.forEach((it,k)=>{const p=it.p;let d=((FP+it.o)%1)*p.T,i=0;while(i<p.L.length-1&&d>p.L[i]){d-=p.L[i];i++}const a=p.P[i],b=p.P[i+1],f=Math.min(1,d/p.L[i]);CF.pos[k*3]=a.x+(b.x-a.x)*f;CF.pos[k*3+1]=a.y+(b.y-a.y)*f;CF.pos[k*3+2]=a.z+(b.z-a.z)*f});CF.pts.geometry.attributes.position.needsUpdate=true}}
+if(STMP&&EQ){const pr=D.eqi&&D.eqi.pour;STMP.pts.visible=!!pr;if(pr){for(let q=0;q<STMP.n;q++){const j=q*3;if(STMP.l[q]<=0){if(dt>0&&Math.random()<.3){STMP.pos[j]=EQ.TK.x+(Math.random()-.5)*3.2;STMP.pos[j+1]=-.2;STMP.pos[j+2]=EQ.TK.z+(Math.random()-.5)*3.2;STMP.l[q]=1+Math.random()*1.5}else STMP.pos[j+1]=-999}else{STMP.l[q]-=dt;STMP.pos[j+1]+=dt*1.6;STMP.pos[j]+=dt*(Math.random()-.5)*.4}}STMP.pts.geometry.attributes.position.needsUpdate=true}}
 const iF=st.sF,iS=st.sS;
 const tm_=MODE()==='temp';PF.p.material.color.setHex(tm_?tcH(st.mo.Tm):0xff9a3a);PS.p.material.color.setHex(tm_?tcH(st.mo.Tsk):0xffe14a);flowPts(PF,st.fo>1e-4,1,B+S.hTap/100,HZ[iF],B+.03,st.yM,dt);flowPts(PS,st.so>1e-4,-1,B+S.hSkim/100,HZ[iS],st.yM,st.yS,dt);
 if(!on||!D.tips)return;const pw=Math.min(1.5,S.P/60);
@@ -589,32 +621,44 @@ arcT+=dt;if(arcT>.05){arcT=0;let k=0;D.tips.forEach(e=>{for(let a=0;a<3;a++){let
 for(let s=1;s<=5;s++){const f=s/5,j=s<5?1:0,nx=e.x+(ex-e.x)*f+j*(Math.random()-.5)*.35,ny=e.y+(ey-e.y)*f+j*(Math.random()-.5)*.25,nz=ez*f+j*(Math.random()-.5)*.35;
 AP[k++]=x;AP[k++]=y;AP[k++]=z;AP[k++]=nx;AP[k++]=ny;AP[k++]=nz;x=nx;y=ny;z=nz}}});arcG.attributes.position.needsUpdate=true}}
 let sigPrev='',lastU=0,fpsA=0,fpsN=0,autoL=false;
-function updEQ(){const eq=EQ;if(!eq||!D.A||!D.st||!D.st.mo)return;const t=S.tm,i=D.i,A=D.A,sm=x=>x*x*(3-2*x),L0=-1.3;
-eq.grab.forEach(g=>{const w=A['w'+g.ix][i],ph=w?(((AT/1000)/6+g.ix*.5)%1):0,hTop=3.7,hDig=g.pileTop+.95,hDump=2.0;let u=0,hy=hTop,jaw=0,ld=0;
+function updEQ(){const eq=EQ;if(!eq||!D.A||!D.st||!D.st.mo)return;const t=S.tm,i=D.i,A=D.A,sm=x=>x*x*(3-2*x),cl01=x=>Math.max(0,Math.min(1,x)),Y0=-1.3,YT=1.2,V3=THREE.Vector3;
+eq.grab.forEach(g=>{const w=A['w'+g.ix][i],ph=w?(((AT/1000)/6+g.ix*.5)%1):0,hTop=3.7,hDig=eq.pf+.15+pileH((A['p'+g.ix][i]||0)/S.sGr)+.95,hDump=2.0;let u=0,hy=hTop,jaw=0,ld=0;
 if(w){if(ph<.15){u=sm(ph/.15);jaw=1}else if(ph<.3){u=1;jaw=1;hy=hTop+(hDig-hTop)*sm((ph-.15)/.15)}else if(ph<.4){u=1;hy=hDig;jaw=1-(ph-.3)/.1}else if(ph<.55){u=1;hy=hDig+(hTop-hDig)*sm((ph-.4)/.15);ld=1}else if(ph<.8){u=1-sm((ph-.55)/.25);ld=1}else if(ph<.9){const a=(ph-.8)/.1;hy=hTop+(hDump-hTop)*Math.min(1,a*2);jaw=a;ld=a<.5?1:0}else{hy=hDump+(hTop-hDump)*sm((ph-.9)/.1);jaw=1}}
 g.br.position.x=g.dumpX+(g.digX-g.dumpX)*u;g.hook.position.y=hy-g.yT;const len=Math.max(.1,g.yT-hy-.2);g.rope.scale.y=len;g.rope.position.y=-len/2;g.jL.rotation.z=-jaw*.8;g.jR.rotation.z=jaw*.8;g.load.visible=!!ld;
 const rm=A['g'+g.ix][i],h=Math.max(.01,Math.min(1.5,rm/150));g.stock.scale.set(1,h,1);g.stock.position.y=.3+h/2});
-const F=D.ev.F||[];let ev=null,k0=-1;F.forEach((e,k)=>{if(e[0]<=t){ev=e;k0=k}});
-const nx=F[k0+1],sA=eq.stand[ev?(ev[6]|0):sideAt('F',t)],sB=eq.stand[nx?(nx[6]|0):(ev?(ev[6]|0):0)];
-let lx=sA.x,lz=sA.z,lb=L0,fill=0,cr={x:eq.home.x,z:0,hy:7.2},lfOn=0,stage='idle',Tl=null,tot=0;
-const tp=(u,P0,P1,C0)=>{let cx,cz,b=L0,hy=7.2,att=false;if(u<.2){const a=sm(u/.2);cx=C0.x+(P0.x-C0.x)*a;cz=C0.z+(P0.z-C0.z)*a}else if(u<.3){cx=P0.x;cz=P0.z;hy=7.2+(L0+2-7.2)*sm((u-.2)/.1)}else if(u<.45){cx=P0.x;cz=P0.z;b=L0+(3.2-L0)*sm((u-.3)/.15);hy=b+2;att=true}else if(u<.8){const a=sm((u-.45)/.35);cx=P0.x+(P1.x-P0.x)*a;cz=P0.z+(P1.z-P0.z)*a;b=3.2;hy=b+2;att=true}else if(u<.95){cx=P1.x;cz=P1.z;b=3.2+(L0-3.2)*sm((u-.8)/.15);hy=b+2;att=true}else{cx=P1.x;cz=P1.z;hy=L0+2+(7.2-L0-2)*sm((u-.95)/.05)}return{cx,cz,b,hy,att}};
-if(ev){const tau=(t-ev[1])*60,Ttr=S.tTr,Tlf=S.tLf;tot=ev[4];const ff=Math.min(1,tot/S.ladCap),ie=Math.min(D.N,Math.round(ev[1]/D.dt)),Tt=A.mo[ie].Tm,dT=.6*S.lfP*S.tLf*60/Math.max(1,tot*.8);
-if(t<ev[1]){stage='tapping';fill=Math.min(1,actAt(ev,i)/S.ladCap);cr={x:sA.x,z:sA.z,hy:7.2};Tl=Tt}
-else if(tau<Ttr){stage='transport';const u=tau/Ttr,r=tp(u,sA,eq.LF,eq.home);cr={x:r.cx,z:r.cz,hy:r.hy};fill=ff;lx=r.att?r.cx:(u<.3?sA.x:eq.LF.x);lz=r.att?r.cz:(u<.3?sA.z:eq.LF.z);lb=r.att?r.b:L0;Tl=Tt-tau}
-else if(tau<Ttr+Tlf){stage='LF';lx=eq.LF.x;lz=eq.LF.z;fill=ff;cr={x:eq.LF.x,z:eq.LF.z,hy:7.2};const p=(tau-Ttr)/Tlf;lfOn=Math.max(0,Math.min(1,p/.12,(1-p)/.12));Tl=Tt-Ttr+dT*p}
-else if(tau<2*Ttr+Tlf){stage='return';const u=(tau-Ttr-Tlf)/Ttr,r=tp(u,eq.LF,sB,eq.LF);cr={x:r.cx,z:r.cz,hy:r.hy};lx=r.att?r.cx:(u<.3?eq.LF.x:sB.x);lz=r.att?r.cz:(u<.3?eq.LF.z:sB.z);lb=r.att?r.b:L0}
-else{stage='idle';lx=sB.x;lz=sB.z;cr={x:sB.x,z:sB.z,hy:7.2}}}
-const mo=A.mo[i];eq.hm.hb.position.x=cr.x;eq.hm.ht.position.z=cr.z;eq.hm.hook.position.y=cr.hy;const hl=Math.max(.1,9.7-cr.hy);eq.hm.rope.scale.y=hl;eq.hm.rope.position.y=cr.hy+hl/2;
-eq.lad.g.position.set(lx,lb,lz);eq.lad.melt.visible=fill>.01;eq.lad.melt.position.y=.25+fill*1.3;eq.lad.melt.material.color.setHex(MODE()==='temp'&&Tl!==null?tcH(Tl):PAL.fe);
-eq.lf.arm.position.y=5-1.8*lfOn;eq.lf.els.forEach(g=>g.visible=lfOn>.3);eq.lf.light.intensity=2*lfOn*(.85+.15*Math.sin(AT*.02));
-D.eqi={stage,T:Tl,fill,tot,load:25+fill*S.ladCap,lfOn}}
+const F=D.ev.F||[],Ttr=S.tTr,Tlf=S.tLf,Tp=S.tPour,c1=Ttr,c2=c1+Tlf,c3=c2+Ttr,c4=c3+Tp,c5=c4+Ttr,pfr=u=>sm(cl01((u-.1)/.75));
+const cum=tt=>{let g=0;F.forEach(e=>{const u=((tt-e[1])*60-c3)/Tp;if(u>0)g+=e[4]*pfr(Math.min(1,u))});return g};
+let ev=null,k0=-1;F.forEach((e,k)=>{if(e[0]<=t){ev=e;k0=k}});
+const nx=F[k0+1],sA=eq.O,sB=eq.O,HU=8.6;
+let lx=sA.x,lz=sA.z,lb=Y0,ang=0,fill=0,cr={x:eq.home.x,z:eq.home.z,hy:HU},lfOn=0,stage='idle',Tl=null,tot=0,pour=false,pu=0;
+const tp=(u,P0,P1,C0,y0,y1)=>{const lh=Math.max(y0,y1)+4.5;let cx,cz,b=y0,hy=HU,att=false;
+if(u<.2){const a=sm(u/.2);cx=C0.x+(P0.x-C0.x)*a;cz=C0.z+(P0.z-C0.z)*a}else if(u<.3){cx=P0.x;cz=P0.z;hy=HU+(y0+2-HU)*sm((u-.2)/.1)}else if(u<.45){cx=P0.x;cz=P0.z;b=y0+(lh-y0)*sm((u-.3)/.15);hy=b+2;att=true}
+else if(u<.8){const a=sm((u-.45)/.35);cx=P0.x+(P1.x-P0.x)*a;cz=P0.z+(P1.z-P0.z)*a;b=lh;hy=b+2;att=true}else if(u<.95){cx=P1.x;cz=P1.z;b=lh+(y1-lh)*sm((u-.8)/.15);hy=b+2;att=true}else{cx=P1.x;cz=P1.z;b=y1;hy=y1+2+(HU-y1-2)*sm((u-.95)/.05)}
+return{cx,cz,b,hy,att}};
+const place=(r,u,P0,P1,y0,y1)=>{cr={x:r.cx,z:r.cz,hy:r.hy};lx=r.att?r.cx:(u<.3?P0.x:P1.x);lz=r.att?r.cz:(u<.3?P0.z:P1.z);lb=r.att?r.b:(u<.3?y0:y1)};
+if(ev){const tau=(t-ev[1])*60;tot=ev[4];const ff=Math.min(1,tot/S.ladCap),ie=Math.min(D.N,Math.round(ev[1]/D.dt)),Tt=A.mo[ie].Tm,dT=.6*S.lfP*S.tLf*60/Math.max(1,tot*.8),Tat=x=>Tt-x+dT*cl01((Math.min(x,c2)-c1)/Tlf);
+if(t<ev[1]){stage='tapping';fill=Math.min(1,actAt(ev,i)/S.ladCap);cr={x:sA.x,z:sA.z,hy:HU};Tl=Tt}
+else if(tau<c1){stage='transport ke LF';const u=tau/Ttr;place(tp(u,sA,eq.LF,eq.home,Y0,Y0),u,sA,eq.LF,Y0,Y0);fill=ff;Tl=Tat(tau)}
+else if(tau<c2){stage='ladle furnace';lx=eq.LF.x;lz=eq.LF.z;fill=ff;cr={x:eq.LF.x,z:eq.LF.z,hy:HU};const p=(tau-c1)/Tlf;lfOn=Math.max(0,Math.min(1,p/.12,(1-p)/.12));Tl=Tat(tau)}
+else if(tau<c3){stage='transport ke tilting';const u=(tau-c2)/Ttr;place(tp(u,eq.LF,eq.TL,eq.LF,Y0,YT),u,eq.LF,eq.TL,Y0,YT);fill=ff;Tl=Tat(tau)}
+else if(tau<c4){stage='tilting & granulasi';pu=(tau-c3)/Tp;lx=eq.TL.x;lz=eq.TL.z;lb=YT;cr={x:eq.TL.x,z:eq.TL.z,hy:HU};ang=(pu<.15?sm(pu/.15):pu<.85?1:sm((1-pu)/.15))*1.75;fill=ff*(1-pfr(pu));pour=pu>.15&&pu<.85&&fill>.02;Tl=Tat(tau)}
+else if(tau<c5){stage='ladle kembali';const u=(tau-c4)/Ttr;place(tp(u,eq.TL,sB,eq.TL,YT,Y0),u,eq.TL,sB,YT,Y0)}
+else{stage='idle';cr={x:sB.x,z:sB.z,hy:HU}}}
+eq.hm.hb.position.z=cr.z;eq.hm.ht.position.x=cr.x;eq.hm.hook.position.y=cr.hy;const hl=Math.max(.1,10.7-cr.hy);eq.hm.rope.scale.y=hl;eq.hm.rope.position.y=cr.hy+hl/2;
+eq.lad.tilt.position.set(lx+1.15,lb+1.65,lz);eq.lad.tilt.rotation.z=-ang;eq.lad.melt.visible=fill>.01&&ang<.35;eq.lad.melt.position.y=.25+fill*1.3;eq.lad.melt.material.color.setHex(MODE()==='temp'&&Tl!==null?tcH(Tl):PAL.fe);
+eq.lf.arm.position.y=5-1.8*lfOn;eq.lf.els.forEach(g=>g.visible=lfOn>.3);
+const sp=new V3(lx+1.15,lb+1.65,lz),tg_=new V3(eq.TK.x-.4,-.2,eq.TK.z),st=eq.tl.stream;st.visible=pour;
+const aim=(m,a,b)=>{const d=new V3().subVectors(b,a),L=d.length();m.position.copy(a).addScaledVector(d,.5);m.scale.y=L;m.quaternion.setFromUnitVectors(new V3(0,1,0),d.normalize())};
+if(pour){aim(st,sp,tg_);st.material.color.setHex(MODE()==='temp'&&Tl!==null?tcH(Tl):0xffa030)}eq.tl.jets.forEach((j,k)=>{j.visible=pour;if(pour)aim(j,new V3(eq.TK.x-1.6,1.3,eq.TK.z+(k?1.4:-1.4)),new V3(eq.TK.x-.6,.9,eq.TK.z))});
+const G=cum(t),Gd=cum(t-S.tDry/60),Dry=Math.max(0,G-Gd),nb=Math.min(72,Math.floor(Gd/S.bagT));if(Dry>.5)eq.dr.drum.rotation.z=AT*.0006;eq.bags.forEach((b,k)=>b.visible=k<nb);
+D.eqi={stage,T:Tl,fill,tot,load:25+fill*S.ladCap,lfOn,pour,G,Dry,Pk:Gd,bags:nb,ang}}
 function loop(t){requestAnimationFrame(loop);if(CIN.on)try{cineStep(t)}catch(err){console.error(err)}const dt=Math.min(.1,(t-last)/1000);last=t;
 fpsA+=dt;fpsN++;if(fpsA>3){if(fpsA/fpsN>.045&&!$('kLite').checked&&!autoL){autoL=true;$('kLite').checked=true;$('kLite').onchange();const tip=$('tip');tip.textContent='Simulasi berat terdeteksi: Mode ringan diaktifkan otomatis (bisa dimatikan di panel Tampilan)';tip.style.left='12px';tip.style.top='70px';tip.classList.remove('hid');setTimeout(()=>tip.classList.add('hid'),6000)}fpsA=0;fpsN=0}
 let changed=false;
 if($('kPlay').checked){S.tm+=dt*S.spd;if(S.tm>S.H)S.tm=0;IN.tm[0].value=IN.tm[1].value=S.tm.toFixed(2);changed=true}
 const tf=D.st.fo>1e-4?.05:0,ts=D.st.so>1e-4?.12:0,k=Math.min(1,dt*4);
 if(Math.abs(tf-DIP.f)>.002||Math.abs(ts-DIP.s)>.002){DIP.f+=(tf-DIP.f)*k;DIP.s+=(ts-DIP.s)*k;changed=true}
-if(changed)try{pick();const st=D.st,sig=[Math.round(st.yM*100),Math.round(st.yS*100),Math.round(st.m/8),st.fo>1e-4?1:0,st.so>1e-4?1:0,Math.round((D.A.p0[D.i]||0)/25),Math.round((D.A.p1[D.i]||0)/25),st.sF,st.sS,Math.round(DIP.f*40),Math.round(DIP.s*40)].join('|'),gap=$('kLite').checked?240:MODE()==='norm'?80:MODE()==='stir'?160:400;
+if(changed)try{pick();const st=D.st,sig=[Math.round(st.yM*100),Math.round(st.yS*100),Math.round(st.m/8),st.fo>1e-4?1:0,st.so>1e-4?1:0,Math.round(pileH((D.A.p0[D.i]||0)/S.sGr)*20),Math.round(pileH((D.A.p1[D.i]||0)/S.sGr)*20),st.sF,st.sS,Math.round(DIP.f*40),Math.round(DIP.s*40)].join('|'),gap=$('kLite').checked?240:MODE()==='norm'?120:MODE()==='stir'?200:450;
 if(sig!==sigPrev&&t-lastB>gap){sigPrev=sig;lastB=t;build()}
 if(t-lastU>250){lastU=t;const sl=document.body.classList.contains('simple')&&document.body.classList.contains('nol');if(!sl){if($('kFollow').checked)summary();rows()}metUpd();chart();ruler()}}catch(err){console.error(err)}
 try{anim2(t,$('kPlay').checked?dt:0)}catch(err){console.error(err)}
@@ -632,7 +676,7 @@ $('asy').innerHTML='';ASY.forEach(([k,lb])=>{const r=document.createElement('div
 $('bi').onclick=()=>$('hud').classList.toggle('hid');$('bg').onclick=()=>$('lg').classList.toggle('hid');
 if(mob())PN.forEach(x=>cl.add(x));
 $('kFollow').onchange=()=>summary();
-$('kLite').onchange=()=>{R.setPixelRatio($('kLite').checked?1:Math.min(devicePixelRatio,1.5));R.setSize(cv.clientWidth,cv.clientHeight,false);upd()};
+$('kLite').onchange=()=>{R.setPixelRatio($('kLite').checked?1:Math.min(devicePixelRatio,1.25));R.setSize(cv.clientWidth,cv.clientHeight,false);upd()};
 ['rN','rS','rT','kCalT','kSlT','kFeT','kT1','kT2','kT3','kT4'].forEach(i=>$(i).onchange=upd);
 $('tk').innerHTML=[[25,0],[250,13],[600,33.3],[900,50.7],[1200,68.1],[1450,82.6],[1750,100]].map(([t,p])=>`<span style="left:${p}%;transform:translateX(-${p===0?0:p===100?100:50}%)">${t}</span>`).join('');
 const rc=new THREE.Raycaster(),mv=new THREE.Vector2();let tipT=0;
@@ -644,9 +688,9 @@ $('tp').innerHTML='Titik: '+tx;PM.position.copy(p);PM.visible=true;const tip=$('
 // ================= antarmuka sederhana =================
 let RING_ON=false,curSc=0,tourI=-2;
 const f1=(v,n=1)=>v.toFixed(n);
-const SCN=[['Gambaran',{v:[.9,1,62,0,3,0],md:'rN'}],['Cairan',{v:[.45,1.05,38,-4,2,0],md:'rN',ring:1,go:'S'}],['Calcine',{v:[.2,.8,36,0,6,0],md:'rN',lbl:1}],['Sirkulasi',{v:[0,1.15,34,0,2,0],md:'rS'}],['Suhu',{v:[0,1.4,46,0,3.5,0],md:'rT'}],['Offgas',{v:[.7,1,42,8,8,0],md:'rN'}],['Crane & LF',{v:[1.1,1,34,30,3,0],md:'rN',gof:1}],['Kolam',{v:VW.pond,md:'rN',end:1}]];
+const SCN=[['Gambaran',{v:[.9,1,62,0,3,0],md:'rN'}],['Cairan',{v:[.45,1.05,38,-4,2,0],md:'rN',ring:1,go:'S'}],['Calcine',{v:[.2,.8,36,0,6,0],md:'rN',lbl:1}],['Sirkulasi',{v:[0,1.15,34,0,2,0],md:'rS'}],['Suhu',{v:[0,1.4,46,0,3.5,0],md:'rT'}],['Offgas',{v:[.7,1,42,8,8,0],md:'rN'}],['Crane & LF',{v:[.7,1,28,26,3,-10],md:'rN',gof:1}],['Granulasi FeNi',{v:[.9,1,26,37,3,-20],md:'rN',gof2:1}],['Dryer & Packing',{v:[1.2,1.05,44,45,2,-4],md:'rN',gof3:1}],['Kolam',{v:VW.pond,md:'rN',end:1}]];
 function applyScene(i){const o=SCN[i][1],v=o.v;curSc=i;[th,ph,rd]=v;tg.set(v[3],v[4],v[5]);setCam();['rN','rS','rT'].forEach(id=>$(id).checked=id===o.md);$('kLbl').checked=!!o.lbl;RING_ON=!!o.ring;
-if(o.go&&D.ev[o.go]&&D.ev[o.go].length)S.tm=Math.min(S.H,D.ev[o.go][0][0]+.05);else if(o.gof&&D.ev.F.length)S.tm=D.ev.F[0][1]+.01;else if(o.end)S.tm=S.H;
+if(o.go&&D.ev[o.go]&&D.ev[o.go].length)S.tm=Math.min(S.H,D.ev[o.go][0][0]+.05);else if(o.gof&&D.ev.F.length)S.tm=D.ev.F[0][1]+.01;else if(o.gof2&&D.ev.F.length)S.tm=Math.min(S.H,D.ev.F[0][1]+(2*S.tTr+S.tLf+3)/60);else if(o.gof3&&D.ev.F.length)S.tm=Math.min(S.H,D.ev.F[0][1]+(3*S.tTr+S.tLf+S.tPour+S.tDry+10)/60);else if(o.end)S.tm=S.H;
 IN.tm[0].value=IN.tm[1].value=S.tm.toFixed(2);document.querySelectorAll('#chips .chip').forEach((b,k)=>b.classList.toggle('on',k===i));upd()}
 SCN.forEach(([nm],i)=>{const b=document.createElement('button');b.className='chip'+(i===0?' on':'');b.textContent=nm;b.onclick=()=>applyScene(i);$('chips').appendChild(b)});
 const QC=[['I','Arus furnace','kA',15,45,.1,1],['V','Tegangan sekunder','V',300,800,5,0],['red','Coal (reduktan)','%',0,10,.05,2],['cf','Calcine input','t/h',0,250,.25,1]];
@@ -687,29 +731,35 @@ PI.bunker=()=>['Bunker slag granul','Tempat grab menumpahkan slag granul yang di
 PI.hmc=()=>{const e=D.eqi||{};return['Hot metal crane '+S.crCap+' t','Memindahkan ladle berisi FeNi cair dari area tapping ke ladle furnace setelah tapping selesai, lalu mengembalikan ladle kosong.',`Tahap: ${e.stage||'idle'}<br>Beban ladle ≈ ${f1(e.load||0,0)} t dari ${S.crCap} t (${f1((e.load||0)/S.crCap*100,0)} %)`]};
 PI.ladle=()=>{const e=D.eqi||{};return['Ladle FeNi','Wadah FeNi cair hasil tapping (kapasitas '+S.ladCap+' t).',`Tahap: ${e.stage||'idle'}<br>Isi ≈ ${f1((e.fill||0)*S.ladCap,0)} t FeNi${e.T?'<br>Suhu ≈ '+f1(e.T,0)+' °C':''}`]};
 PI.lf=()=>{const e=D.eqi||{},tot=Math.max(1,e.tot||58),dT=.6*S.lfP*S.tLf*60/(tot*.8);return['Ladle furnace (3 elektroda)','Memanaskan kembali FeNi di ladle dengan 3 elektroda agar suhu tuang tetap terjaga setelah transportasi.',`Daya ${S.lfP} MW · ${S.tLf} menit<br>Kenaikan suhu ≈ ${f1(dT,0)} °C (efisiensi 60%, ${f1(tot,0)} t FeNi)<br>Status: ${e.stage==='LF'?'memanaskan':'menunggu'}`]};
+PI.tilt=()=>{const e=D.eqi||{};return['Tilting device','Ladle diletakkan di sini lalu dimiringkan untuk menuang FeNi cair ke tangki granulasi; cairan disemprot air bertekanan sehingga membentuk granul.',`Tahap: ${e.stage||'idle'}<br>Sudut ${f1((e.ang||0)*57.3,0)}° · penuangan ${e.pour?'berlangsung':'tidak aktif'}<br>Tergranulasi kumulatif ${f1(e.G||0,1)} t`]};
+PI.tank=()=>{const e=D.eqi||{};return['Tangki granulasi FeNi','Air bertekanan memecah aliran FeNi cair menjadi granul padat; uap air naik saat penuangan.',`Penuangan: ${e.pour?'berlangsung':'tidak aktif'}<br>Granul kumulatif ${f1(e.G||0,1)} t`]};
+PI.dryer=()=>{const e=D.eqi||{};return['Dryer FeNi granul','Mengeringkan FeNi granul setelah disemprot air sebelum dikemas.',`Di dalam dryer ≈ ${f1(e.Dry||0,1)} t (waktu tinggal ${S.tDry} menit)<br>Selesai dikeringkan ${f1(e.Pk||0,1)} t`]};
+PI.pack=()=>{const e=D.eqi||{};return['Packaging FeNi','Produk FeNi kering dimasukkan ke jumbo bag.',`Bag terisi ${e.bags||0} (≈ ${f1((e.bags||0)*S.bagT,1)} t, ${S.bagT} t/bag)`]};
 PI.granul=()=>{const a=D.A.p0[D.i]||0,b=D.A.p1[D.i]||0,cap=pileV(S.pD)*S.sGr;return['Slag granul (hijau)','Slag padat hasil granulasi air; tinggi tumpukan menunjukkan seberapa penuh kolam.',`Utara ${f1(a,0)} t (${f1(a/cap*100,0)} %) · Selatan ${f1(b,0)} t (${f1(b/cap*100,0)} %)<br>Kapasitas ${f1(cap,0)} t per kolam`]};
 function partOf(o){const u=o.userData||{};if(u.part)return u.part;if(u.fr)return u.fr[1]>=ROOF-.01?'shell':u.fr[0]<=B+.001?'feni':'slag';const m=o.material,c=m&&m.color?m.color.getHex():-1,mp={0x24272c:'elektroda',0x2b2420:'elektroda',0x2f6fb5:'bin',0xaeb9c6:'chute',0xc3ccd6:'duct',0x6b7482:'launder',0x444b55:'ladle',0x9fb2c8:'kolam',0x9fb0c4:'kolam',0xc9d0d8:'kolam',0x2a8fd6:'kolam'};if(mp[c])return mp[c];if(c===0x30343b||c===LIM.tap||c===LIM.skim)return o.position.x>0?'tap':'skim';return null}
 function pickPart(e){const r=R.domElement.getBoundingClientRect();mv.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);rc.setFromCamera(mv,cam);let key=null;
-for(const h of rc.intersectObjects(dyn.children,true)){let k=null;for(let o=h.object;o&&!k;o=o.parent)k=partOf(o);if(k&&k!=='shell'){key=k;break}}
+for(const h of rc.intersectObjects(dyn.children.concat(SG.children),true)){let k=null;for(let o=h.object;o&&!k;o=o.parent)k=partOf(o);if(k&&k!=='shell'){key=k;break}}
 const cd=$('card');if(!key||!PI[key]){cd.classList.add('hid');return}const[t,d,v]=PI[key]();cd.innerHTML=`<button class="xb" id="cx">✕</button><h3>${t}</h3><p>${d}</p>${v?'<div class="cv">'+v+'</div>':''}`;cd.classList.remove('hid');$('cx').onclick=()=>cd.classList.add('hid')}
 // ----- tur singkat -----
-const TOUR=[['1/7 · Furnace dan elektroda','Enam elektroda tercelup di slag. Arus listrik melewati slag menghasilkan panas yang melelehkan calcine. Daya = 2×√3×V×I×cosφ — coba ubah Arus di "Kontrol cepat".',0],['2/7 · Calcine masuk dari atas','12 feedbin menjatuhkan calcine panas lewat chute A, B, C ke permukaan slag. Feed yang melebihi kapasitas lebur membuat tumpukan naik.',2],['3/7 · FeNi dan slag keluar','FeNi (berat, di dasar) keluar lewat tap hole timur; slag (di atas) lewat skimming hole barat. Tekan ▶ pada timeline untuk melihat alirannya.',1],['4/7 · Sirkulasi di dalam bath','Panah merah: slag panas mengalir keluar di permukaan. Panah biru: aliran balik di dasar menuju elektroda.',3],['5/7 · Peta suhu','Biru = dingin, kuning ≈ 1200 °C, merah > 1600 °C. Klik titik mana pun untuk melihat angka suhunya.',4],['6/7 · Offgas dan kolam slag','Gas keluar lewat duct timur dan barat. Slag cair jatuh ke kolam dan menjadi granul padat; lihat kapan kolam penuh.',7],['7/7 · Crane, ladle furnace dan grab','Setelah tapping, hot metal crane 125 t memindahkan ladle ke ladle furnace (3 elektroda) untuk dipanaskan ulang. Di kolam, grab clamshell 4,5 m³ mengangkat slag granul ke bunker.',6]];
+const TOUR=[['1/7 · Furnace dan elektroda','Enam elektroda tercelup di slag. Arus listrik melewati slag menghasilkan panas yang melelehkan calcine. Daya = 2×√3×V×I×cosφ — coba ubah Arus di "Kontrol cepat".',0],['2/7 · Calcine masuk dari atas','12 feedbin menjatuhkan calcine panas lewat chute A, B, C ke permukaan slag. Feed yang melebihi kapasitas lebur membuat tumpukan naik.',2],['3/7 · FeNi dan slag keluar','FeNi (berat, di dasar) keluar lewat tap hole timur; slag (di atas) lewat skimming hole barat. Tekan ▶ pada timeline untuk melihat alirannya.',1],['4/7 · Sirkulasi di dalam bath','Panah merah: slag panas mengalir keluar di permukaan. Panah biru: aliran balik di dasar menuju elektroda.',3],['5/7 · Peta suhu','Biru = dingin, kuning ≈ 1200 °C, merah > 1600 °C. Klik titik mana pun untuk melihat angka suhunya.',4],['6/7 · Offgas dan kolam slag','Gas keluar lewat duct timur dan barat. Slag cair jatuh ke kolam dan menjadi granul padat; lihat kapan kolam penuh.',7],['7/7 · Crane, ladle furnace dan grab','Setelah tapping, hot metal crane memindahkan ladle ke ladle furnace (3 elektroda), lalu ke tilting device untuk menuang FeNi dan menyemprotnya dengan air menjadi granul. Granul dikeringkan di dryer dan dikemas. Di kolam slag, grab clamshell mengangkat granul ke bunker.',6]];
 function showTour(i){tourI=i;const t=$('tour');if(i<-1||i>=TOUR.length){t.classList.add('hid');return}
 if(i===-1){t.innerHTML='<button class="xb" id="tx">✕</button><h3>Selamat datang</h3><p>Simulasi furnace listrik FeNi. Pilih tampilan lewat tombol di atas, klik bagian furnace untuk penjelasan, dan geser timeline untuk memutar prosesnya.</p><button class="pri" id="tgo">Mulai tur singkat</button> <button class="sec" id="tsk">Eksplor sendiri</button>';t.classList.remove('hid');$('tgo').onclick=()=>showTour(0);$('tsk').onclick=()=>showTour(-2);$('tx').onclick=()=>showTour(-2);return}
 const[tt,d,sc]=TOUR[i];applyScene(sc);t.innerHTML=`<button class="xb" id="tx">✕</button><h3>${tt}</h3><p>${d}</p>${i>0?'<button class="sec" id="tp_">‹ Sebelumnya</button> ':''}<button class="pri" id="tn_">${i<TOUR.length-1?'Berikutnya ›':'Selesai'}</button>`;t.classList.remove('hid');$('tx').onclick=()=>showTour(-2);$('tn_').onclick=()=>showTour(i<TOUR.length-1?i+1:-2);if($('tp_'))$('tp_').onclick=()=>showTour(i-1)}
 // ----- video sinematik -----
 const CIN={on:false};const sm01=x=>x*x*(3-2*x);
-function cineShots(){const F=D.ev.F,Sv=D.ev.S,tF0=F.length?F[0][0]:2.6,tS0=Sv.length?Sv[0][0]:.3,mo=D.mo0;return[
+function cineShots(){const E=EQ||{O:{x:24,z:0},LF:{x:26,z:-16.5},TL:{x:34,z:-23},DR:{x:46,z:-6}},F=D.ev.F,Sv=D.ev.S,tF0=F.length?F[0][0]:2.6,tS0=Sv.length?Sv[0][0]:.3,mo=D.mo0;return[
 {d:7,a:[.5,1.1,80,0,3,0],b:[1.2,1,66,0,3,0],md:'rN',spd:.2,tm:.1,t:['Dari calcine hingga FeNi','Simulasi furnace listrik rectangular · 6 elektroda']},
 {d:9,a:[.1,1.3,32,10,6.5,6],b:[.05,1.25,24,-6,6.5,6],md:'rN',spd:.1,tm:.3,t:['1 · Calcine panas masuk','12 feedbin menjatuhkan calcine lewat chute A, B, C ke permukaan bath']},
 {d:9,a:[.9,.75,24,6,3,0],b:[-.7,.85,17,-4,2.4,0],md:'rN',spd:.1,tm:null,t:['2 · Calcine melebur','Busur listrik elektroda memanaskan slag; calcine di permukaan meleleh menjadi slag dan FeNi']},
 {d:8,a:[0,1.4,22,-2,2,0],b:[.4,1.25,16,-2,1.8,0],md:'rS',spd:.1,tm:null,t:['3 · Sirkulasi bath','Slag panas naik dan mengalir keluar di permukaan; aliran balik di dasar menuju elektroda']},
 {d:9,a:[0,1.4,44,0,3.5,0],b:[.6,1.2,34,0,3,0],md:'rT',spd:.1,tm:null,t:['4 · Profil temperatur',`Slag ≈ ${mo.T.toFixed(0)} °C · FeNi ≈ ${mo.Tm.toFixed(0)} °C · freeboard ≈ ${mo.Tg.toFixed(0)} °C · udara sekitar ${S.Tamb} °C`]},
 {d:7,a:[.8,1.15,30,14,9,0],b:[1.35,1.05,24,18,12,0],md:'rN',spd:.1,tm:null,t:['5 · Offgas','Gas hasil reaksi ditarik lewat duct timur dan barat (draft negatif)']},
-{d:7,a:[1.2,1,16,21,1,0],b:[1,1.05,18,24,2,0],md:'rN',spd:.1,tm:tF0-.03,t:['6 · Tapping FeNi','FeNi cair mengalir lewat launder ke ladle']},
-{d:14,a:[1.1,1,22,28,3,0],b:[.9,1.1,26,34,3,0],md:'rN',spd:.1,tm:null,t:['7 · Hot metal crane dan ladle furnace',`Crane ${S.crCap} t memindahkan ladle ke ladle furnace; 3 elektroda memanaskan kembali FeNi`]},
-{d:8,a:[-.5,1.05,26,-10,1.5,0],b:[-.7,1,34,-24,1,0],md:'rN',spd:.5,tm:tS0,t:['8 · Skimming slag','Slag keluar lewat skimming hole dan launder ke kolam di sisi yang sama']},
-{d:12,a:[.3,.9,34,-42,-2,0],b:[-.5,.8,26,-42,-2,0],md:'rN',spd:.5,tm:null,t:['9 · Granulasi dan grab clamshell',`Slag cair menjadi granul padat; grab ${S.gbV} m³ mengangkatnya ke bunker`]},
+{d:7,a:[1.2,1,16,E.O.x,1,E.O.z],b:[1,1.05,18,E.O.x,2,E.O.z],md:'rN',spd:.1,tm:tF0-.03,t:['6 · Tapping FeNi','FeNi cair mengalir lewat launder ke ladle']},
+{d:7,a:[.6,1,26,E.LF.x,3,-8],b:[.2,1.05,22,E.LF.x,4,E.LF.z],md:'rN',spd:.1,tm:null,t:['7 · Crane dan ladle furnace',`Crane ${S.crCap} t memindahkan ladle ke ladle furnace; 3 elektroda memanaskan kembali FeNi`]},
+{d:7,a:[.9,1,24,E.TL.x+2,3,-18],b:[1.4,.95,18,E.TL.x+2,2,E.TL.z],md:'rN',spd:.1,tm:null,t:['8 · Tilting dan granulasi FeNi','Ladle dimiringkan; FeNi cair disemprot air bertekanan menjadi granul']},
+{d:9,a:[1.2,1.05,36,E.DR.x,2,-8],b:[1.6,1.1,34,E.DR.x,2,8],md:'rN',spd:.15,tm:null,t:['9 · Dryer dan packaging','Granul FeNi dikeringkan lalu dikemas dalam jumbo bag']},
+{d:8,a:[-.5,1.05,26,-10,1.5,0],b:[-.7,1,34,-24,1,0],md:'rN',spd:.5,tm:tS0,t:['10 · Skimming slag','Slag keluar lewat skimming hole dan launder ke kolam di sisi yang sama']},
+{d:12,a:[.3,.9,34,-42,-2,0],b:[-.5,.8,26,-42,-2,0],md:'rN',spd:.5,tm:null,t:['11 · Granulasi slag dan grab clamshell',`Slag cair menjadi granul padat; grab ${S.gbV} m³ mengangkatnya ke bunker`]},
 {d:6,a:[.9,1.1,70,0,3,0],b:[1.6,1,90,-4,3,0],md:'rN',spd:.2,tm:null,t:['Ringkasan',`${D.Pel.toFixed(1)} MW · FeNi ${mo.yFe.toFixed(1)}% (Ni ${mo.grNi.toFixed(1)}%) · kapasitas lebur ${D.cap.toFixed(0)} t/jam`]}]}
 function startCine(){if(CIN.on)return;const ids=['kFeed','kArc','kGas','kRoof','kLbl','kCalT','kSlT','kFeT'];CIN.saved={ids:ids.map(i=>[i,$(i).checked]),pn:PN.map(c=>cl.contains(c)),play:$('kPlay').checked,spd:S.spd,tm:S.tm,simple:cl.contains('simple')};
 ids.forEach(i=>$(i).checked=['kFeed','kArc','kGas'].includes(i));$('kPlay').checked=true;RING_ON=false;PN.forEach(c=>cl.add(c));cl.add('cine');$('cine').classList.remove('hid');$('card').classList.add('hid');$('tour').classList.add('hid');
