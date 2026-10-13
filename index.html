@@ -74,6 +74,13 @@ body.cine #ui,body.cine .bt,body.cine #hud,body.cine #lg,body.cine #rul,body.cin
 @keyframes cp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 #cprog{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,.15)}#cprog i{display:block;height:100%;width:0;background:#ff9f1c}
 #cstop{position:absolute;right:16px;top:calc(9% + 10px);pointer-events:auto;background:rgba(0,0,0,.55)}
+body.rv #ui,body.rv .bt,body.rv #hud,body.rv #lg,body.rv #rul,body.rv #pl,body.rv #p,body.rv #dock,body.rv #pa,body.rv #tip{display:none!important}
+#lvc{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:8;display:none}body.rv #lvc,body.lvlive #lvc{display:block}
+#rstop{display:none;position:absolute;right:16px;top:12px;z-index:10;background:rgba(0,0,0,.6)}body.rv #rstop{display:block}
+#dlg{position:absolute;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.5)}
+.dbox{position:relative;width:min(540px,92%);max-height:90%;overflow:auto;padding:16px 20px}.dbox h3{margin:0 0 6px;color:#ffb44d;font-size:16px}.dbox h4{margin:14px 0 4px;font-size:13px;color:#e9eef7}
+.dbox p{margin:0 0 8px;color:#b7c5db;font-size:12px;line-height:1.45}.dbox input{background:#0e1626;color:#e9eef7;border:1px solid #38507a;border-radius:6px;padding:4px 6px;width:70px}
+.rr{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;margin:6px 0;font-size:12px;color:#cdd8ea}#dmsg{margin-top:10px;font-size:12px;color:#ffd9a0;min-height:16px}
 #mdsw{position:absolute;right:14px;bottom:76px;padding:6px 12px;font-size:12px}
 @media(max-width:1100px){#chips{left:14px;transform:none;top:64px;max-width:calc(100% - 28px)}#kpi,#qc{top:122px}#card{top:360px}}
 @media(max-width:760px){#brand{display:none}#acts{left:14px;right:auto}#kpi{width:175px}#kpi .k small{display:none}#qc{display:none}#tl{min-width:80px}#tl small{display:none}}
@@ -84,17 +91,24 @@ body.cine #ui,body.cine .bt,body.cine #hud,body.cine #lg,body.cine #rul,body.cin
 <details open><summary><span id="sumT">Ringkasan simulasi (satu periode penuh)</span></summary><label class="ck"><input type="checkbox" id="kFollow" checked> Ringkasan mengikuti waktu ruler (geser ruler untuk melihat kondisi di jam itu)</label><div id="sum"></div></details>
 <details open><summary>Hasil perhitungan</summary><table id="out"></table>
 <div style="color:var(--mu);margin-top:6px;font-size:11px">Level diukur dari dasar cairan FeNi (= atas dead stock 60 cm). Feedbin 1–6 baris selatan (timur→barat), 7–12 baris utara; chute A &amp; C jatuh dekat elektroda, B bercabang 2 dekat dinding. Skimming ke kolam sisi yang sama (utara/selatan), 21 m × 8 m. Profil temperatur = model ilustratif dari input suhu (bukan hasil hitung dari MW); bath stirring = pola konseptual, bukan CFD.</div></details></div>
-<div id="mid"><div id="v"><div class="bt"><button id="bl">ℹ Informasi</button><button id="bp">☰ Parameter</button><button id="bd">🎛 Tampilan</button><button id="bi">📈 Grafik</button><button id="bg">🏷 Legenda</button><button id="bs">🧪 Assay</button><button data-v="iso">Isometrik</button><button data-v="side">Samping</button><button data-v="end">Ujung</button><button data-v="top">Atas</button><button data-v="pond">Kolam</button><button id="bh" title="Mode geser: seret kiri = geser view">✋ Geser</button><button id="bcine">🎬 Sinematik</button><button id="bsimple">‹ Mode sederhana</button><button id="zi">＋</button><button id="zo">－</button></div>
+<div id="mid"><div id="v"><div class="bt"><button id="bl">ℹ Informasi</button><button id="bp">☰ Parameter</button><button id="bd">🎛 Tampilan</button><button id="bi">📈 Grafik</button><button id="bg">🏷 Legenda</button><button id="bs">🧪 Assay</button><button data-v="iso">Isometrik</button><button data-v="side">Samping</button><button data-v="end">Ujung</button><button data-v="top">Atas</button><button data-v="pond">Kolam</button><button id="bh" title="Mode geser: seret kiri = geser view">✋ Geser</button><button id="bcine">🎬 Sinematik</button><button id="bdl">⬇ Unduh</button><button id="bsimple">‹ Mode sederhana</button><button id="zi">＋</button><button id="zo">－</button></div>
 <div id="pa" class="hid"><div class="dh"><b style="color:var(--ac)">🧪 Assay calcine (%berat)</b><button id="pc4">✕</button></div><div id="asy"></div><div class="r"><label>SiO2/MgO</label><b id="aSM"></b></div><div class="r"><label>Fe/Ni</label><b id="aFN"></b></div><div id="pr"></div></div>
 <canvas id="rul"></canvas><div id="tip" class="hid"></div>
 <div id="ui"><div id="brand" class="gl"><b>Furnace Listrik FeNi</b><span>Simulasi RKEF · 6 elektroda</span></div>
 <div id="chips" class="gl"></div>
-<div id="acts" class="gl"><button class="ib" id="uQc">Kontrol</button><button class="ib" id="uDet">Detail</button><button class="ib" id="uPar">Parameter</button><button class="ib" id="uAs">Assay</button><button class="ib" id="uCine">🎬 Sinematik</button><button class="ib" id="uHelp">? Tur</button></div>
+<div id="acts" class="gl"><button class="ib" id="uQc">Kontrol</button><button class="ib" id="uDet">Detail</button><button class="ib" id="uPar">Parameter</button><button class="ib" id="uAs">Assay</button><button class="ib" id="uCine">🎬 Sinematik</button><button class="ib" id="uDl">⬇ Unduh</button><button class="ib" id="uHelp">? Tur</button></div>
 <div id="kpi" class="gl"><h4>Ringkasan langsung</h4><div id="kpiB"></div><div id="stt"></div></div>
 <div id="qc" class="gl"><h4>Kontrol cepat</h4><div id="qcB"></div></div>
 <div id="card" class="gl hid"></div><div id="tour" class="gl hid"></div>
 <div id="pbar" class="gl"><button id="pp">⏸</button><div class="sp" id="spd"></div><input type="range" id="tsl" min="0" max="6" step=".01" value="0"><div id="tl"></div><button class="ib" id="uSch">Jadwal</button></div>
 <div id="clg" class="gl"></div>
+<canvas id="lvc"></canvas><button class="ib" id="rstop">■ Hentikan</button>
+<div id="dlg" class="hid"><div class="dbox gl"><button class="xb" id="dx">✕</button><h3>Unduh simulasi</h3>
+<h4>1 · Video sinematik (semua proses)</h4><p>Merekam pemutaran sinematik (± 105 detik) langsung ke file .webm. Biarkan tab ini tetap terbuka dan terlihat selama merekam.</p><button class="pri" id="dCine">⬇ Rekam &amp; unduh sinematik</button>
+<h4>2 · Cairan panas dalam furnace (rentang waktu)</h4><p>Kenaikan dan penurunan level FeNi dan slag di dalam furnace pada rentang jam yang Anda pilih: video dengan indikator level, grafik, dan perubahan; data CSV; atau grafik PNG.</p>
+<div class="rr">Dari jam <input id="dT1" type="number" step="0.05" value="0"> sampai <input id="dT2" type="number" step="0.05" value="6"> · durasi video <input id="dDur" type="number" step="1" value="20"> detik</div>
+<div class="rr"><button class="pri" id="dVid">⬇ Video .webm</button><button class="sec" id="dCsv">⬇ Data CSV</button><button class="sec" id="dPng">⬇ Grafik PNG</button></div>
+<div id="dsave" class="hid"></div><div id="dmsg"></div></div></div>
 <div id="cine" class="hid"><div class="bar top"></div><div class="bar bot"></div><div id="cap"></div><div id="cprog"><i id="cpi"></i></div><button class="ib" id="cstop">■ Hentikan (Esc)</button></div><button class="ib gl" id="mdsw">Mode lanjutan ›</button></div>
 <div id="hud"><div id="hudT"></div><canvas id="ch" width="460" height="230"></canvas><div class="lgs" id="lgs"></div></div>
 <div id="lg"><div id="lgl"></div><div id="tb" style="display:none"><div>Suhu (°C) – <b>klik peta suhu</b> untuk melihat nilai di titik itu</div><div class="tbar"></div><div class="tk" id="tk"></div><div id="tp">Titik: –</div></div>
@@ -115,6 +129,7 @@ body.cine #ui,body.cine .bt,body.cine #hud,body.cine #lg,body.cine #rul,body.cin
 <label class="ck"><input type="checkbox" id="kTapS" checked> Skimming slag aktif (barat)</label>
 <label class="ck"><input type="checkbox" id="kTapF" checked> Tapping FeNi aktif (timur)</label>
 <label class="ck"><input type="checkbox" id="kGrab" checked> Grab clamshell aktif (angkat slag granul)</label>
+<label class="ck"><input type="checkbox" id="kAuto" checked> Perlambat otomatis saat tapping, crane, dan grab bekerja</label>
 <label class="ck"><input type="checkbox" id="kForce"> Keluar sesuai input (abaikan batas level lubang)</label>
 <div style="margin:4px 0"><button id="gS">▶ Ke skimming</button> <button id="gF">▶ Ke tapping</button></div></div>
 <div class="g"><b>Transparansi (agak transparan)</b>
@@ -134,13 +149,13 @@ body.cine #ui,body.cine .bt,body.cine #hud,body.cine #lg,body.cine #rul,body.cin
 <script>
 // [key,label,unit,default,min,max,step,yellow]
 const CFG=[
-['Waktu & Jadwal',[['H','Periode simulasi (1–48 jam)','jam',6,1,48,1],['tm','Waktu simulasi','jam',0,0,6,.01],['spd','Kecepatan putar','jam/detik',.8,.05,6,.05]]],
+['Waktu & Jadwal',[['H','Periode simulasi (1–48 jam)','jam',6,1,48,1],['tm','Waktu simulasi','jam',0,0,6,.01],['spd','Kecepatan putar','jam/detik',.2,.02,3,.01]]],
 ['Daya & Listrik',[['I','Arus furnace','kA',32,15,45,.1],['V','Tegangan sekunder','V',550,300,800,5],['pf','Faktor daya (cos φ)','',.97,.7,1,.01],['dia','Diameter elektroda','cm',146,100,200,1],['imm','Imersi tip elektroda','cm',50,10,120,1]]],
 ['Calcine & Produksi',[['cf','Calcine input','t/h',109.25,0,250,.01],['calc0','Hold-up calcine awal (sisa calcine di furnace saat mulai)','ton',35,0,1200,5],['batch','Tonase calcine batch tambahan','ton',0,0,3000,10],['shMin','Superheat minimum operasi (bath − liquidus)','°C',100,30,250,5]]],
 ['Reduktan (coal)',[['red','Persen reduktan (coal)','% calcine',4.5,0,10,.05],['fcC','Fixed carbon coal (sub-bituminous)','%',39.78,20,90,.01],['etaC','Efisiensi reduksi karbon (kiln + furnace)','%',80,30,100,.5],['dTm','Selisih suhu slag − FeNi','°C',80,20,150,1]]],
 ['Area & Level',[['L','Panjang zona FeNi','m',31.43,20,40,.01],['W','Lebar zona FeNi','m',9.93,6,14,.01],['slope','Side wall slope','°',9.46,0,25,.01],['hTap','Tinggi tap hole (dari dasar cairan FeNi)','cm',60,10,150,1],['hSkim','Tinggi skimming hole (dari dasar cairan FeNi)','cm',140,70,260,1],['feNorm','Level FeNi normal dijaga (di atas tap hole)','cm',25,-30,60,1],['feLim','Batas atas level FeNi (di atas tap hole)','cm',40,10,80,1],['yS0','Level awal slag/permukaan (dari dasar cairan FeNi)','cm',140,70,260,1],['sMax','Batas level slag maks (dari dasar cairan FeNi)','cm',180,100,240,1],['calcLim','Batas calcine di furnace (dari dasar cairan FeNi)','cm',240,100,330,1]]],
 ['Densitas & Kolam slag granul',[['feD','Densitas FeNi (molten)','t/m³',8,6,9,.01],['sD','Densitas slag (molten)','t/m³',2.87,2,4,.01],['sGr','Densitas slag granul (padat, curah)','t/m³',1.6,1,3,.01],['cDn','Densitas calcine (padat, curah)','t/m³',1.1,.6,2,.01],['angG','Sudut tumpukan slag granul (23,2° = sesuai gambar)','°',23.2,10,45,.1],['pL','Panjang kolam','m',21,8,40,.5],['pW','Lebar kolam','m',7.5,3,14,.5],['pD','Kedalaman kolam','m',4.5,2,10,.1]]],
-['Alat bantu (grab, crane, ladle furnace)',[['gbV','Volume bucket grab clamshell','m³',4.5,1,10,.1],['gbT','Waktu satu siklus grab','menit',3,1,10,.1],['gbHi','Grab mulai bekerja saat kolam ≥','% kapasitas',25,0,100,1],['gbLo','Grab berhenti saat kolam ≤','% kapasitas',5,0,100,1],['crCap','Kapasitas hot metal crane','ton',125,50,250,5],['ladCap','Kapasitas ladle (FeNi)','ton',100,30,200,5],['tTr','Waktu crane pindahkan ladle (satu arah)','menit',10,2,30,.5],['tLf','Waktu pemanasan di ladle furnace','menit',30,5,90,1],['lfP','Daya ladle furnace (3 elektroda)','MW',3,.5,20,.5],['tPour','Waktu penuangan tilting & granulasi','menit',20,5,60,1],['tDry','Waktu tinggal di dryer','menit',40,5,120,1],['bagT','Berat tiap jumbo bag','ton',1,.1,2,.1]]],
+['Alat bantu (grab, crane, ladle furnace)',[['gbV','Volume bucket grab clamshell','m³',4.5,1,10,.1],['crCap','Kapasitas hot metal crane','ton',125,50,250,5],['ladCap','Kapasitas ladle (FeNi)','ton',70,30,200,5],['tTr','Waktu crane pindahkan ladle (satu arah)','menit',10,2,30,.5],['tLf','Waktu pemanasan di ladle furnace','menit',30,5,90,1],['lfP','Daya ladle furnace (3 elektroda)','MW',3,.5,20,.5],['tPour','Waktu penuangan tilting & granulasi','menit',20,5,60,1],['tDry','Waktu tinggal di dryer','menit',40,5,120,1],['bagT','Berat tiap jumbo bag','ton',1,.1,2,.1]]],
 ['Skimming Slag',[['nS','Jumlah skimming dalam periode','kali',2,0,12,1],['qS','[M1] Slag keluar per skimming','t/skimming',370,0,800,1,1],['dS','[M2] Lama skimming (total)','jam',2,0,12,.05,1],['fS','[M2] Slag flow saat keluar','t/jam',170,0,300,.1,1],['mS','Metode dipakai (1 atau 2)','',1,1,2,1,1],['tS1','[M1] Lama tiap skimming','jam',2.47,.1,12,.01]]],
 ['Tapping FeNi',[['nF','Jumlah tapping dalam periode','kali',1,0,12,1],['qF','[M1] FeNi keluar per tapping','t/tapping',58,0,200,.5,1],['dF','[M2] Lama tapping (total)','menit',40,0,300,1,1],['fF','[M2] Tapping flow saat keluar','t/menit',1.45,0,3,.01,1],['mF','Metode dipakai (1 atau 2)','',1,1,2,1,1],['tF1','[M1] Lama tiap tapping','menit',40,1,300,1]]],
 ['Calcine masuk',[['Tcal','Suhu calcine masuk (dari kiln)','°C',700,300,1000,10]]],
@@ -178,12 +193,12 @@ R.domElement.onpointerup=e=>{const m=dr0&&Math.hypot(e.clientX-dr0[0],e.clientY-
 R.domElement.onpointercancel=e=>{ptrs.delete(e.pointerId);pinch=0};
 R.domElement.onwheel=e=>{e.preventDefault();if(window.__cine)return;const f=1+Math.sign(e.deltaY)*.1,r=R.domElement.getBoundingClientRect(),m2=new THREE.Vector2((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1),rc2=new THREE.Raycaster(),hit=new THREE.Vector3();rc2.setFromCamera(m2,cam);
 if(rc2.ray.intersectPlane(new THREE.Plane(new THREE.Vector3(0,1,0),-tg.y),hit)&&hit.distanceTo(tg)<rd*1.5){const dd=tg.clone().sub(hit).multiplyScalar(f);tg.copy(hit).add(dd)}rd=clampN(rd*f,6,300);setCam()};
-new ResizeObserver(()=>{const w=cv.clientWidth,h=cv.clientHeight;if(w<2||h<2)return;cv.classList.toggle('narrow',w<1150);R.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();if(D.ev)ruler();try{R.render(sc,cam)}catch(e){}}).observe(cv);setCam();
+new ResizeObserver(()=>{const w=cv.clientWidth,h=cv.clientHeight;if(w<2||h<2||REC.fix)return;cv.classList.toggle('narrow',w<1150);R.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();if(D.ev)ruler();try{R.render(sc,cam)}catch(e){}}).observe(cv);setCam();
 // ---------- model
 const PAL={fe:0xff7a1a,slag:0xf2c40f,dead:0x4a2c1a,calc:0x9c6b3c,shell:0x7aa2d4,steel:0xb4bfcc,bin:0x2f6fb5,elec:0x24272c,plate:0x5b6573,pil:0xa3acb6},LIM={tap:0x00e5ff,skim:0xff4dd2,norm:0xffffff,fel:0xff3b3b,slag:0x4d8dff,calc:0xb66bff},hx=c=>'#'+c.toString(16).padStart(6,'0'),MODE=()=>$('rS').checked?'stir':$('rT').checked?'temp':'norm';
 const D={st:{yM:.8,yS:1.4,m:0,fo:0,so:0},hf:()=>0},DIP={f:0,s:0},XS=[-10.4,-6.4,-2,2,6.4,10.4],B=.6,ROOF=4.8,HZ=[-2.4,2.4];
 const MMc={},M=(c,o={})=>{const k=c+'|'+JSON.stringify(o);if(MMc[k])return MMc[k];const q=Object.assign({},o);delete q.roughness;delete q.metalness;return MMc[k]=new THREE.MeshLambertMaterial(Object.assign({color:c},q))};
-let ANM=[],AT=0,EQ=null;
+let ANM=[],AT=0,EQ=null,LIQ=false;
 const rg=(v,a,b)=>v>=a&&v<=b;
 function dims(y){const h=Math.max(0,y-B)*2*D.t;return[S.L+h,S.W+h]}
 function fr(y0,y1,m,tf,bf){const g=new THREE.BoxGeometry(1,1,1),p=g.attributes.position;
@@ -227,14 +242,16 @@ function events(){const d=durs(),o={S:[],F:[]};D.dur=d;D.sPlan=d.S.plan;D.fPlan=
 ['S','F'].forEach(k=>{const n=d[k].n,dur=Math.min(d[k].dur,S.H);
 if(ST['n'+k]!==n||ST['H'+k]!==S.H){ST[k]=[];ST['sd'+k]=[];for(let i=0;i<n;i++){ST[k].push(Math.max(0,(i+.5)*S.H/n-dur/2));ST['sd'+k].push(i%2)}ST['n'+k]=n;ST['H'+k]=S.H}
 ST[k].forEach((t,i)=>{const t0=Math.max(0,Math.min(t,S.H-dur));ST[k][i]=t0;o[k].push([t0,t0+dur,d[k].rate,i,0,undefined,ST['sd'+k][i]|0])})});return o}
-function sim(){const N=Math.max(400,Math.min(2400,Math.round(S.H*40))),dt=S.H/N,ev=events(),Af=D.Af,As=D.As,hT=B+S.hTap/100,hK=B+S.hSkim/100,tapFl=hT,TN=Math.tan(35*Math.PI/180);
+function sim(){const N=Math.max(600,Math.min(3600,Math.round(S.H*180))),dt=S.H/N,ev=events(),Af=D.Af,As=D.As,hT=B+S.hTap/100,hK=B+S.hSkim/100,tapFl=hT,TN=Math.tan(35*Math.PI/180);
 const force=$('kForce').checked,fnd=(a,t)=>{for(const e of a)if(t>=e[0]&&t<e[1])return e;return null};
-const A={yM:[],yS:[],m:[],fo:[],so:[],pk:[],cs:[],c0:[],c1:[],mo:[],cm:[],pf:[],ps:[],cfo:[],p0:[],p1:[],g0:[],g1:[],w0:[],w1:[]};let fMin=1e9,fMax=-1e9,fMinT=0,fMaxT=0,pkMax=0,tHit=null,yM=B+(S.hTap+S.feNorm)/100,yS=Math.max(B+S.yS0/100,yM+.02),m=S.calc0+S.batch,cmel=0,cfi=0,csi=0,cfo=0,cso=0,tE=null,cs01=[0,0],inv=[0,0],rmv=[0,0],wk=[false,false];const m0=m,y0M=yM,y0S=yS,capG=Math.max(1,pileV(S.pD)*S.sGr),gbRate=S.gbV*S.sGr*60/Math.max(.5,S.gbT),gOn=$('kGrab').checked;
+const A={yM:[],yS:[],m:[],fo:[],so:[],pk:[],cs:[],c0:[],c1:[],mo:[],cm:[],pf:[],ps:[],cfo:[],p0:[],p1:[],g0:[],g1:[],w0:[],w1:[]};let fMin=1e9,fMax=-1e9,fMinT=0,fMaxT=0,pkMax=0,tHit=null,yM=B+(S.hTap+S.feNorm)/100,yS=Math.max(B+S.yS0/100,yM+.02),m=S.calc0+S.batch,cmel=0,cfi=0,csi=0,cfo=0,cso=0,tE=null,cs01=[0,0],inv=[0,0],rmv=[0,0],wk=[false,false];const m0=m,y0M=yM,y0S=yS,capG=Math.max(1,pileV(S.pD)*S.sGr),gbRate=370/1.875,bucket=S.gbV*S.sGr,tauG=bucket/gbRate,gOn=$('kGrab').checked,lastIn=[-1e9,-1e9],seg0=[0,0],gseg=[[],[]];
 for(let i=0;i<=N;i++){const t=i*dt,av=m+S.cf*dt,mel=Math.min(D.cap*dt,(S.cf>0?S.cf:D.cap)*dt,av),r_=mel/dt,mo=r_>.5?mdl(r_):D.mo0,fi=mel*mo.yFe/100,si=mel*mo.ySl/100;let fo=0,so=0;
 const eF=$('kTapF').checked?fnd(ev.F,t):null,eS=$('kTapS').checked?fnd(ev.S,t):null;
 if(eF){if(eF[5]===undefined)eF[5]=yM-hT;fo=force?eF[2]*dt:Math.min(eF[2]*dt,Math.max(0,(yM-tapFl)*Af*S.feD+fi));eF[4]+=fo;if(eF[7]===undefined){eF[7]=[];eF[8]=i}eF[7].push(eF[4])}
-if(eS){if(eS[5]===undefined)eS[5]=yS-hK;so=force?eS[2]*dt:Math.min(eS[2]*dt,Math.max(0,(yS-hK)*As*S.sD+si));eS[4]+=so;cs01[eS[6]|0]+=so;inv[eS[6]|0]+=so;if(eS[7]===undefined){eS[7]=[];eS[8]=i}eS[7].push(eS[4])}
-for(let ix=0;ix<2;ix++){if(!wk[ix]&&inv[ix]>=S.gbHi/100*capG)wk[ix]=true;if(wk[ix]&&inv[ix]<=S.gbLo/100*capG)wk[ix]=false;if(gOn&&wk[ix]){const rr=Math.min(inv[ix],gbRate*dt);inv[ix]-=rr;rmv[ix]+=rr}}
+if(eS){if(eS[5]===undefined)eS[5]=yS-hK;so=force?eS[2]*dt:Math.min(eS[2]*dt,Math.max(0,(yS-hK)*As*S.sD+si));eS[4]+=so;cs01[eS[6]|0]+=so;inv[eS[6]|0]+=so;if(so>0)lastIn[eS[6]|0]=t;if(eS[7]===undefined){eS[7]=[];eS[8]=i}eS[7].push(eS[4])}
+for(let ix=0;ix<2;ix++){const can=gOn&&inv[ix]>1e-6&&t-lastIn[ix]>=.083;
+if(can&&!wk[ix]){wk[ix]=true;seg0[ix]=t}else if(!can&&wk[ix]){wk[ix]=false;gseg[ix].push([seg0[ix],t])}
+if(wk[ix]){const kk=u=>Math.floor((u-seg0[ix]-.4*tauG)/tauG),nn=kk(t+dt)-kk(t);for(let q=0;q<nn;q++){const rr=Math.min(inv[ix],bucket);inv[ix]-=rr;rmv[ix]+=rr}}}
 const lv=yM-hT;if(lv<fMin){fMin=lv;fMinT=t}if(lv>fMax){fMax=lv;fMaxT=t}const pk=yS+1.05*Math.cbrt(3*Math.max(m,0)/S.cDn/36*TN*TN/Math.PI);A.pk.push(pk);A.cs.push(cso);A.cm.push(cmel);A.pf.push(cfi);A.ps.push(csi);A.cfo.push(cfo);A.c0.push(cs01[0]);A.c1.push(cs01[1]);A.p0.push(inv[0]);A.p1.push(inv[1]);A.g0.push(rmv[0]);A.g1.push(rmv[1]);A.w0.push(gOn&&wk[0]?1:0);A.w1.push(gOn&&wk[1]?1:0);A.mo.push(mo);if(pk>pkMax)pkMax=pk;if(tHit===null&&pk>B+S.calcLim/100)tHit=t;
 A.yM.push(yM);A.yS.push(yS);A.m.push(m);A.fo.push(fo/dt);A.so.push(so/dt);
 m=av-mel;yS+=(fi-fo)/(S.feD*Af)+(si-so)/(S.sD*As);yM=Math.max(B+.03,yM+(fi-fo)/(S.feD*Af));yS=Math.max(yS,yM+.02);
@@ -242,9 +259,10 @@ cmel+=mel;cfi+=fi;csi+=si;cfo+=fo;cso+=so;if(tE===null&&m0>0&&m<1e-6)tE=t+dt}
 const mk=[],addMk=(t,label,col)=>{if(t!==null&&t!==undefined)mk.push({t,label,col})},idx1=(arr,fn)=>{const k=arr.findIndex(fn);return k<0?null:k*dt},capT=Math.max(1,pileV(S.pD)*S.sGr);
 addMk(tHit,'Calcine menyentuh batas',LIM.calc);addMk(idx1(A.yS,v=>(v-B)*100>S.sMax),'Slag > batas maks',LIM.slag);addMk(idx1(A.yM,v=>(v-hT)*100>S.feLim),'FeNi > batas atas',LIM.fel);addMk(idx1(A.yM,v=>v<hT-.001),'FeNi < tap hole',LIM.tap);
 addMk(idx1(A.p0,v=>v>=capT),'Kolam utara penuh',0x2fbf5a);addMk(idx1(A.p1,v=>v>=capT),'Kolam selatan penuh',0x2fbf5a);mk.sort((a,b)=>a.t-b.t);
-Object.assign(D,{inv0:inv[0],inv1:inv[1],rmv0:rmv[0],rmv1:rmv[1],mk,i_:N,t_:S.H,Hh:S.H,cs0:cs01[0],cs1:cs01[1],gasT:cmel*(1+S.red/100)-cfi-csi,fMin,fMax,fMinT,fMaxT,pkMax,tHit,A,ev,dt,N,cmel,cfi,csi,cfo,cso,tE,y0M,y0S,yMend:yM,ySend:yS,mEnd:m})}
+for(let ix=0;ix<2;ix++)if(wk[ix])gseg[ix].push([seg0[ix],S.H+1]);
+Object.assign(D,{gseg,tauG,inv0:inv[0],inv1:inv[1],rmv0:rmv[0],rmv1:rmv[1],mk,i_:N,t_:S.H,Hh:S.H,cs0:cs01[0],cs1:cs01[1],gasT:cmel*(1+S.red/100)-cfi-csi,fMin,fMax,fMinT,fMaxT,pkMax,tHit,A,ev,dt,N,cmel,cfi,csi,cfo,cso,tE,y0M,y0S,yMend:yM,ySend:yS,mEnd:m})}
 const sideAt=(k,t)=>{const a=D.ev[k];if(!a||!a.length)return 0;for(const e of a)if(t>=e[0]&&t<e[1])return e[6]|0;for(const e of a)if(e[0]>t)return e[6]|0;return a[a.length-1][6]|0};
-function pick(){const A=D.A,i=Math.min(D.N,Math.max(0,Math.round(S.tm/D.dt)));D.i=i;D.st={yM:A.yM[i],yS:A.yS[i],m:A.m[i],fo:A.fo[i],so:A.so[i],mo:A.mo[i],sF:sideAt('F',S.tm),sS:sideAt('S',S.tm)}}
+function pick(){const A=D.A,f=Math.max(0,Math.min(D.N,S.tm/D.dt)),i=Math.round(f),i0=Math.min(D.N-1,Math.floor(f)),a=f-i0,L=r=>r[i0]+(r[i0+1]-r[i0])*a;D.i=i;D.st={yM:L(A.yM),yS:L(A.yS),m:L(A.m),fo:A.fo[i],so:A.so[i],mo:A.mo[i],sF:sideAt('F',S.tm),sS:sideAt('S',S.tm)}}
 // ---------- tumpukan calcine (slope sudut repose 35°)
 const GX=14.4;
 const TNp=Math.tan(35*Math.PI/180),LC={};
@@ -254,9 +272,9 @@ function lbl(t,sc,col){const key=t+(col||'');if(!LC[key]){const c=document.creat
 function pileMesh(base,V,col){D.hf=()=>0;if(V<.5)return null;const sr=srcs(),tn=TNp,cap=Math.max(0,4.5-base),hk=sr.map(q=>Math.cbrt(3*V*q.w/12*tn*tn/Math.PI));
 const mk=s=>(x,z)=>{let h=0;for(let i=0;i<sr.length;i++){const a=s*hk[i]-tn*Math.hypot(x-sr[i].x,z-sr[i].z);if(a>h)h=a}return Math.min(h,cap)};
 const[l,w]=dims(base),Lw=l-.1,Ww=w-.1;let sc_=1.2;
-for(let it=0;it<5;it++){const f=mk(sc_),nx=56,nz=16;let v=0;for(let i=0;i<nx;i++)for(let j=0;j<nz;j++)v+=f((i/nx-.5+.5/nx)*Lw,(j/nz-.5+.5/nz)*Ww);v*=Lw*Ww/(nx*nz);if(v<1e-6)break;sc_*=Math.pow(V/v,1/3)}
+for(let it=0;it<5;it++){const f=mk(sc_),nx=36,nz=11;let v=0;for(let i=0;i<nx;i++)for(let j=0;j<nz;j++)v+=f((i/nx-.5+.5/nx)*Lw,(j/nz-.5+.5/nz)*Ww);v*=Lw*Ww/(nx*nz);if(v<1e-6)break;sc_*=Math.pow(V/v,1/3)}
 const hf=mk(sc_);D.hf=hf;
-const nx=110,nz=30,pos=[],Hh=[];
+const nx=72,nz=20,pos=[],Hh=[];
 for(let i=0;i<=nx;i++)for(let j=0;j<=nz;j++){const x=(i/nx-.5)*Lw,z=(j/nz-.5)*Ww,h=hf(x,z);Hh.push(h);pos.push(x,base+h,z)}
 const idx=[];for(let i=0;i<nx;i++)for(let j=0;j<nz;j++){const a=i*(nz+1)+j,b=a+1,c=a+nz+1,d=c+1;if(Math.max(Hh[a],Hh[b],Hh[c],Hh[d])>.01)idx.push(a,c,b,b,c,d)}
 const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setIndex(idx);g.computeVertexNormals();{const pmx=new THREE.Mesh(g,M(col||PAL.calc,{side:THREE.DoubleSide,roughness:.95}));pmx.userData.part='calcine';return pmx}}
@@ -288,8 +306,8 @@ return[Ta+(Trout-Ta)*Math.exp(-(Math.max(0,y-ROOF-.8)+dd)/1.5),'udara sekitar']}
 const tfield=(x,z,y,yM,yS)=>tz(x,z,y,yM,yS)[0];
 function mkTex(W,H,fn){const c=document.createElement('canvas');c.width=W;c.height=H;const g=c.getContext('2d'),im=g.createImageData(W,H);for(let j=0;j<H;j++)for(let i=0;i<W;i++){const r=fn(i,j),k=(j*W+i)*4;im.data[k]=r[0];im.data[k+1]=r[1];im.data[k+2]=r[2];im.data[k+3]=r[3]}g.putImageData(im,0,0);const t=new THREE.CanvasTexture(c);t.minFilter=THREE.LinearFilter;return t}
 // ===== grup statis: dibangun ulang hanya saat geometri berubah =====
-const SG=new THREE.Group();sc.add(SG);let SKEY='',CF={pts:null,items:[]},STMP=null;
-function skey(){return [($('kLbl').checked&&!$('kLite').checked)?1:0,S.L,S.W,S.slope,S.hTap,S.hSkim,S.pL,S.pW,S.pD,S.crCap].join('|')}
+const SG=new THREE.Group();sc.add(SG);let SKEY='',CF={pts:null,items:[]},STMP=null,RG=[];
+function skey(){return [($('kLbl').checked&&!$('kLite').checked)?1:0,S.L,S.W,S.slope,S.hTap,S.hSkim,S.pL,S.pW,S.pD,S.crCap,S.feNorm,S.feLim,S.sMax,S.calcLim].join('|')}
 function buildCF(yS){CF.items=[];const V3=THREE.Vector3,oy=8.4,RF=ROOF+.9,sr=srcs(),paths=[];let nb=0;
 [1,-1].forEach(sz=>{XS.slice().reverse().forEach(xe=>{nb++;const mine=sr.filter(q=>q.b===nb),land=q=>new V3(q.x,yS+D.hf(q.x,q.z)+.03,q.z);
 [['A',xe+.35],['C',xe-.35]].forEach(([k,ox])=>{const q=mine.find(u=>u.k===k);paths.push({P:[new V3(ox,oy,sz*5.6),new V3(ox,oy-.7,sz*5.6),new V3(q.x,RF,q.z),new V3(q.x,ROOF-.15,q.z),land(q)],n:3})});
@@ -298,10 +316,17 @@ paths.forEach(p=>{p.L=[];p.T=0;for(let i=0;i<p.P.length-1;i++){const l=p.P[i].di
 if($('kLite').checked)CF.items=CF.items.filter((_,i)=>i%2===0);CF.pos=new Float32Array(CF.items.length*3);const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(CF.pos,3));
 CF.pts=new THREE.Points(g,new THREE.PointsMaterial({color:0xffd36b,size:.34,transparent:true,opacity:.95,depthWrite:false}));CF.pts.frustumCulled=false;dyn.add(CF.pts)}
 function buildStatic(){while(SG.children.length){const o=SG.children.pop();o.traverse(c=>{if(c.geometry&&!c.isSprite)c.geometry.dispose()})}
-const dyn=SG,showL=$('kLbl').checked&&!$('kLite').checked,V3=THREE.Vector3,UP=new V3(0,1,0),gy=-1.3,yT=B+S.hTap/100,yK=B+S.hSkim/100,dep=S.pD,pf=gy-dep,PL=S.pL,PW=S.pW,xEnd=-(dims(yK)[0]/2+.1+16),px1=xEnd+.5,px0=px1-PL,PZ=Math.max(5.5,1.5+PW/2);
+const dyn=SG,showL=$('kLbl').checked&&!$('kLite').checked&&!CIN.on,V3=THREE.Vector3,UP=new V3(0,1,0),gy=-1.3,yT=B+S.hTap/100,yK=B+S.hSkim/100,dep=S.pD,pf=gy-dep,PL=S.pL,PW=S.pW,xEnd=-(dims(yK)[0]/2+.1+16),px1=xEnd+.5,px0=px1-PL,PZ=Math.max(5.5,1.5+PW/2);
 const bxm=(w,h,d,col,x,y,z,part,par)=>{const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),M(col,{roughness:.6,metalness:.3}));m.position.set(x,y,z);if(part)m.userData.part=part;(par||dyn).add(m);return m};
 const cym=(r1,r2,h,col,x,y,z,part,par,sg)=>{const m=new THREE.Mesh(new THREE.CylinderGeometry(r1,r2,h,sg||14),M(col,{roughness:.6,metalness:.3}));m.position.set(x,y,z);if(part)m.userData.part=part;(par||dyn).add(m);return m};
 const cyl=(a,b,r,m,sg)=>{const d=new V3().subVectors(b,a),q=new THREE.Mesh(new THREE.CylinderGeometry(r,r,d.length(),sg||10),m);q.position.copy(a).addScaledVector(d,.5);q.quaternion.setFromUnitVectors(UP,d.clone().normalize());dyn.add(q);return q};
+// batas level: garis putus-putus (satu InstancedMesh per batas)
+RG=[];[['tap','Tap hole',yT,LIM.tap,0],['skim','Skimming hole',yK,LIM.skim,0],['norm','FeNi normal',B+(S.hTap+S.feNorm)/100,LIM.norm,0],['fel','FeNi maks',B+(S.hTap+S.feLim)/100,LIM.fel,1],['slag','Slag maks',B+S.sMax/100,LIM.slag,1],['calc','Calcine maks',B+S.calcLim/100,LIM.calc,1]].forEach(([key,tx,y,c,always],k)=>{
+const[l,w]=dims(y),dash=.9,gp=.55,pts=[],edge=(x0,z0,x1,z1)=>{const L=Math.hypot(x1-x0,z1-z0),n=Math.max(1,Math.round(L/(dash+gp))),ux=(x1-x0)/L,uz=(z1-z0)/L,st=L/n;for(let i=0;i<n;i++){const m=i*st+st/2;pts.push([x0+ux*m,z0+uz*m,Math.atan2(-uz,ux)])}};
+edge(-l/2,-w/2,l/2,-w/2);edge(l/2,-w/2,l/2,w/2);edge(l/2,w/2,-l/2,w/2);edge(-l/2,w/2,-l/2,-w/2);
+const im=new THREE.InstancedMesh(new THREE.BoxGeometry(dash,.04,.04),new THREE.MeshBasicMaterial({color:c}),pts.length),m4=new THREE.Matrix4(),qq=new THREE.Quaternion();
+pts.forEach(([x,z,yaw],i)=>{qq.setFromAxisAngle(UP,yaw);m4.compose(new V3(x,y,z),qq,new V3(1,1,1));im.setMatrixAt(i,m4)});im.instanceMatrix.needsUpdate=true;im.frustumCulled=false;
+const g=new THREE.Group();g.add(im);if(showL){const q2=lbl(tx,.55,hx(c));q2.position.set(-12.5+k*5,y,w/2+.9);g.add(q2)}dyn.add(g);RG.push({key,g,always})});
 // offgas
 const dm=M(0xc3ccd6,{transparent:true,opacity:.42,depthWrite:false,side:THREE.DoubleSide});
 [1,-1].forEach(sx=>{const xd=sx*GX;cyl(new V3(xd,ROOF,0),new V3(xd,12.8,0),.6,dm,12);const hd=new THREE.Mesh(new THREE.CylinderGeometry(1.3,.6,.9,16),dm);hd.position.set(xd,ROOF+.45,0);dyn.add(hd);
@@ -340,8 +365,14 @@ const hb=new THREE.Group();hb.position.set(0,0,eq.home.z);dyn.add(hb);bxm(xb2-xa
 const ht=new THREE.Group();ht.position.set(eq.home.x,0,0);hb.add(ht);bxm(1.8,.8,2.4,0xe0a020,0,yR2+1.5,0,'hmc',ht);const hrope=cym(.06,.06,1,0x222222,0,6,0,'hmc',ht,6),hhook=new THREE.Group();ht.add(hhook);bxm(.6,.5,.6,0x222222,0,0,0,'hmc',hhook);bxm(.3,.25,3.2,0x222222,0,-.5,0,'hmc',hhook);
 // ladle (bisa miring) 
 const tilt=new THREE.Group();dyn.add(tilt);const lad=new THREE.Group();lad.position.set(-1.15,-1.65,0);tilt.add(lad);
-cym(1.15,.9,1.7,0x3f4650,0,.85,0,'ladle',lad,24);cym(1.22,1.22,.12,0x2a2f36,0,1.72,0,'ladle',lad,24);[-1,1].forEach(z=>bxm(.4,.3,.5,0x2a2f36,0,1.5,z*1.35,'ladle',lad));
-const melt=new THREE.Mesh(new THREE.CircleGeometry(1.0,24),new THREE.MeshBasicMaterial({color:PAL.fe}));melt.rotation.x=-Math.PI/2;melt.userData.part='ladle';lad.add(melt);
+const wall=new THREE.Mesh(new THREE.CylinderGeometry(1.15,.9,1.7,24,1,true),M(0x3f4650,{side:THREE.DoubleSide,transparent:true,opacity:.6,depthWrite:false}));wall.position.y=.85;wall.userData.part='ladle';lad.add(wall);
+const lbot=new THREE.Mesh(new THREE.CircleGeometry(.9,24),M(0x2a2f36));lbot.rotation.x=-Math.PI/2;lbot.position.y=.02;lbot.userData.part='ladle';lad.add(lbot);
+const lrim=new THREE.Mesh(new THREE.TorusGeometry(1.15,.07,8,28),M(0x2a2f36));lrim.rotation.x=Math.PI/2;lrim.position.y=1.7;lrim.userData.part='ladle';lad.add(lrim);
+[-1,1].forEach(z=>bxm(.4,.3,.5,0x2a2f36,0,1.5,z*1.35,'ladle',lad));
+const melt=new THREE.Mesh(new THREE.CylinderGeometry(1.1,.92,1,24),new THREE.MeshBasicMaterial({color:PAL.fe}));melt.userData.part='ladle';lad.add(melt);
+const ovR=new THREE.Mesh(new THREE.TorusGeometry(1.18,.1,6,24),new THREE.MeshBasicMaterial({color:PAL.fe}));ovR.rotation.x=Math.PI/2;ovR.position.y=1.74;ovR.visible=false;lad.add(ovR);
+const ovS=[0,1,2,3].map(k=>{const a=k*1.57+.4,m=new THREE.Mesh(new THREE.CylinderGeometry(.07,.05,1.7,6),new THREE.MeshBasicMaterial({color:PAL.fe}));m.position.set(Math.cos(a)*1.22,.9,Math.sin(a)*1.22);m.visible=false;lad.add(m);return m});
+const puddle=new THREE.Mesh(new THREE.CircleGeometry(1,28),new THREE.MeshBasicMaterial({color:PAL.fe}));puddle.rotation.x=-Math.PI/2;puddle.position.set(O.x,gy+.04,O.z);puddle.visible=false;puddle.userData.part='ladle';dyn.add(puddle);
 bxm(2.8,.2,2.8,0x555e6b,O.x,gy+.1,O.z,'ladle');
 // ladle furnace
 bxm(3.2,.3,3.2,0x555e6b,LF.x,gy+.15,LF.z,'lf');[-2.4,2.4].forEach(x=>bxm(.5,6.6,.5,0x5b6b82,LF.x+x,gy+3.3,LF.z,'lf'));bxm(5.4,.6,.6,0x5b6b82,LF.x,5.4,LF.z,'lf');
@@ -364,7 +395,7 @@ bxm(.9,.4,6,0x2a2f36,DR.x,gy+.6,DR.z+12,'dryer');
 [11.8,17.3].forEach(z=>{bxm(4.6,.3,4.6,0x555e6b,DR.x,gy+.15,z,'pack');[[-2,-2],[2,-2],[-2,2],[2,2]].forEach(([a,b])=>bxm(.3,4.6,.3,0xd4a017,DR.x+a,gy+2.3,z+b,'pack'));const h=new THREE.Mesh(new THREE.CylinderGeometry(2.2,.4,2,4),M(0xd4a017,{roughness:.6}));h.rotation.y=Math.PI/4;h.position.set(DR.x,3.4,z);h.userData.part='pack';dyn.add(h);cym(.3,.3,.8,0x3b434e,DR.x,2.1,z,'pack')});
 for(let k=0;k<72;k++){const lay=k>=36?1:0,kk=k%36,m=bxm(1,.9,1,0xeeeeee,DR.x+3.6+(kk%4)*1.15,gy+.45+lay*.95,9.8+Math.floor(kk/4)*1.15,'pack');m.visible=false;eq.bags.push(m)}
 if(showL){[['Ladle furnace · 3 elektroda',LF.x,8,LF.z],['Hot metal crane '+S.crCap+' t',eq.home.x,12.6,-3],['Tilting device + granulasi FeNi',TL.x+1.5,7,TL.z],['Dryer FeNi granul',DR.x,6.2,DR.z],['Packaging (jumbo bag)',DR.x,7,14.5],['Launder tapping + ladle',O.x,3.2,O.z]].forEach(([t,x,y,z])=>{const q=lbl(t,.7,'#ffd9a0');q.position.set(x,y,z);dyn.add(q)})}
-eq.hm={hb,ht,rope:hrope,hook:hhook};eq.lad={tilt,melt};eq.lf={arm:lfe,els,light:{intensity:0}};eq.tl={stream,jets};eq.dr={drum};EQ=eq}
+eq.hm={hb,ht,rope:hrope,hook:hhook};eq.lad={tilt,melt,ovR,ovS,puddle};eq.lf={arm:lfe,els,light:{intensity:0}};eq.tl={stream,jets};eq.dr={drum};EQ=eq}
 function build(){while(dyn.children.length){const o=dyn.children.pop();o.traverse(c=>{if(c.geometry&&!c.isSprite)c.geometry.dispose();if(c.userData&&c.userData.tx&&c.material.map)c.material.map.dispose()})}
 const st=D.st,yM=st.yM,yS=st.yS,[l0,w0]=dims(B),yT=B+S.hTap/100,yK=B+S.hSkim/100,showL=$('kLbl').checked&&!$('kLite').checked,lite=$('kLite').checked,V3=THREE.Vector3,UP=new V3(0,1,0),mode=MODE(),ctemp=mode==='temp',cstir=mode==='stir';
 $('tb').style.display=ctemp?'block':'none';document.body.classList.toggle('tempmode',ctemp);document.body.classList.toggle('stirmode',cstir);
@@ -378,13 +409,8 @@ const iF=D.st.sF,iS=D.st.sS,hzF=iF?1:-1,hzS=iS?1:-1;
 const wF=(sx,sz)=>.5*(1+sx)/2+.5*(1+sz*hzF)/2,wS=(sx,sz)=>.5*(1-sx)/2+.5*(1+sz*hzS)/2;
 if(!ctemp){const ft=$('kFeT').checked;
 dyn.add(fr(B,yM,M(PAL.fe,{emissive:0xa03a00,emissiveIntensity:.6,roughness:.35,metalness:.2,transparent:ft,opacity:ft?.5:1,depthWrite:!ft}),(x,z)=>-DIP.f*wF(x,z)));
-dyn.add(fr(yM,yS,M(PAL.slag,{emissive:0x6b4f00,emissiveIntensity:.45,roughness:.4,transparent:true,depthWrite:false,opacity:cstir?.3:$('kSlT').checked?.5:.93}),(x,z)=>-DIP.f*wF(x,z)-DIP.s*wS(x,z),(x,z)=>-DIP.f*wF(x,z)))}
-const pm=pileMesh(yS,st.m/S.cDn,ctemp?tcH(st.mo.Tcs):PAL.calc);if(pm){const trp=$('kCalT').checked||ctemp,mm=pm.material;if(mm.transparent!==trp){mm.transparent=trp;mm.depthWrite=!trp;mm.needsUpdate=true}mm.opacity=trp?(ctemp?.22:.4):1;dyn.add(pm)}
-// batas level tipis (warna sama dengan grafik)
-[['Tap hole',yT,LIM.tap],['Skimming hole',yK,LIM.skim],['FeNi normal',B+(S.hTap+S.feNorm)/100,LIM.norm],['FeNi maks',B+(S.hTap+S.feLim)/100,LIM.fel],['Slag maks',B+S.sMax/100,LIM.slag],['Calcine maks',B+S.calcLim/100,LIM.calc]].forEach(([t,y,c],k)=>{if(document.body.classList.contains('simple')&&!RING_ON)return;
-const[l,w]=dims(y),mt=new THREE.MeshBasicMaterial({color:c}),r=.016;
-[-1,1].forEach(q=>{const a=new THREE.Mesh(new THREE.CylinderGeometry(r,r,l,4),mt);a.rotation.z=Math.PI/2;a.position.set(0,y,q*w/2);dyn.add(a);const b=new THREE.Mesh(new THREE.CylinderGeometry(r,r,w,4),mt);b.rotation.x=Math.PI/2;b.position.set(q*l/2,y,0);dyn.add(b)});
-if(showL){const q=lbl(t,.55,hx(c));q.position.set(-12.5+k*5,y,w/2+.9);dyn.add(q)}});
+dyn.add(fr(yM,yS,M(PAL.slag,{emissive:0x6b4f00,emissiveIntensity:.45,roughness:.4,transparent:true,depthWrite:false,opacity:cstir?.3:LIQ?.6:$('kSlT').checked?.5:.93}),(x,z)=>-DIP.f*wF(x,z)-DIP.s*wS(x,z),(x,z)=>-DIP.f*wF(x,z)))}
+const pm=pileMesh(yS,st.m/S.cDn,ctemp?tcH(st.mo.Tcs):PAL.calc);if(pm){const trp=$('kCalT').checked||ctemp,mm=pm.material;if(mm.transparent!==trp){mm.transparent=trp;mm.depthWrite=!trp;mm.needsUpdate=true}mm.opacity=trp?(ctemp?.22:.4):1;pm.visible=!LIQ;dyn.add(pm)}
 // elektroda: ujung runcing (tapered) di dalam slag
 const rad=S.dia/200,tip=Math.max(yM+.05,yS-S.imm/100),inten=S.P/60,y1=Math.max(tip+.45,yS+.25),Lc=y1-tip;D.tips=XS.map(x=>({x,y:tip,s:yS,m:yM}));D.rad=rad;
 const em=M(PAL.elec,{roughness:.35,metalness:.4,transparent:ctemp,opacity:ctemp?.3:1,depthWrite:!ctemp});
@@ -425,6 +451,7 @@ HZ.forEach((z,ix)=>{hole(1,yT,z,LIM.tap,ix===iF);hole(-1,yK,z,LIM.skim,ix===iS);
 [[1,yT],[-1,yK]].forEach(([sx,y])=>{const[a,b]=lpath(sx,y,z,ix);trough(a,b,.75);const lad=new THREE.Mesh(new THREE.CylinderGeometry(.85,.6,.9,16,1,true),M(0x444b55,{side:THREE.DoubleSide}));lad.position.set(b.x,-.75,b.z);void 0})});
 if(st.fo>1e-4)flow(1,yT,HZ[iF],iF,ctemp?tcH(st.mo.Tm-30):PAL.fe);if(st.so>1e-4)flow(-1,yK,HZ[iS],iS,ctemp?tcH(st.mo.Tsk):PAL.slag);
 if(skey()!==SKEY){SKEY=skey();buildStatic()}
+{const adv=!document.body.classList.contains('simple');RG.forEach(r=>r.g.visible=adv||RING_ON||r.always)}
 buildCF(yS);updEQ();
 // bath stirring: sel sirkulasi toroidal per elektroda (permukaan keluar, dasar kembali); titik temu antar elektroda = downwelling
 if(cstir){const[l,w]=dims(yS),ytop=yS-.07,ybot=yM+.07,mk=(c,o)=>new THREE.MeshBasicMaterial({color:c,depthTest:false,transparent:true,opacity:o||1}),wm=mk(0xffffff),SM=[wm,mk(0xff3b3b),wm,mk(0x2a7bff),wm],tm=mk(0x7fe6ff,.5);
@@ -507,7 +534,7 @@ const evr=(k,nm,rho,A)=>d.ev[k].map(e=>{const ac=actAt(e,d.i_),lv=e[5]===undefin
 return `<tr><td>${nm} #${e[3]+1}<td>${f(e[0])}–${f(e[1])} j<td>${f((e[1]-e[0])*e[2],0)} t<td>${f(ac,0)} t<td>−${f(ac/(rho*A)*100)} cm<td style="color:${cl}">${lv===null?'–':f(lv,0)+' cm'}<td>${e[0]>d.t_?'belum mulai':ac<Math.min(1,(d.t_-e[0])/(e[1]-e[0]))*(e[1]-e[0])*e[2]*.98?'terbatas cairan':'sesuai'}`}).join('');
 const Vf=pileV(S.pD),Tf=Vf*S.sGr,Vp=S.pL*S.pW*S.pD,
 prw=['Utara','Selatan'].map((nm,ix)=>{const tin=ix?d.cs1:d.cs0,rm=ix?d.rmv1:d.rmv0,iv=ix?d.inv1:d.inv0,h=Math.min(S.pD,pileH(iv/S.sGr)),arr=d.A['p'+ix],k=((k0)=>k0>=0&&k0<=d.i_?k0:-1)(arr.findIndex(v=>v>=Tf)),rate=tin/H,tf=k>=0?'penuh jam ke-'+f(k*d.dt,1):(!$('kGrab').checked&&rate>1e-6)?'≈ +'+f(Math.max(0,Tf-iv)/rate,1)+' j lagi':'–';return `<tr><td>${nm}<td>${f(tin,0)}<td>${f(rm,0)}<td>${f(iv,0)} (${f(iv/Tf*100,0)}%)<td>${f(h,2)}<td>${tf}`}).join(''),
-pondH=`<b>Kolam slag granul</b> (${S.pL}×${S.pW}×${S.pD} m, curah ${S.sGr} t/m³)<table class="sm"><tr><th><th>Masuk (t)<th>Diangkut grab (t)<th>Isi kolam<th>Tinggi (m)<th>Penuh`+prw+`</table><div class="t">Kapasitas efektif tiap kolam = <b>${f(Tf,0)} t</b> (${f(Vf,0)} m³ = ${f(Vf/Vp*100,0)}% dari volume kolam ${f(Vp,0)} m³). Grab clamshell ${S.gbV} m³ ≈ ${f(S.gbV*S.sGr,1)} t per ember, siklus ${S.gbT} menit ≈ ${f(S.gbV*S.sGr*60/S.gbT,0)} t/jam per grab; ${$('kGrab').checked?'aktif: mulai bekerja saat isi ≥ '+S.gbHi+'% dan berhenti ≤ '+S.gbLo+'% kapasitas':'nonaktif'}.</div>`;
+pondH=`<b>Kolam slag granul</b> (${S.pL}×${S.pW}×${S.pD} m, curah ${S.sGr} t/m³)<table class="sm"><tr><th><th>Masuk (t)<th>Diangkut grab (t)<th>Isi kolam<th>Tinggi (m)<th>Penuh`+prw+`</table><div class="t">Kapasitas efektif tiap kolam = <b>${f(Tf,0)} t</b> (${f(Vf,0)} m³ = ${f(Vf/Vp*100,0)}% dari volume kolam ${f(Vp,0)} m³). Grab clamshell ${S.gbV} m³ ≈ ${f(S.gbV*S.sGr,1)} t per ember; ${$('kGrab').checked?'aktif (bekerja setelah skimming ke kolam itu selesai)':'nonaktif'}.</div>`;
 $('sumT').textContent=$('kFollow').checked?'Ringkasan simulasi (sampai jam '+d.t_.toFixed(2)+' dari '+S.H+')':'Ringkasan simulasi (satu periode penuh)';
 $('sum').innerHTML='<div class="cd">'
 +c('Calcine terlebur (aktual)',f(d.cmel,0)+' t','dari feed '+f(feed,0)+' t · rata-rata '+f(d.cmel/H)+' t/h')
@@ -528,7 +555,7 @@ function chart(){if(document.body.classList.contains('simple'))return;const c=$(
 g.clearRect(0,0,w,h);g.font='18px sans-serif';g.fillStyle='#9aa';g.fillText('Level (cm dari dasar cairan FeNi)',34,14);
 const fill=(hi,lo,col)=>{g.beginPath();for(let i=0;i<=N;i++)g.lineTo(X(i),Y((hi[i]-B)*100));for(let i=N;i>=0;i--)g.lineTo(X(i),Y(lo?(lo[i]-B)*100:0));g.closePath();g.fillStyle=col;g.fill()};
 fill(A.yS,A.yM,'#f2c40fdd');fill(A.yM,null,'#ff7a1af0');
-const ln=(v,col,dash)=>{g.strokeStyle=col;g.lineWidth=3;g.setLineDash(dash?[8,5]:[]);g.beginPath();g.moveTo(34,Y(v));g.lineTo(w-8,Y(v));g.stroke();g.setLineDash([]);g.lineWidth=1};ln(S.hTap,hx(LIM.tap));ln(S.hSkim,hx(LIM.skim));ln(S.hTap+S.feNorm,hx(LIM.norm),1);ln(S.hTap+S.feLim,hx(LIM.fel));ln(S.sMax,hx(LIM.slag));
+const ln=(v,col,dash)=>{g.strokeStyle=col;g.lineWidth=3;g.setLineDash([8,5]);g.beginPath();g.moveTo(34,Y(v));g.lineTo(w-8,Y(v));g.stroke();g.setLineDash([]);g.lineWidth=1};ln(S.hTap,hx(LIM.tap));ln(S.hSkim,hx(LIM.skim));ln(S.hTap+S.feNorm,hx(LIM.norm),1);ln(S.hTap+S.feLim,hx(LIM.fel));ln(S.sMax,hx(LIM.slag));
 const ev=(a,col,yy)=>a.forEach(e=>{g.fillStyle=col;g.fillRect(X(e[0]/S.H*N),yy,Math.max(2,X(e[1]/S.H*N)-X(e[0]/S.H*N)),7)});ev(D.ev.S,hx(LIM.skim),h-16);ev(D.ev.F,hx(LIM.tap),h-8);
 g.strokeStyle='#fff';g.beginPath();g.moveTo(X(D.i),16);g.lineTo(X(D.i),h-18);g.stroke();g.fillStyle='#9aa';g.fillText(S.H+' j',w-48,14)}
 // ---------- ruler jadwal
@@ -590,7 +617,7 @@ P.p.geometry.attributes.position.needsUpdate=true}
 const NG=160,GP=new Float32Array(NG*3),GS=[],GM=new THREE.Points(new THREE.BufferGeometry(),new THREE.PointsMaterial({color:0xd5dbe3,size:.55,transparent:true,opacity:.5,depthWrite:false}));
 GM.geometry.setAttribute('position',new THREE.BufferAttribute(GP,3));GM.frustumCulled=false;sc.add(GM);
 for(let i=0;i<NG;i++){GS.push({d:1e9,T:0,v:2,pts:null,L:null,f:0});GP[i*3+1]=-999}
-function gasUpd(dt){const on=$('kGas').checked;GM.visible=on;if(!on)return;const st=D.st,rate=Math.min(1,(st.m>1?D.cap:Math.min(S.cf,D.cap))/120)*($('kLite').checked?.5:1),V3=THREE.Vector3,wE=Math.sqrt(Math.max(0,-S.pGE)),wW=Math.sqrt(Math.max(0,-S.pGW)),tot=wE+wW;
+function gasUpd(dt){const on=$('kGas').checked&&!LIQ;GM.visible=on;if(!on)return;const st=D.st,rate=Math.min(1,(st.m>1?D.cap:Math.min(S.cf,D.cap))/120)*($('kLite').checked?.5:1),V3=THREE.Vector3,wE=Math.sqrt(Math.max(0,-S.pGE)),wW=Math.sqrt(Math.max(0,-S.pGW)),tot=wE+wW;
 for(let i=0;i<NG;i++){const g=GS[i],j=i*3;if(i/NG>rate){GP[j+1]=-999;g.d=1e9;g.T=0;continue}
 if(g.d>=g.T){const[l,w]=dims(1.5),x=(Math.random()-.5)*(l-3),z=(Math.random()-.5)*(w-2),y0=st.yS+.2+Math.random()*.5,sx=Math.random()<(tot>0?wE/tot:.5)?1:-1;
 g.pts=tot>0?[new V3(x,y0,z),new V3(sx*GX,ROOF+.5,0),new V3(sx*GX,12.8,0),new V3(sx*(GX+5.5),17.6,0)]:[new V3(x,y0,z),new V3(x,ROOF+3.5,z)];
@@ -600,14 +627,14 @@ g.d+=g.v*dt;let d=g.d,k=0;while(k<g.L.length-1&&d>g.L[k]){d-=g.L[k];k++}const f=
 GP[j]=a.x+(b.x-a.x)*f;GP[j+1]=a.y+(b.y-a.y)*f;GP[j+2]=a.z+(b.z-a.z)*f}
 GM.geometry.attributes.position.needsUpdate=true}
 let last=0,acc=0,FP=0,STp=0,arcT=0,needB=0,lastB=0;
-function anim2(t,dt){AT+=dt*1000;FP+=dt*.7*Math.min(2,S.cf/110);STp+=dt*.22*Math.max(.3,S.P/60);gasUpd(dt);const lite=$('kLite').checked,on=$('kArc').checked,fd=$('kFeed').checked,st=D.st;sp.visible=arcL.visible=on;
+function anim2(t,dt){AT+=dt*1000;FP+=dt*.7*Math.min(2,S.cf/110);STp+=dt*.22*Math.max(.3,S.P/60);gasUpd(dt);const lite=$('kLite').checked,on=$('kArc').checked&&!LIQ,fd=$('kFeed').checked,st=D.st;sp.visible=arcL.visible=on;
 ANM.forEach(o=>{const u=o.userData;
 if(u.ar){const P=u.ar.P,a=P[0].distanceTo(P[1]),b=P[1].distanceTo(P[2]);let d=((AT*.0006+u.ar.o)%1)*(a+b),p,dir;
 if(d<a){dir=tv.subVectors(P[1],P[0]).normalize();p=P[0].clone().addScaledVector(dir,d)}else{dir=tv.subVectors(P[2],P[1]).normalize();p=P[1].clone().addScaledVector(dir,d-a)}
 o.position.copy(p);o.quaternion.setFromUnitVectors(Y,dir)}
 if(u.st){const c=u.st;let d=((STp+c.o)%1)*c.T,i=0;while(i<c.L.length-1&&d>c.L[i]){d-=c.L[i];i++}const a=c.P[i],b=c.P[i+1];o.material=c.SM[i];o.position.lerpVectors(a,b,Math.min(1,d/c.L[i]));tv.subVectors(b,a).normalize();o.quaternion.setFromUnitVectors(Y,tv)}
 if(u.cf){o.visible=fd&&S.cf>0;const c=u.cf;let d=((FP+c.o)%1)*c.T,i=0;while(i<c.L.length-1&&d>c.L[i]){d-=c.L[i];i++}o.position.lerpVectors(c.P[i],c.P[i+1],Math.min(1,d/c.L[i]))}});
-if(CF.pts){CF.pts.visible=fd&&S.cf>0;if(CF.pts.visible){CF.items.forEach((it,k)=>{const p=it.p;let d=((FP+it.o)%1)*p.T,i=0;while(i<p.L.length-1&&d>p.L[i]){d-=p.L[i];i++}const a=p.P[i],b=p.P[i+1],f=Math.min(1,d/p.L[i]);CF.pos[k*3]=a.x+(b.x-a.x)*f;CF.pos[k*3+1]=a.y+(b.y-a.y)*f;CF.pos[k*3+2]=a.z+(b.z-a.z)*f});CF.pts.geometry.attributes.position.needsUpdate=true}}
+if(CF.pts){CF.pts.visible=fd&&S.cf>0&&!LIQ;if(CF.pts.visible){CF.items.forEach((it,k)=>{const p=it.p;let d=((FP+it.o)%1)*p.T,i=0;while(i<p.L.length-1&&d>p.L[i]){d-=p.L[i];i++}const a=p.P[i],b=p.P[i+1],f=Math.min(1,d/p.L[i]);CF.pos[k*3]=a.x+(b.x-a.x)*f;CF.pos[k*3+1]=a.y+(b.y-a.y)*f;CF.pos[k*3+2]=a.z+(b.z-a.z)*f});CF.pts.geometry.attributes.position.needsUpdate=true}}
 if(STMP&&EQ){const pr=D.eqi&&D.eqi.pour;STMP.pts.visible=!!pr;if(pr){for(let q=0;q<STMP.n;q++){const j=q*3;if(STMP.l[q]<=0){if(dt>0&&Math.random()<.3){STMP.pos[j]=EQ.TK.x+(Math.random()-.5)*3.2;STMP.pos[j+1]=-.2;STMP.pos[j+2]=EQ.TK.z+(Math.random()-.5)*3.2;STMP.l[q]=1+Math.random()*1.5}else STMP.pos[j+1]=-999}else{STMP.l[q]-=dt;STMP.pos[j+1]+=dt*1.6;STMP.pos[j]+=dt*(Math.random()-.5)*.4}}STMP.pts.geometry.attributes.position.needsUpdate=true}}
 const iF=st.sF,iS=st.sS;
 const tm_=MODE()==='temp';PF.p.material.color.setHex(tm_?tcH(st.mo.Tm):0xff9a3a);PS.p.material.color.setHex(tm_?tcH(st.mo.Tsk):0xffe14a);flowPts(PF,st.fo>1e-4,1,B+S.hTap/100,HZ[iF],B+.03,st.yM,dt);flowPts(PS,st.so>1e-4,-1,B+S.hSkim/100,HZ[iS],st.yM,st.yS,dt);
@@ -620,9 +647,12 @@ pg2.attributes.position.needsUpdate=true;
 arcT+=dt;if(arcT>.05){arcT=0;let k=0;D.tips.forEach(e=>{for(let a=0;a<3;a++){let x=e.x,y=e.y,z=0;const ang=Math.random()*6.283,rr=D.rad*(.8+Math.random()*.9),ex=e.x+Math.cos(ang)*rr,ez=Math.sin(ang)*rr,ey=e.m+.02+Math.random()*(e.y-e.m+.4);
 for(let s=1;s<=5;s++){const f=s/5,j=s<5?1:0,nx=e.x+(ex-e.x)*f+j*(Math.random()-.5)*.35,ny=e.y+(ey-e.y)*f+j*(Math.random()-.5)*.25,nz=ez*f+j*(Math.random()-.5)*.35;
 AP[k++]=x;AP[k++]=y;AP[k++]=z;AP[k++]=nx;AP[k++]=ny;AP[k++]=nz;x=nx;y=ny;z=nz}}});arcG.attributes.position.needsUpdate=true}}
-let sigPrev='',lastU=0,fpsA=0,fpsN=0,autoL=false;
+let sigPrev='',lastU=0,fpsA=0,fpsN=0,autoL=false,SF=1,lastBT=0;
+function autoTarget(){if(CIN.on||RANGE.on||!$('kAuto').checked||!D.A)return 1;const e=D.eqi||{},st=D.st,t=S.tm,lim=[];
+if((D.ev.F||[]).some(x=>t>=x[0]&&t<x[1]))lim.push(.033);if(st.so>1e-4)lim.push(.125);const sg=e.stage||'';if(/transport|kembali/.test(sg))lim.push(.0208);else if(sg==='ladle furnace')lim.push(.0625);else if(/tilting/.test(sg))lim.push(.0278);
+if([0,1].some(ix=>(D.gseg[ix]||[]).some(x=>t>=x[0]&&t<x[1])))lim.push(D.tauG/2.4);return lim.length?Math.min(1,Math.min(...lim)/.2):1}
 function updEQ(){const eq=EQ;if(!eq||!D.A||!D.st||!D.st.mo)return;const t=S.tm,i=D.i,A=D.A,sm=x=>x*x*(3-2*x),cl01=x=>Math.max(0,Math.min(1,x)),Y0=-1.3,YT=1.2,V3=THREE.Vector3;
-eq.grab.forEach(g=>{const w=A['w'+g.ix][i],ph=w?(((AT/1000)/6+g.ix*.5)%1):0,hTop=3.7,hDig=eq.pf+.15+pileH((A['p'+g.ix][i]||0)/S.sGr)+.95,hDump=2.0;let u=0,hy=hTop,jaw=0,ld=0;
+eq.grab.forEach(g=>{const sg=(D.gseg[g.ix]||[]).find(e=>t>=e[0]&&t<e[1]),w=!!sg,ph=w?(((t-sg[0])/D.tauG)%1):0,hTop=3.7,hDig=eq.pf+.15+pileH((A['p'+g.ix][i]||0)/S.sGr)+.95,hDump=2.0;let u=0,hy=hTop,jaw=0,ld=0;
 if(w){if(ph<.15){u=sm(ph/.15);jaw=1}else if(ph<.3){u=1;jaw=1;hy=hTop+(hDig-hTop)*sm((ph-.15)/.15)}else if(ph<.4){u=1;hy=hDig;jaw=1-(ph-.3)/.1}else if(ph<.55){u=1;hy=hDig+(hTop-hDig)*sm((ph-.4)/.15);ld=1}else if(ph<.8){u=1-sm((ph-.55)/.25);ld=1}else if(ph<.9){const a=(ph-.8)/.1;hy=hTop+(hDump-hTop)*Math.min(1,a*2);jaw=a;ld=a<.5?1:0}else{hy=hDump+(hTop-hDump)*sm((ph-.9)/.1);jaw=1}}
 g.br.position.x=g.dumpX+(g.digX-g.dumpX)*u;g.hook.position.y=hy-g.yT;const len=Math.max(.1,g.yT-hy-.2);g.rope.scale.y=len;g.rope.position.y=-len/2;g.jL.rotation.z=-jaw*.8;g.jR.rotation.z=jaw*.8;g.load.visible=!!ld;
 const rm=A['g'+g.ix][i],h=Math.max(.01,Math.min(1.5,rm/150));g.stock.scale.set(1,h,1);g.stock.position.y=.3+h/2});
@@ -630,14 +660,14 @@ const F=D.ev.F||[],Ttr=S.tTr,Tlf=S.tLf,Tp=S.tPour,c1=Ttr,c2=c1+Tlf,c3=c2+Ttr,c4=
 const cum=tt=>{let g=0;F.forEach(e=>{const u=((tt-e[1])*60-c3)/Tp;if(u>0)g+=e[4]*pfr(Math.min(1,u))});return g};
 let ev=null,k0=-1;F.forEach((e,k)=>{if(e[0]<=t){ev=e;k0=k}});
 const nx=F[k0+1],sA=eq.O,sB=eq.O,HU=8.6;
-let lx=sA.x,lz=sA.z,lb=Y0,ang=0,fill=0,cr={x:eq.home.x,z:eq.home.z,hy:HU},lfOn=0,stage='idle',Tl=null,tot=0,pour=false,pu=0;
+let over=0,lx=sA.x,lz=sA.z,lb=Y0,ang=0,fill=0,cr={x:eq.home.x,z:eq.home.z,hy:HU},lfOn=0,stage='idle',Tl=null,tot=0,pour=false,pu=0;
 const tp=(u,P0,P1,C0,y0,y1)=>{const lh=Math.max(y0,y1)+4.5;let cx,cz,b=y0,hy=HU,att=false;
 if(u<.2){const a=sm(u/.2);cx=C0.x+(P0.x-C0.x)*a;cz=C0.z+(P0.z-C0.z)*a}else if(u<.3){cx=P0.x;cz=P0.z;hy=HU+(y0+2-HU)*sm((u-.2)/.1)}else if(u<.45){cx=P0.x;cz=P0.z;b=y0+(lh-y0)*sm((u-.3)/.15);hy=b+2;att=true}
 else if(u<.8){const a=sm((u-.45)/.35);cx=P0.x+(P1.x-P0.x)*a;cz=P0.z+(P1.z-P0.z)*a;b=lh;hy=b+2;att=true}else if(u<.95){cx=P1.x;cz=P1.z;b=lh+(y1-lh)*sm((u-.8)/.15);hy=b+2;att=true}else{cx=P1.x;cz=P1.z;b=y1;hy=y1+2+(HU-y1-2)*sm((u-.95)/.05)}
 return{cx,cz,b,hy,att}};
 const place=(r,u,P0,P1,y0,y1)=>{cr={x:r.cx,z:r.cz,hy:r.hy};lx=r.att?r.cx:(u<.3?P0.x:P1.x);lz=r.att?r.cz:(u<.3?P0.z:P1.z);lb=r.att?r.b:(u<.3?y0:y1)};
 if(ev){const tau=(t-ev[1])*60;tot=ev[4];const ff=Math.min(1,tot/S.ladCap),ie=Math.min(D.N,Math.round(ev[1]/D.dt)),Tt=A.mo[ie].Tm,dT=.6*S.lfP*S.tLf*60/Math.max(1,tot*.8),Tat=x=>Tt-x+dT*cl01((Math.min(x,c2)-c1)/Tlf);
-if(t<ev[1]){stage='tapping';fill=Math.min(1,actAt(ev,i)/S.ladCap);cr={x:sA.x,z:sA.z,hy:HU};Tl=Tt}
+if(t<ev[1]){stage='tapping';fill=Math.min(1,actAt(ev,i)/S.ladCap);over=Math.max(0,actAt(ev,i)-S.ladCap);cr={x:sA.x,z:sA.z,hy:HU};Tl=Tt}
 else if(tau<c1){stage='transport ke LF';const u=tau/Ttr;place(tp(u,sA,eq.LF,eq.home,Y0,Y0),u,sA,eq.LF,Y0,Y0);fill=ff;Tl=Tat(tau)}
 else if(tau<c2){stage='ladle furnace';lx=eq.LF.x;lz=eq.LF.z;fill=ff;cr={x:eq.LF.x,z:eq.LF.z,hy:HU};const p=(tau-c1)/Tlf;lfOn=Math.max(0,Math.min(1,p/.12,(1-p)/.12));Tl=Tat(tau)}
 else if(tau<c3){stage='transport ke tilting';const u=(tau-c2)/Ttr;place(tp(u,eq.LF,eq.TL,eq.LF,Y0,YT),u,eq.LF,eq.TL,Y0,YT);fill=ff;Tl=Tat(tau)}
@@ -645,25 +675,29 @@ else if(tau<c4){stage='tilting & granulasi';pu=(tau-c3)/Tp;lx=eq.TL.x;lz=eq.TL.z
 else if(tau<c5){stage='ladle kembali';const u=(tau-c4)/Ttr;place(tp(u,eq.TL,sB,eq.TL,YT,Y0),u,eq.TL,sB,YT,Y0)}
 else{stage='idle';cr={x:sB.x,z:sB.z,hy:HU}}}
 eq.hm.hb.position.z=cr.z;eq.hm.ht.position.x=cr.x;eq.hm.hook.position.y=cr.hy;const hl=Math.max(.1,10.7-cr.hy);eq.hm.rope.scale.y=hl;eq.hm.rope.position.y=cr.hy+hl/2;
-eq.lad.tilt.position.set(lx+1.15,lb+1.65,lz);eq.lad.tilt.rotation.z=-ang;eq.lad.melt.visible=fill>.01&&ang<.35;eq.lad.melt.position.y=.25+fill*1.3;eq.lad.melt.material.color.setHex(MODE()==='temp'&&Tl!==null?tcH(Tl):PAL.fe);
+eq.lad.tilt.position.set(lx+1.15,lb+1.65,lz);eq.lad.tilt.rotation.z=-ang;const hF=Math.max(.01,fill*1.5),mm=eq.lad.melt;mm.visible=fill>.01&&ang<.9;mm.scale.y=hF;mm.position.y=.1+hF/2;mm.material.color.setHex(MODE()==='temp'&&Tl!==null?tcH(Tl):PAL.fe);
+const ovf=stage==='tapping'&&over>.05&&D.st.fo>1e-4;eq.lad.ovR.visible=ovf;eq.lad.ovS.forEach(m=>m.visible=ovf);
+const ovTot=ev?Math.max(0,(t<ev[1]?actAt(ev,i):tot)-S.ladCap):0,pd=eq.lad.puddle;pd.visible=ovTot>.05;if(pd.visible){const r_=1.4+Math.sqrt(ovTot);pd.scale.set(r_,r_,1);pd.material.color.setHex(ev&&t<ev[1]+.25?PAL.fe:0x5a4636)}
 eq.lf.arm.position.y=5-1.8*lfOn;eq.lf.els.forEach(g=>g.visible=lfOn>.3);
 const sp=new V3(lx+1.15,lb+1.65,lz),tg_=new V3(eq.TK.x-.4,-.2,eq.TK.z),st=eq.tl.stream;st.visible=pour;
 const aim=(m,a,b)=>{const d=new V3().subVectors(b,a),L=d.length();m.position.copy(a).addScaledVector(d,.5);m.scale.y=L;m.quaternion.setFromUnitVectors(new V3(0,1,0),d.normalize())};
 if(pour){aim(st,sp,tg_);st.material.color.setHex(MODE()==='temp'&&Tl!==null?tcH(Tl):0xffa030)}eq.tl.jets.forEach((j,k)=>{j.visible=pour;if(pour)aim(j,new V3(eq.TK.x-1.6,1.3,eq.TK.z+(k?1.4:-1.4)),new V3(eq.TK.x-.6,.9,eq.TK.z))});
 const G=cum(t),Gd=cum(t-S.tDry/60),Dry=Math.max(0,G-Gd),nb=Math.min(72,Math.floor(Gd/S.bagT));if(Dry>.5)eq.dr.drum.rotation.z=AT*.0006;eq.bags.forEach((b,k)=>b.visible=k<nb);
-D.eqi={stage,T:Tl,fill,tot,load:25+fill*S.ladCap,lfOn,pour,G,Dry,Pk:Gd,bags:nb,ang}}
-function loop(t){requestAnimationFrame(loop);if(CIN.on)try{cineStep(t)}catch(err){console.error(err)}const dt=Math.min(.1,(t-last)/1000);last=t;
+D.eqi={stage,T:Tl,fill,tot,over:ovTot,load:25+fill*S.ladCap,lfOn,pour,G,Dry,Pk:Gd,bags:nb,ang}}
+function loop(t){requestAnimationFrame(loop);if(CIN.on)try{cineStep(t)}catch(err){console.error(err)}
+if(RANGE.on)try{rangeStep(t)}catch(err){console.error(err)}const dt=Math.min(.1,(t-last)/1000);last=t;
 fpsA+=dt;fpsN++;if(fpsA>3){if(fpsA/fpsN>.045&&!$('kLite').checked&&!autoL){autoL=true;$('kLite').checked=true;$('kLite').onchange();const tip=$('tip');tip.textContent='Simulasi berat terdeteksi: Mode ringan diaktifkan otomatis (bisa dimatikan di panel Tampilan)';tip.style.left='12px';tip.style.top='70px';tip.classList.remove('hid');setTimeout(()=>tip.classList.add('hid'),6000)}fpsA=0;fpsN=0}
 let changed=false;
-if($('kPlay').checked){S.tm+=dt*S.spd;if(S.tm>S.H)S.tm=0;IN.tm[0].value=IN.tm[1].value=S.tm.toFixed(2);changed=true}
+SF+=(autoTarget()-SF)*Math.min(1,dt*2.5);if($('kPlay').checked){S.tm+=dt*S.spd*SF;if(S.tm>S.H)S.tm=RANGE.on?S.H:0;IN.tm[0].value=IN.tm[1].value=S.tm.toFixed(2);changed=true}
 const tf=D.st.fo>1e-4?.05:0,ts=D.st.so>1e-4?.12:0,k=Math.min(1,dt*4);
 if(Math.abs(tf-DIP.f)>.002||Math.abs(ts-DIP.s)>.002){DIP.f+=(tf-DIP.f)*k;DIP.s+=(ts-DIP.s)*k;changed=true}
-if(changed)try{pick();const st=D.st,sig=[Math.round(st.yM*100),Math.round(st.yS*100),Math.round(st.m/8),st.fo>1e-4?1:0,st.so>1e-4?1:0,Math.round(pileH((D.A.p0[D.i]||0)/S.sGr)*20),Math.round(pileH((D.A.p1[D.i]||0)/S.sGr)*20),st.sF,st.sS,Math.round(DIP.f*40),Math.round(DIP.s*40)].join('|'),gap=$('kLite').checked?240:MODE()==='norm'?120:MODE()==='stir'?200:450;
-if(sig!==sigPrev&&t-lastB>gap){sigPrev=sig;lastB=t;build()}
-if(t-lastU>250){lastU=t;const sl=document.body.classList.contains('simple')&&document.body.classList.contains('nol');if(!sl){if($('kFollow').checked)summary();rows()}metUpd();chart();ruler()}}catch(err){console.error(err)}
+if(changed)try{pick();const st=D.st,cq=(CIN.on||REC.on)?.5:1,sig=[Math.round(st.yM*40*cq),Math.round(st.yS*40*cq),Math.round(st.m/(20/cq)),st.fo>1e-4?1:0,st.so>1e-4?1:0,Math.round((D.A.p0[D.i]||0)/(S.gbV*S.sGr)),Math.round((D.A.p1[D.i]||0)/(S.gbV*S.sGr)),st.sF,st.sS,Math.round(DIP.f*40),Math.round(DIP.s*40)].join('|'),gap=Math.max($('kLite').checked?400:MODE()==='norm'?300:MODE()==='stir'?300:500,lastBT*12,(CIN.on||REC.on)?900:0);
+if(sig!==sigPrev&&t-lastB>gap){sigPrev=sig;lastB=t;const b0=performance.now();build();lastBT=Math.min(60,performance.now()-b0)}
+if(t-lastU>250){lastU=t;if(LIQ&&!RANGE.on)drawOnScreen(84);if(!(cl.contains('rv')||cl.contains('cine'))){const sl=document.body.classList.contains('simple')&&document.body.classList.contains('nol');if(!sl){if($('kFollow').checked)summary();rows()}metUpd();chart();ruler()}}}catch(err){console.error(err)}
 try{anim2(t,$('kPlay').checked?dt:0)}catch(err){console.error(err)}
 try{updEQ()}catch(err){console.error(err)}
-try{R.render(sc,cam)}catch(err){console.error(err)}}
+try{R.render(sc,cam)}catch(err){console.error(err)}
+if(REC.on)try{recFrame(t)}catch(err){console.error(err)}}
 const lgi=(c,t)=>`<i style="background:${hx(c)}"></i>${t}`,LGL=[[LIM.tap,'Tap hole'],[LIM.skim,'Skimming hole'],[LIM.norm,'FeNi normal'],[LIM.fel,'FeNi maks'],[LIM.slag,'Slag maks'],[LIM.calc,'Calcine maks']];
 $('lgl').innerHTML=LGL.map(a=>lgi(...a)).join(' ')+'<br>'+[[PAL.fe,'FeNi'],[PAL.slag,'Slag'],[PAL.calc,'Calcine'],[PAL.dead,'Dead stock'],[0x2fbf5a,'Slag granul (padat, hijau)']].map(a=>lgi(...a)).join(' ');
 $('lgs').innerHTML=LGL.slice(0,5).map(a=>lgi(...a)).join('');
@@ -688,14 +722,14 @@ $('tp').innerHTML='Titik: '+tx;PM.position.copy(p);PM.visible=true;const tip=$('
 // ================= antarmuka sederhana =================
 let RING_ON=false,curSc=0,tourI=-2;
 const f1=(v,n=1)=>v.toFixed(n);
-const SCN=[['Gambaran',{v:[.9,1,62,0,3,0],md:'rN'}],['Cairan',{v:[.45,1.05,38,-4,2,0],md:'rN',ring:1,go:'S'}],['Calcine',{v:[.2,.8,36,0,6,0],md:'rN',lbl:1}],['Sirkulasi',{v:[0,1.15,34,0,2,0],md:'rS'}],['Suhu',{v:[0,1.4,46,0,3.5,0],md:'rT'}],['Offgas',{v:[.7,1,42,8,8,0],md:'rN'}],['Crane & LF',{v:[.7,1,28,26,3,-10],md:'rN',gof:1}],['Granulasi FeNi',{v:[.9,1,26,37,3,-20],md:'rN',gof2:1}],['Dryer & Packing',{v:[1.2,1.05,44,45,2,-4],md:'rN',gof3:1}],['Kolam',{v:VW.pond,md:'rN',end:1}]];
-function applyScene(i){const o=SCN[i][1],v=o.v;curSc=i;[th,ph,rd]=v;tg.set(v[3],v[4],v[5]);setCam();['rN','rS','rT'].forEach(id=>$(id).checked=id===o.md);$('kLbl').checked=!!o.lbl;RING_ON=!!o.ring;
+const SCN=[['Gambaran',{v:[.9,1,62,0,3,0],md:'rN'}],['Cairan',{v:[.45,1.05,38,-4,2,0],md:'rN',ring:1,go:'S'}],['Calcine',{v:[.2,.8,36,0,6,0],md:'rN',lbl:1}],['Sirkulasi',{v:[0,1.15,34,0,2,0],md:'rS'}],['Suhu',{v:[0,1.4,46,0,3.5,0],md:'rT'}],['Offgas',{v:[.7,1,42,8,8,0],md:'rN'}],['Crane & LF',{v:[.7,1,28,26,3,-10],md:'rN',gof:1}],['Granulasi FeNi',{v:[.9,1,26,37,3,-20],md:'rN',gof2:1}],['Dryer & Packing',{v:[1.2,1.05,44,45,2,-4],md:'rN',gof3:1}],['Cairan panas',{v:[.35,1.3,40,0,1.5,0],md:'rN',liq:1}],['Kolam',{v:VW.pond,md:'rN',end:1}]];
+function applyScene(i){const o=SCN[i][1],v=o.v;setLiq(!!o.liq);curSc=i;[th,ph,rd]=v;tg.set(v[3],v[4],v[5]);setCam();['rN','rS','rT'].forEach(id=>$(id).checked=id===o.md);$('kLbl').checked=!!o.lbl;RING_ON=!!o.ring;
 if(o.go&&D.ev[o.go]&&D.ev[o.go].length)S.tm=Math.min(S.H,D.ev[o.go][0][0]+.05);else if(o.gof&&D.ev.F.length)S.tm=D.ev.F[0][1]+.01;else if(o.gof2&&D.ev.F.length)S.tm=Math.min(S.H,D.ev.F[0][1]+(2*S.tTr+S.tLf+3)/60);else if(o.gof3&&D.ev.F.length)S.tm=Math.min(S.H,D.ev.F[0][1]+(3*S.tTr+S.tLf+S.tPour+S.tDry+10)/60);else if(o.end)S.tm=S.H;
 IN.tm[0].value=IN.tm[1].value=S.tm.toFixed(2);document.querySelectorAll('#chips .chip').forEach((b,k)=>b.classList.toggle('on',k===i));upd()}
 SCN.forEach(([nm],i)=>{const b=document.createElement('button');b.className='chip'+(i===0?' on':'');b.textContent=nm;b.onclick=()=>applyScene(i);$('chips').appendChild(b)});
 const QC=[['I','Arus furnace','kA',15,45,.1,1],['V','Tegangan sekunder','V',300,800,5,0],['red','Coal (reduktan)','%',0,10,.05,2],['cf','Calcine input','t/h',0,250,.25,1]];
 QC.forEach(([k,lb,u,mn,mx,st,dg])=>{const r=document.createElement('div');r.className='qr';r.innerHTML=`<label><span>${lb}</span><b id="qv_${k}"></b></label><input type="range" min="${mn}" max="${mx}" step="${st}">`;const inp=r.querySelector('input');inp.value=S[k];inp.oninput=()=>{const v=parseFloat(inp.value);if(!isFinite(v))return;S[k]=v;IN[k][0].value=IN[k][1].value=v;SIM=1;upd()};$('qcB').appendChild(r);r._i=inp;QC[QC.indexOf(QC.find(q=>q[0]===k))].push(inp)});
-[['½×',.4],['1×',.8],['2×',1.6],['4×',3.2]].forEach(([t,v])=>{const b=document.createElement('button');b.textContent=t;b.dataset.v=v;b.onclick=()=>{S.spd=v;IN.spd[0].value=IN.spd[1].value=v;uiUpd()};$('spd').appendChild(b)});
+[['¼×',.05],['½×',.1],['1×',.2],['2×',.4],['4×',.8]].forEach(([t,v])=>{const b=document.createElement('button');b.textContent=t;b.dataset.v=v;b.onclick=()=>{S.spd=v;IN.spd[0].value=IN.spd[1].value=v;uiUpd()};$('spd').appendChild(b)});
 $('pp').onclick=()=>{$('kPlay').checked=!$('kPlay').checked;uiUpd()};
 $('tsl').oninput=()=>{S.tm=parseFloat($('tsl').value);IN.tm[0].value=IN.tm[1].value=S.tm.toFixed(2);upd()};
 $('clg').innerHTML=[[PAL.fe,'FeNi'],[PAL.slag,'Slag'],[PAL.calc,'Calcine'],[PAL.dead,'Dead stock'],[0x2fbf5a,'Slag granul']].map(([c,t])=>`<span><i style="background:${hx(c)}"></i>${t}</span>`).join('');
@@ -704,14 +738,14 @@ $('kpiB').innerHTML=k('Daya furnace',f1(D.Pel)+' MW',S.I+' kA · '+S.V+' V')+k('
 const fl=[];if(D.cap<S.cf)fl.push(['b','Feed > kapasitas lebur']);
 if(D.tHit!==null&&D.tHit<=S.tm)fl.push(['b','Calcine di batas']);else if((D.A.pk[D.i]-B)*100>S.calcLim-10)fl.push(['w','Calcine mendekati batas']);
 const sh=mo.T-mo.Tliq;if(sh<50)fl.push(['b','Superheat rendah']);else if(sh>250)fl.push(['w','Terlalu panas']);
-if(fa<0)fl.push(['b','FeNi di bawah tap hole']);else if(fa>S.feLim)fl.push(['w','FeNi di atas batas']);if(ls>S.sMax)fl.push(['w','Slag di atas batas']);
+if(fa<0)fl.push(['b','FeNi di bawah tap hole']);else if(fa>S.feLim)fl.push(['w','FeNi di atas batas']);if(ls>S.sMax)fl.push(['w','Slag di atas batas']);if(D.eqi&&D.eqi.over>.05)fl.push(['b','Ladle meluber '+f1(D.eqi.over,1)+' t']);
 $('stt').innerHTML=fl.length?fl.map(([c,t])=>`<span class="st ${c}">${t}</span>`).join(''):'<span class="st">✔ Kondisi normal</span>';
 QC.forEach(q=>{const[k,,u,,,,dg,inp]=q,lab=$('qv_'+k);if(lab)lab.textContent=S[k].toFixed(dg)+' '+u;if(inp&&document.activeElement!==inp)inp.value=S[k]});
 const ts=$('tsl');ts.max=S.H;if(document.activeElement!==ts)ts.value=S.tm;$('pp').textContent=$('kPlay').checked?'⏸':'▶';
-document.querySelectorAll('#spd button').forEach(b=>b.classList.toggle('on',Math.abs(+b.dataset.v-S.spd)<.05));
+document.querySelectorAll('#spd button').forEach(b=>b.classList.toggle('on',Math.abs(+b.dataset.v-S.spd)<.02));
 let nx='';const all=[...D.ev.S.map(e=>['Skimming',e]),...D.ev.F.map(e=>['Tapping',e])].sort((a,b)=>a[1][0]-b[1][0]);const cur=all.find(([,e])=>S.tm>=e[0]&&S.tm<e[1]),nxt=all.find(([,e])=>e[0]>S.tm);
 nx=cur?cur[0]+' berlangsung':nxt?nxt[0]+' dalam '+f1(nxt[1][0]-S.tm)+' j':'tidak ada bukaan lagi';
-$('tl').innerHTML='jam '+f1(S.tm)+' / '+S.H+'<br><small>'+nx+'</small>'}
+if(SF<.95)nx+=' · melambat otomatis';$('tl').innerHTML='jam '+f1(S.tm)+' / '+S.H+'<br><small>'+nx+'</small>'}
 // ----- klik bagian furnace -----
 const PI={
 elektroda:()=>['Elektroda (6 buah)','Elektroda grafit tercelup di slag. Arus listrik melewati slag; hambatan slag mengubahnya menjadi panas yang melelehkan calcine.',`Arus ${S.I} kA · ${S.V} V · cosφ ${S.pf}<br>Daya ${f1(D.Pel)} MW · densitas arus ${f1(D.CD,2)} A/cm²<br>Diameter ${S.dia} cm · imersi ${S.imm} cm`],
@@ -726,10 +760,10 @@ skim:()=>['Skimming hole slag (barat)','Dua lubang di sisi barat; slag mengalir 
 duct:()=>['Duct offgas (timur & barat)','Menyalurkan gas hasil reaksi dan peleburan keluar furnace. Tekanan negatif (draft) menarik gas ke duct.',`Tekanan timur ${S.pGE} Pa · barat ${S.pGW} Pa<br>Gas ≈ ${f1(D.gasT/Math.max(D.t_,.01))} t/h`],
 kolam:()=>['Kolam slag granul','Slag cair yang jatuh ke kolam disemprot air sehingga menjadi granul padat dan menumpuk membentuk slope.',`Ukuran ${S.pL}×${S.pW}×${S.pD} m · curah ${S.sGr} t/m³<br>Kapasitas efektif ${f1(pileV(S.pD)*S.sGr,0)} t`],
 launder:()=>['Launder','Saluran cairan dari lubang ke ladle (FeNi, timur) atau ke kolam (slag, barat).',''],ladle:()=>['Ladle FeNi','Wadah penampung FeNi cair dari tapping.','']};
-PI.grab=()=>{const A=D.A,i=D.i,st=n=>A['w'+n][i]?'bekerja':'menunggu',cyc=S.gbV*S.sGr;return['Grab clamshell (2 unit)',`Overhead crane dengan bucket clamshell ${S.gbV} m³ untuk mengangkat slag granul dari kolam ke bunker. ≈ ${f1(cyc,1)} t per ember, siklus ${S.gbT} menit.`,`Utara: ${st(0)} · diangkut ${f1(A.g0[i],0)} t<br>Selatan: ${st(1)} · diangkut ${f1(A.g1[i],0)} t<br>Mulai ≥ ${S.gbHi}% kapasitas, berhenti ≤ ${S.gbLo}%`]};
+PI.grab=()=>{const A=D.A,i=D.i,t=S.tm,st=n=>(D.gseg[n]||[]).some(e=>t>=e[0]&&t<e[1])?'bekerja':'menunggu',cyc=S.gbV*S.sGr;return['Grab clamshell (2 unit)',`Overhead crane dengan bucket clamshell ${S.gbV} m³ untuk mengangkat slag granul dari kolam ke bunker, setelah skimming ke kolam itu selesai. ≈ ${f1(cyc,1)} t per ember; slag di kolam berkurang saat ember menutup.`,`Utara: ${st(0)} · diangkut ${f1(A.g0[i],0)} t · sisa ${f1(A.p0[i],0)} t<br>Selatan: ${st(1)} · diangkut ${f1(A.g1[i],0)} t · sisa ${f1(A.p1[i],0)} t`]};
 PI.bunker=()=>['Bunker slag granul','Tempat grab menumpahkan slag granul yang diangkat dari kolam.',`Utara ${f1(D.A.g0[D.i],0)} t · Selatan ${f1(D.A.g1[D.i],0)} t diangkut`];
 PI.hmc=()=>{const e=D.eqi||{};return['Hot metal crane '+S.crCap+' t','Memindahkan ladle berisi FeNi cair dari area tapping ke ladle furnace setelah tapping selesai, lalu mengembalikan ladle kosong.',`Tahap: ${e.stage||'idle'}<br>Beban ladle ≈ ${f1(e.load||0,0)} t dari ${S.crCap} t (${f1((e.load||0)/S.crCap*100,0)} %)`]};
-PI.ladle=()=>{const e=D.eqi||{};return['Ladle FeNi','Wadah FeNi cair hasil tapping (kapasitas '+S.ladCap+' t).',`Tahap: ${e.stage||'idle'}<br>Isi ≈ ${f1((e.fill||0)*S.ladCap,0)} t FeNi${e.T?'<br>Suhu ≈ '+f1(e.T,0)+' °C':''}`]};
+PI.ladle=()=>{const e=D.eqi||{};return['Ladle FeNi','Wadah FeNi cair hasil tapping (kapasitas '+S.ladCap+' t).',`Tahap: ${e.stage||'idle'}<br>Isi ≈ ${f1((e.fill||0)*S.ladCap,0)} t FeNi dari kapasitas ${S.ladCap} t${e.T?'<br>Suhu ≈ '+f1(e.T,0)+' °C':''}${e.over>.05?'<br><b style="color:#ff8a8a">Meluber ≈ '+f1(e.over,1)+' t (melebihi kapasitas ladle)</b>':''}`]};
 PI.lf=()=>{const e=D.eqi||{},tot=Math.max(1,e.tot||58),dT=.6*S.lfP*S.tLf*60/(tot*.8);return['Ladle furnace (3 elektroda)','Memanaskan kembali FeNi di ladle dengan 3 elektroda agar suhu tuang tetap terjaga setelah transportasi.',`Daya ${S.lfP} MW · ${S.tLf} menit<br>Kenaikan suhu ≈ ${f1(dT,0)} °C (efisiensi 60%, ${f1(tot,0)} t FeNi)<br>Status: ${e.stage==='LF'?'memanaskan':'menunggu'}`]};
 PI.tilt=()=>{const e=D.eqi||{};return['Tilting device','Ladle diletakkan di sini lalu dimiringkan untuk menuang FeNi cair ke tangki granulasi; cairan disemprot air bertekanan sehingga membentuk granul.',`Tahap: ${e.stage||'idle'}<br>Sudut ${f1((e.ang||0)*57.3,0)}° · penuangan ${e.pour?'berlangsung':'tidak aktif'}<br>Tergranulasi kumulatif ${f1(e.G||0,1)} t`]};
 PI.tank=()=>{const e=D.eqi||{};return['Tangki granulasi FeNi','Air bertekanan memecah aliran FeNi cair menjadi granul padat; uap air naik saat penuangan.',`Penuangan: ${e.pour?'berlangsung':'tidak aktif'}<br>Granul kumulatif ${f1(e.G||0,1)} t`]};
@@ -761,18 +795,75 @@ function cineShots(){const E=EQ||{O:{x:24,z:0},LF:{x:26,z:-16.5},TL:{x:34,z:-23}
 {d:8,a:[-.5,1.05,26,-10,1.5,0],b:[-.7,1,34,-24,1,0],md:'rN',spd:.5,tm:tS0,t:['10 · Skimming slag','Slag keluar lewat skimming hole dan launder ke kolam di sisi yang sama']},
 {d:12,a:[.3,.9,34,-42,-2,0],b:[-.5,.8,26,-42,-2,0],md:'rN',spd:.5,tm:null,t:['11 · Granulasi slag dan grab clamshell',`Slag cair menjadi granul padat; grab ${S.gbV} m³ mengangkatnya ke bunker`]},
 {d:6,a:[.9,1.1,70,0,3,0],b:[1.6,1,90,-4,3,0],md:'rN',spd:.2,tm:null,t:['Ringkasan',`${D.Pel.toFixed(1)} MW · FeNi ${mo.yFe.toFixed(1)}% (Ni ${mo.grNi.toFixed(1)}%) · kapasitas lebur ${D.cap.toFixed(0)} t/jam`]}]}
-function startCine(){if(CIN.on)return;const ids=['kFeed','kArc','kGas','kRoof','kLbl','kCalT','kSlT','kFeT'];CIN.saved={ids:ids.map(i=>[i,$(i).checked]),pn:PN.map(c=>cl.contains(c)),play:$('kPlay').checked,spd:S.spd,tm:S.tm,simple:cl.contains('simple')};
+function startCine(rec){if(CIN.on)return;CIN.rec=!!rec;const ids=['kFeed','kArc','kGas','kRoof','kLbl','kCalT','kSlT','kFeT'];CIN.saved={ids:ids.map(i=>[i,$(i).checked]),pn:PN.map(c=>cl.contains(c)),play:$('kPlay').checked,spd:S.spd,tm:S.tm,simple:cl.contains('simple')};
 ids.forEach(i=>$(i).checked=['kFeed','kArc','kGas'].includes(i));$('kPlay').checked=true;RING_ON=false;PN.forEach(c=>cl.add(c));cl.add('cine');$('cine').classList.remove('hid');$('card').classList.add('hid');$('tour').classList.add('hid');
-CIN.shots=cineShots();CIN.tot=CIN.shots.reduce((a,b)=>a+b.d,0);CIN.t0=null;CIN.i=-1;CIN.on=true;window.__cine=true}
-function stopCine(){if(!CIN.on)return;CIN.on=false;window.__cine=false;const sv=CIN.saved;sv.ids.forEach(([i,v])=>$(i).checked=v);PN.forEach((c,k)=>sv.pn[k]?cl.add(c):cl.remove(c));cl.remove('cine');$('cine').classList.add('hid');
+CIN.shots=cineShots();CIN.tot=CIN.shots.reduce((a,b)=>a+b.d,0);CIN.t0=null;CIN.i=-1;CIN.on=true;window.__cine=true;if(rec)startRec('cine')}
+function stopCine(){if(!CIN.on)return;if(CIN.rec){stopRec();CIN.rec=false}CIN.on=false;setLiq(false);window.__cine=false;const sv=CIN.saved;sv.ids.forEach(([i,v])=>$(i).checked=v);PN.forEach((c,k)=>sv.pn[k]?cl.add(c):cl.remove(c));cl.remove('cine');$('cine').classList.add('hid');
 $('kPlay').checked=sv.play;S.spd=sv.spd;IN.spd[0].value=IN.spd[1].value=sv.spd;['rN','rS','rT'].forEach(id=>$(id).checked=id==='rN');S.tm=sv.tm;IN.tm[0].value=IN.tm[1].value=S.tm.toFixed(2);const [v]=[VW.iso];[th,ph,rd]=v;tg.set(v[3],v[4],v[5]);setCam();upd()}
 function cineStep(t){if(CIN.t0===null)CIN.t0=t;const el=(t-CIN.t0)/1000;if(el>=CIN.tot){stopCine();return}
 let acc=0,k=0;while(k<CIN.shots.length-1&&el>=acc+CIN.shots[k].d){acc+=CIN.shots[k].d;k++}const sh=CIN.shots[k];
 if(k!==CIN.i){CIN.i=k;['rN','rS','rT'].forEach(id=>$(id).checked=id===sh.md);if(sh.tm!==null&&sh.tm!==undefined)S.tm=Math.max(0,Math.min(S.H,sh.tm));S.spd=sh.spd;IN.spd[0].value=IN.spd[1].value=sh.spd;IN.tm[0].value=IN.tm[1].value=S.tm.toFixed(2);
 $('cap').innerHTML='<h2>'+sh.t[0]+'</h2><p>'+sh.t[1]+'</p>';upd()}
-const u=sm01(Math.min(1,(el-acc)/sh.d)),a=sh.a,b=sh.b,L=(i)=>a[i]+(b[i]-a[i])*u;th=L(0);ph=L(1);rd=L(2);tg.set(L(3),L(4),L(5));setCam();$('cpi').style.width=(el/CIN.tot*100)+'%'}
+const u=sm01(Math.min(1,(el-acc)/sh.d)),a=sh.a,b=sh.b,L=(i)=>a[i]+(b[i]-a[i])*u;th=L(0);ph=L(1);rd=L(2);tg.set(L(3),L(4),L(5));setCam();CIN.prog=el/CIN.tot;$('cpi').style.width=(el/CIN.tot*100)+'%'}
 if(document.addEventListener)document.addEventListener('keydown',e=>{if(e.key==='Escape'&&CIN.on)stopCine()});
-$('uCine').onclick=startCine;$('bcine').onclick=startCine;$('cstop').onclick=stopCine;
+$('uCine').onclick=()=>startCine();$('bcine').onclick=()=>startCine();$('cstop').onclick=stopCine;
+// ----- unduh: perekaman video, CSV, PNG -----
+const RANGE={on:false},REC={on:false,chunks:[],kind:'',cv:null,ctx:null,rec:null};let DL=null,LAST=null;
+try{if(window.claude&&claude.use)claude.use('downloads').then(d=>{DL=d}).catch(()=>{})}catch(e){}
+const dmsg=t=>{const e=$('dmsg');if(e)e.textContent=t};
+function setLiq(on){LIQ=!!on;SG.visible=!on;document.body.classList.toggle('lvlive',on&&!RANGE.on)}
+function saveBlob(name,blob){if(!DL){dmsg('Fitur unduh hanya tersedia saat halaman dibuka di claude.ai. Di luar itu, gunakan perekam layar bawaan sistem.');return}
+DL.save({filename:name,data:blob}).then(()=>dmsg('Tersimpan: '+name)).catch(e=>dmsg(e&&e.code==='declined'?'Penyimpanan dibatalkan.':'Gagal menyimpan ('+((e&&e.code)||e)+').'))}
+function showSave(){const d=$('dsave');if(!LAST||!LAST.blob.size){dmsg('Perekaman gagal: file kosong.');$('dlg').classList.remove('hid');return}
+d.innerHTML=`<p>Rekaman selesai: <b>${LAST.name}</b> (${(LAST.blob.size/1048576).toFixed(1)} MB)</p><button class="pri" id="dSv">⬇ Simpan sekarang</button>`;d.classList.remove('hid');$('dSv').onclick=()=>saveBlob(LAST.name,LAST.blob);dmsg('');$('dlg').classList.remove('hid')}
+function startRec(kind){if(REC.on)return false;if(!window.MediaRecorder||!HTMLCanvasElement.prototype.captureStream){dmsg('Browser ini tidak mendukung perekaman video. Gunakan perekam layar bawaan sistem.');$('dlg').classList.remove('hid');return false}
+const vw=$('v').clientWidth,vh=$('v').clientHeight,W=Math.min(1280,vw)&~1,H=Math.round(W*vh/vw)&~1;REC.old={lite:$('kLite').checked};R.setPixelRatio(1);R.setSize(W,H,false);cam.aspect=W/H;cam.updateProjectionMatrix();REC.fix=true;$('kLite').checked=true;
+REC.cv=document.createElement('canvas');REC.cv.width=W;REC.cv.height=H;REC.ctx=REC.cv.getContext('2d');REC.ov=document.createElement('canvas');REC.ov.width=W;REC.ov.height=H;REC.ovc=REC.ov.getContext('2d');REC.last=0;REC.ovT=-1e3;
+const mime=['video/webm;codecs=vp8','video/webm;codecs=vp9','video/webm'].find(m=>MediaRecorder.isTypeSupported(m))||'';
+try{REC.rec=new MediaRecorder(REC.cv.captureStream(30),mime?{mimeType:mime,videoBitsPerSecond:3.5e6}:{videoBitsPerSecond:3.5e6})}catch(e){dmsg('Gagal memulai perekaman: '+e.message);endRec();$('dlg').classList.remove('hid');return false}
+REC.chunks=[];REC.kind=kind;REC.rec.ondataavailable=e=>{if(e.data&&e.data.size)REC.chunks.push(e.data)};
+REC.rec.onstop=()=>{LAST={blob:new Blob(REC.chunks,{type:'video/webm'}),name:(kind==='cine'?'sinematik-furnace-feni':'cairan-panas-furnace')+'.webm'};showSave()};REC.rec.start(1000);REC.on=true;upd();return true}
+function endRec(){if(!REC.fix)return;REC.fix=false;if(REC.old)$('kLite').checked=REC.old.lite;const w=$('v').clientWidth,h=$('v').clientHeight;R.setPixelRatio($('kLite').checked?1:Math.min(devicePixelRatio,1.25));R.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();upd()}
+function stopRec(){if(REC.on){REC.on=false;try{REC.rec.stop()}catch(e){}endRec()}}
+function drawCineOv(c,w,h){c.fillStyle='#000';c.fillRect(0,0,w,h*.09);c.fillRect(0,h*.91,w,h*.09);const sh=CIN.shots&&CIN.shots[Math.max(0,CIN.i)];if(sh){c.shadowColor='#000';c.shadowBlur=12;c.fillStyle='#fff';c.font='bold '+Math.round(w*.03)+'px system-ui,sans-serif';c.fillText(sh.t[0],w*.05,h*.855);c.fillStyle='#ffd9a0';c.font=Math.round(w*.015)+'px system-ui,sans-serif';c.fillText(sh.t[1],w*.05,h*.885);c.shadowBlur=0}
+c.fillStyle='rgba(255,255,255,.2)';c.fillRect(0,h-3,w,3);c.fillStyle='#ff9f1c';c.fillRect(0,h-3,w*(CIN.prog||0),3)}
+function recFrame(t){if(t-REC.last<32)return;REC.last=t;const c=REC.ctx,W=REC.cv.width,H=REC.cv.height;c.drawImage(R.domElement,0,0,W,H);
+if(REC.kind==='cine')drawCineOv(c,W,H);else{if(t-REC.ovT>100){REC.ovT=t;REC.ovc.clearRect(0,0,W,H);drawLiq(REC.ovc,W,H,S.tm,{t1:RANGE.t1,t2:RANGE.t2,mb:12})}c.drawImage(REC.ov,0,0)}}
+function drawLiq(c,w,h,t,o){o=o||{};const A=D.A,dt=D.dt,N=D.N,ix=x=>Math.max(0,Math.min(N,Math.round(x/dt))),t1=o.t1!==undefined?o.t1:0,t2=o.t2!==undefined?o.t2:S.H,i=ix(t),i1=ix(t1),i2=Math.max(i1+1,ix(t2)),k=h/720,full=!!o.full,ph=full?h:Math.round(h*.36),px=full?0:Math.round(w*.015),pw=full?w:w-2*px,py=full?0:h-ph-(o.mb||12);
+const lf=(A.yM[i]-B)*100,ls=(A.yS[i]-B)*100,lf1=(A.yM[i1]-B)*100,ls1=(A.yS[i1]-B)*100;c.save();c.fillStyle='rgba(8,16,30,.88)';c.fillRect(px,py,pw,ph);
+c.textBaseline='alphabetic';c.fillStyle='#ffb44d';c.font='bold '+(15*k)+'px system-ui,sans-serif';c.fillText('CAIRAN PANAS DALAM FURNACE · jam '+t.toFixed(2)+' (rentang '+t1.toFixed(2)+' → '+t2.toFixed(2)+' jam)',px+14*k,py+22*k);
+const gx=px+18*k,gy0=py+34*k,gh=ph-48*k,gw=64*k,ymax=Math.max(S.sMax,ls)+25,Y=v=>gy0+gh-v/ymax*gh;
+c.fillStyle='#ff7a1a';c.fillRect(gx,Y(lf),gw,Y(0)-Y(lf));c.fillStyle='#f2c40f';c.fillRect(gx,Y(ls),gw,Y(lf)-Y(ls));c.strokeStyle='#445';c.strokeRect(gx,gy0,gw,gh);
+c.font=(10*k)+'px system-ui,sans-serif';[[S.hTap,'#00e5ff','tap hole'],[S.hSkim,'#ff4dd2','skimming'],[S.hTap+S.feNorm,'#ffffff','FeNi normal'],[S.hTap+S.feLim,'#ff3b3b','FeNi maks'],[S.sMax,'#4d8dff','slag maks']].forEach(([v,col,tx])=>{c.strokeStyle=col;c.lineWidth=2*k;c.setLineDash([5*k,3*k]);c.beginPath();c.moveTo(gx-4*k,Y(v));c.lineTo(gx+gw+6*k,Y(v));c.stroke();c.fillStyle=col;c.fillText(tx+' '+v.toFixed(0),gx+gw+10*k,Y(v)+3*k)});c.setLineDash([]);c.lineWidth=1;
+c.fillStyle='#fff';c.font='bold '+(12*k)+'px system-ui,sans-serif';c.fillText('Slag '+ls.toFixed(1)+' cm',gx+2*k,Math.max(gy0+12*k,Y(ls)-4*k));c.fillText('FeNi '+lf.toFixed(1)+' cm',gx+2*k,Y(lf*.5));
+const cx0=gx+gw+112*k,cw=pw*.7-(cx0-px),rh=(gh-10*k)/2;
+const chart=(arr,y0,col,lab,evs,ecol)=>{let mn=1e9,mx=-1e9;for(let q=i1;q<=i2;q++){const v=(arr[q]-B)*100;if(v<mn)mn=v;if(v>mx)mx=v}const pad=Math.max(.5,(mx-mn)*.15);mn-=pad;mx+=pad;const X=tt=>cx0+(tt-t1)/(t2-t1)*cw,YY=v=>y0+rh-(v-mn)/(mx-mn)*rh;
+c.fillStyle='rgba(255,255,255,.05)';c.fillRect(cx0,y0,cw,rh);evs.forEach(e=>{const a=Math.max(t1,e[0]),b=Math.min(t2,e[1]);if(b>a){c.fillStyle=ecol;c.globalAlpha=.2;c.fillRect(X(a),y0,X(b)-X(a),rh);c.globalAlpha=1}});
+c.strokeStyle='#8899aa';c.setLineDash([4*k,3*k]);c.beginPath();c.moveTo(cx0,YY((arr[i1]-B)*100));c.lineTo(cx0+cw,YY((arr[i1]-B)*100));c.stroke();c.setLineDash([]);
+c.strokeStyle=col;c.lineWidth=2*k;c.beginPath();const st=Math.max(1,Math.floor((i2-i1)/120));for(let q=i1;q<=i2;q+=st){const x=X(q*dt),y=YY((arr[q]-B)*100);q===i1?c.moveTo(x,y):c.lineTo(x,y)}c.stroke();c.lineWidth=1;
+c.fillStyle='#fff';c.fillRect(Math.max(cx0,Math.min(cx0+cw,X(t)))-1,y0,2,rh);c.fillStyle='#cdd8ea';c.font=(10*k)+'px system-ui,sans-serif';c.fillText(lab+'  '+mn.toFixed(1)+' – '+mx.toFixed(1)+' cm',cx0+4*k,y0+11*k)};
+chart(A.yS,gy0,'#f2c40f','Permukaan slag',D.ev.S,'#ff4dd2');chart(A.yM,gy0+rh+10*k,'#ff7a1a','Level FeNi',D.ev.F,'#00e5ff');
+c.fillStyle='#8fa3bf';c.font=(10*k)+'px system-ui,sans-serif';c.fillText('jam '+t1.toFixed(1),cx0,gy0+gh+12*k);c.fillText('jam '+t2.toFixed(1),cx0+cw-40*k,gy0+gh+12*k);
+const sx=px+pw*.72,dF=lf-lf1,dS=ls-ls1,ar=v=>(v>=0?'▲ +':'▼ −')+Math.abs(v).toFixed(2)+' cm',cc=v=>v>=0?'#6fe3b0':'#ff8a8a',fo=A.fo[i],so=A.so[i];let yy=py+40*k;const ln=(tx,col,b)=>{c.fillStyle=col||'#cdd8ea';c.font=(b?'bold ':'')+(13*k)+'px system-ui,sans-serif';c.fillText(tx,sx,yy);yy+=19*k};
+ln('Perubahan sejak jam '+t1.toFixed(2),'#9fb0c8');ln('FeNi  '+ar(dF),cc(dF),1);ln('Slag  '+ar(dS),cc(dS),1);yy+=4*k;
+ln('Dihasilkan (rentang): FeNi '+(A.pf[i]-A.pf[i1]).toFixed(1)+' t · slag '+(A.ps[i]-A.ps[i1]).toFixed(0)+' t');ln('Keluar (rentang): FeNi '+(A.cfo[i]-A.cfo[i1]).toFixed(1)+' t · slag '+(A.cs[i]-A.cs[i1]).toFixed(0)+' t');yy+=4*k;
+ln('Status: '+((fo>1e-4?'tapping FeNi ':'')+(so>1e-4?'skimming slag':'')||'tidak ada aliran keluar'),fo>1e-4||so>1e-4?'#ffd24a':'#8fa3bf');ln('Suhu: slag '+A.mo[i].T.toFixed(0)+' °C · FeNi '+A.mo[i].Tm.toFixed(0)+' °C','#cdd8ea');c.restore()}
+function drawOnScreen(mb){const cv=$('lvc'),v=$('v'),w=v.clientWidth,h=v.clientHeight;if(!w)return;if(cv.width!==w||cv.height!==h){cv.width=w;cv.height=h}const c=cv.getContext('2d');c.clearRect(0,0,w,h);if(REC.on&&REC.kind==='liq'&&REC.ov){c.drawImage(REC.ov,0,0,w,h);return}drawLiq(c,w,h,S.tm,{t1:RANGE.on?RANGE.t1:0,t2:RANGE.on?RANGE.t2:S.H,mb})}
+function rangeStart(t1,t2,dur,rec){if(RANGE.on||CIN.on)return;t1=Math.max(0,Math.min(S.H,t1));t2=Math.max(t1+.02,Math.min(S.H,t2));dur=Math.max(3,dur||20);
+RANGE.saved={pn:PN.map(c=>cl.contains(c)),play:$('kPlay').checked,spd:S.spd,tm:S.tm};RANGE.t1=t1;RANGE.t2=t2;RANGE.rec=!!rec;RANGE.last=0;PN.forEach(c=>cl.add(c));$('dlg').classList.add('hid');$('card').classList.add('hid');$('tour').classList.add('hid');
+RANGE.on=true;cl.add('rv');applyScene(SCN.findIndex(x=>x[0]==='Cairan panas'));S.tm=t1;S.spd=(t2-t1)/dur;IN.spd[0].value=IN.spd[1].value=S.spd.toFixed(3);IN.tm[0].value=IN.tm[1].value=t1.toFixed(2);$('kPlay').checked=true;upd();if(rec)startRec('liq')}
+function rangeStep(t){if(S.tm>=RANGE.t2-1e-6){S.tm=RANGE.t2;rangeStop();return}if(t-RANGE.last>100){RANGE.last=t;drawOnScreen(12)}}
+function rangeStop(){if(!RANGE.on)return;RANGE.on=false;if(RANGE.rec)stopRec();cl.remove('rv');const sv=RANGE.saved;PN.forEach((c,k)=>sv.pn[k]?cl.add(c):cl.remove(c));applyScene(0);$('kPlay').checked=sv.play;S.spd=sv.spd;IN.spd[0].value=IN.spd[1].value=sv.spd;S.tm=sv.tm;IN.tm[0].value=IN.tm[1].value=S.tm.toFixed(2);upd();if(!RANGE.rec)$('dlg').classList.remove('hid')}
+function buildCsv(t1,t2){const A=D.A,dt=D.dt,N=D.N,ix=x=>Math.max(0,Math.min(N,Math.round(x/dt))),i1=ix(t1),i2=Math.max(i1+1,ix(t2)),st=Math.max(1,Math.floor((i2-i1)/600)),r=[['jam','level_FeNi_cm_dari_dasar_cairan','FeNi_di_atas_tap_hole_cm','permukaan_slag_cm_dari_dasar_cairan','tebal_slag_cm','perubahan_FeNi_cm_sejak_awal','perubahan_slag_cm_sejak_awal','laju_tapping_FeNi_t_per_jam','laju_skimming_slag_t_per_jam','FeNi_dihasilkan_kum_t','slag_dihasilkan_kum_t','FeNi_keluar_kum_t','slag_keluar_kum_t','holdup_calcine_t','suhu_slag_C','suhu_FeNi_C'].join(',')];
+const lf0=(A.yM[i1]-B)*100,ls0=(A.yS[i1]-B)*100;for(let q=i1;q<=i2;q+=st){const lf=(A.yM[q]-B)*100,ls=(A.yS[q]-B)*100;r.push([(q*dt).toFixed(3),lf.toFixed(2),(lf-S.hTap).toFixed(2),ls.toFixed(2),(ls-lf).toFixed(2),(lf-lf0).toFixed(2),(ls-ls0).toFixed(2),A.fo[q].toFixed(2),A.so[q].toFixed(2),(A.pf[q]-A.pf[i1]).toFixed(2),(A.ps[q]-A.ps[i1]).toFixed(1),(A.cfo[q]-A.cfo[i1]).toFixed(2),(A.cs[q]-A.cs[i1]).toFixed(1),A.m[q].toFixed(1),A.mo[q].T.toFixed(0),A.mo[q].Tm.toFixed(0)].join(','))}return r.join('\n')}
+function dlgRange(){let t1=parseFloat($('dT1').value),t2=parseFloat($('dT2').value);if(!isFinite(t1)||!isFinite(t2)||t2<=t1){dmsg('Rentang waktu tidak valid (jam akhir harus lebih besar dari jam awal).');return null}return[Math.max(0,t1),Math.min(S.H,t2)]}
+$('dx').onclick=()=>$('dlg').classList.add('hid');$('rstop').onclick=()=>rangeStop();
+const openDlg=()=>{$('dT1').value='0';$('dT2').value=S.H;$('dsave').classList.add('hid');dmsg(DL?'':'Catatan: unduhan file hanya aktif saat dibuka di claude.ai.');$('dlg').classList.remove('hid')};
+$('uDl').onclick=openDlg;$('bdl').onclick=openDlg;
+$('dCine').onclick=()=>{$('dlg').classList.add('hid');startCine(true)};
+$('dVid').onclick=()=>{const r=dlgRange();if(r)rangeStart(r[0],r[1],parseFloat($('dDur').value),true)};
+$('dCsv').onclick=()=>{const r=dlgRange();if(!r)return;saveBlob('level-cairan-jam'+r[0]+'-'+r[1]+'.csv',new Blob([buildCsv(r[0],r[1])],{type:'text/csv'}))};
+$('dPng').onclick=()=>{const r=dlgRange();if(!r)return;const cv=document.createElement('canvas');cv.width=1280;cv.height=480;const c=cv.getContext('2d');c.fillStyle='#0b1626';c.fillRect(0,0,1280,480);drawLiq(c,1280,480,r[1],{t1:r[0],t2:r[1],full:true});cv.toBlob(b=>b?saveBlob('grafik-level-jam'+r[0]+'-'+r[1]+'.png',b):dmsg('Gagal membuat PNG.'),'image/png')};
 // ----- tombol & mode -----
 function setSimple(on){if(on){cl.add('simple');PN.forEach(x=>cl.add(x));$('kLbl').checked=false;RING_ON=false}else{cl.remove('simple');PN.forEach(x=>cl.remove(x));$('kLbl').checked=true;document.body.classList.remove('tempmode','stirmode')}$('card').classList.add('hid');showTour(-2);upd()}
 $('mdsw').onclick=()=>setSimple(false);$('bsimple').onclick=()=>setSimple(true);
